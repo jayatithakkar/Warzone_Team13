@@ -13,3 +13,4 @@ The primary programming language used in this project is Java.
 - Sushant Sinha 40261753
 - Raj Kumar Ramesh 40225218
 - Bhoomi Bhatt 40291067
+- Rupal Kapoor 40274905
