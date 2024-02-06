@@ -9,6 +9,7 @@ This repository contains a game based on [Risk](https://store.steampowered.com/a
 The primary programming language used in this project is Java.
 
 Additionally, we'll be using the following technologies/frameworks for our project:
+
 - Javadoc for documentation
 - JUnit for testing
 
@@ -19,3 +20,4 @@ Additionally, we'll be using the following technologies/frameworks for our proje
 - Bhoomi Bhatt 40291067
 - Rupal Kapoor 40274905
 - Jayati Thakkar 40230506
+- Rikin Chauhan 40269431
