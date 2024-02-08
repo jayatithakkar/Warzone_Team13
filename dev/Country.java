@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+
 public class Country {
 
-    int d_countryID;
-    String d_countryName;
-    int d_parentContinentID;
+    public int d_countryID;
+    public String d_countryName;
+    public int d_parentContinentID;
+    public ArrayList<Integer> d_neighborCountries;
 
     public void setCountryID(int p_countryID) {
         d_countryID = p_countryID;
@@ -26,5 +29,13 @@ public class Country {
 
     public int getParentContinentID() {
         return d_parentContinentID;
+    }
+
+    public void setNeighborCountries(ArrayList<Integer> p_neighborCountries) {
+        d_neighborCountries = p_neighborCountries;
+    }
+
+    public ArrayList<Integer> getNeighborCountries() {
+        return d_neighborCountries;
     }
 }
