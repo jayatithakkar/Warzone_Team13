@@ -1,7 +1,7 @@
 package com.APP.Project.UserCoreLogic.GameEntities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.UserCommandLogic;
 import com.APP.Project.UserCoreLogic.constants.enums.OrderType;
 import com.APP.Project.UserCoreLogic.exceptions.*;
 import com.APP.Project.UserCoreLogic.responses.CommandResponse;
