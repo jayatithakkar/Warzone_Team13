@@ -1,5 +1,10 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
+import com.APP.Project.UserCoreLogic.GameEntities.Continent;
+import com.APP.Project.UserCoreLogic.GameEntities.Country;
+import com.APP.Project.UserCoreLogic.GameEntities.Player;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +34,7 @@ public class ReinforcementService {
     public void execute() throws EntityNotFoundException {
         d_allContinentCountryList = d_mapEngine.getContinentCountryMap();
 
-        for (Player l_gamePlayer : GamePlayEngine.getInstance().getPlayerList()) {
+        for (Player l_gamePlayer : GameEngine.getInstance().getPlayerList()) {
             // this captures the continent count value
             int l_count = 0;
             for (Continent l_continent : d_mapEngine.getContinentList()) {
@@ -41,7 +46,7 @@ public class ReinforcementService {
                 l_count = l_count + l_returnContinentValue;
             }
 
-            int l_returnReinforcementArmy = addReinforcementArmy(l_gamePlayer, l_count);
+            int l_returnReinforcementArmy = addArmyReinforcement(l_gamePlayer, l_count);
             l_gamePlayer.setReinforcementCount(l_returnReinforcementArmy);
         }
     }
