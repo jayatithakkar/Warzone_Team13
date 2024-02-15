@@ -86,15 +86,15 @@ public class FileValidationUtil {
 	 * No resources for file existace found then throw ResourceNotFoundExcetion
 	 */
 
-public static File createFileIfNotExits(String p_filePath) throws ResourceNotFoundException{
-	File l_file =new File(p_filePath);
-	try{
-		l_file.createNewFile();
-	}catch(Exception p_e){
-		throw new ResourceNotFoundException("Sorry! No resource found so.. file can not be created.")
+	public static File createFileIfNotExits(String p_filePath) throws ResourceNotFoundException {
+		File l_file = new File(p_filePath);
+		try {
+			l_file.createNewFile();
+		} catch (Exception p_e) {
+			throw new ResourceNotFoundException("Sorry! No resource found so.. file can not be created.");
+		}
+		return l_file;
 	}
-	return l_file;
-}
 
 	/*
 	 * It checks if file exits or not
