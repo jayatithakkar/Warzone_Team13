@@ -1,6 +1,11 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
 
+import com.APP.Project.UserCoreLogic.GameEntities.Country;
+import com.APP.Project.UserCoreLogic.GameEntities.Player;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +24,14 @@ public class CountryDistributionService {
      */
     private List<Country> d_allCountriesList;
 
-    private final GamePlayEngine d_engine;
+    private final GameEngine d_engine;
 
     /**
      * Default constructor for initalizing objects.
      */
     public CountryDistributionService() {
         d_allCountriesList = MapEditorEngine.getInstance().getCountryList();
-        d_engine = GamePlayEngine.getInstance();
+        d_engine = GameEngine.getInstance();
     }
 
 
@@ -114,9 +119,9 @@ public class CountryDistributionService {
     @Override
     public String executeCommand(List<String> p_allCommandValues) throws VMException, IllegalStateException {
         // Below condition is to check if players have been added
-        if (!GamePlayEngine.getInstance().getPlayerList().isEmpty()) {
+        if (!GameEngine.getInstance().getPlayerList().isEmpty()) {
             String response = countryDistribution();
-            GamePlayEngine.getInstance().startGameLoop();
+            GameEngine.getInstance().startGameLoop();
             return response;
         } else {
             throw new EntityNotFoundException("Kindly add the players to display game status!");

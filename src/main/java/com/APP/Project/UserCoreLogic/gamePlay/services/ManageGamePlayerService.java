@@ -1,16 +1,20 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
+import com.APP.Project.UserCoreLogic.GameEntities.Player;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+
 public class ManageGamePlayerService {
 
     private final PlayerRepository d_gamePlayerRepository;
 
 
-    private final GamePlayEngine d_gamePlayEngine;
+    private final GameEngine d_GameEngine;
     /**
      * Default constructor to initialise all objects
      */
     public ManageGamePlayerService() {
-        d_gamePlayEngine = GamePlayEngine.getInstance();
+        d_GameEngine = GameEngine.getInstance();
         d_gamePlayerRepository = new PlayerRepository();
     }
 
@@ -23,7 +27,7 @@ public class ManageGamePlayerService {
      */
     public String removePlayer(String p_gamePlayerName) throws EntityNotFoundException {
         Player l_gamePlayer = d_gamePlayerRepository.findByPlayerName(p_gamePlayerName);
-        d_gamePlayEngine.removePlayer(l_gamePlayer);
+        d_GameEngine.removePlayer(l_gamePlayer);
         return String.format("The player %s has been removed.", p_gamePlayerName);
     }
 
@@ -39,7 +43,7 @@ public class ManageGamePlayerService {
             try {
                 Player l_gamePlayer = new Player();
                 l_gamePlayer.setName(p_gamePlayerName);
-                d_gamePlayEngine.addPlayer(l_gamePlayer);
+                d_GameEngine.addPlayer(l_gamePlayer);
                 return String.format("The player %s has been added", p_gamePlayerName);
             } catch (Exception e) {
                 throw new InvalidInputException("The player name is not valid");

@@ -1,11 +1,15 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
+import com.APP.Project.UserCoreLogic.GameEntities.Country;
+import com.APP.Project.UserCoreLogic.GameEntities.Player;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class DisplayMapService {
     List<Player> d_allPlayerList;
-    GamePlayEngine d_engine;
+    GameEngine d_engine;
     com.warzone.team08.VM.map_editor.services.ShowMapService d_displayMapService;
 
     /**
@@ -14,7 +18,7 @@ public class DisplayMapService {
      * @throws EntityNotFoundException Is thrown if the required entity is not found.
      */
     public DisplayMapService() throws EntityNotFoundException {
-        d_engine = GamePlayEngine.getInstance();
+        d_engine = GameEngine.getInstance();
         d_allPlayerList = d_engine.getPlayerList();
         d_displayMapService = new com.warzone.team08.VM.map_editor.services.ShowMapService();
     }
