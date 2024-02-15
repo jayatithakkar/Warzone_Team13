@@ -21,7 +21,7 @@ public class GamePlayCommand implements CommandLayout {
     }
 
     // Methods initializeCommands and addCommand
-    // used to set up the configuration based on the user commands with resoect to
+    // used to set up the configuration based on the user commands with respect to
     // the game state
     private void initializeCommands() {
         addCommand("showmap", CommandConfiguration.CAN_RUN_ALONE, false, false, null);

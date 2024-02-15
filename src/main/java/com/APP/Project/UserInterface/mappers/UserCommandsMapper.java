@@ -15,7 +15,7 @@ public class UserCommandsMapper {
             l_userCommand.setHeadCommand(l_headOfCommand);
             // Fetched predefined structure of the user command using the head
             UserCommand l_predefinedUserCommand =
-                    UserCommandLayout.matchAndGetUserCommand(l_headOfCommand);
+                    PlayerCommandLayout.getUserCommand(l_headOfCommand);
 
             // Represents the body of the command line
             List<String> l_argumentBody = l_commands.subList(1, l_commands.size());
