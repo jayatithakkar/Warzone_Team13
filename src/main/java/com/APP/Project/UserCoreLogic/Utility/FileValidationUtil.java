@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import com.APP.Project.UserCoreLogic.Exceptions.CoreLogicException;
 import com.APP.Project.UserCoreLogic.Exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.Exceptions.ResourceNotFoundException;
 
@@ -30,10 +31,17 @@ public class FileValidationUtil {
 	 * InvalidInputException throws incase file does not exists , throws
 	 * ResourceNotFoundException if is unable to find
 	 */
-	public static File fetchFile(String p_enteredFilePath) throws InvalidInputException, ResourceNotFoundException {
+	public static File fetchFile(String p_enteredFilePath) throws Exception {
 		File l_file = new File(FindFilePathUtil.findFilePath(p_enteredFilePath));
 		String l_fileName = l_file.getName();
 		checkIfFileExistsOrNot(l_file);
+
+//throw an exception if user will unable to create a file.
+		try{
+			l_file.createNewFile();
+		}catch(Exception p_e){
+			throw new CoreLogicException("Sorry! you are not allowed to maeke ")
+		}
 
 		int l_lastIndex = l_fileName.lastIndexOf('.');
 		if (l_lastIndex > 0) {
@@ -73,7 +81,7 @@ public class FileValidationUtil {
 	 */
 	public static void copy(Path p_fileCopyFrom, Path p_fileCopyTo_destination) {
 		try {
-			Files.copy(p_fileCopyFrom, p_fileCopyTo_destination, StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(p_fileCopyFrom, p_fileCopyTo_destination, StandardCopyOption.ATOMIC_MOVE);
 		} catch (Exception l_skip) {
 			// Ignore the exception while the file is being copied
 		}
