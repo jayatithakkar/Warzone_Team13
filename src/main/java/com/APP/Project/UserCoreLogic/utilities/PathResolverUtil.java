@@ -10,7 +10,6 @@ public class PathResolverUtil {
      private String d_user_data_directory = "";
 
      private PathResolverUtil() {
-          Path absolute = relative.toAbsolutePath();
           d_user_data_directory_path = Paths.get(System.getProperty("user.home"), "Downloads", d_user_data_directory);
           
      }
