@@ -31,16 +31,16 @@ public class FileValidationUtil {
 	 * InvalidInputException throws incase file does not exists , throws
 	 * ResourceNotFoundException if is unable to find
 	 */
-	public static File fetchFile(String p_enteredFilePath) throws Exception {
+	public static File fetchFile(String p_enteredFilePath) throws ResourceNotFoundException, InvalidInputException {
 		File l_file = new File(FindFilePathUtil.findFilePath(p_enteredFilePath));
 		String l_fileName = l_file.getName();
-		checkIfFileExistsOrNot(l_file);
+		// checkIfFileExistsOrNot(l_file);
 
-//throw an exception if user will unable to create a file.
-		try{
+		// throw an exception if user will unable to create a file.
+		try {
 			l_file.createNewFile();
-		}catch(Exception p_e){
-			throw new CoreLogicException("Sorry! you are not allowed to maeke ")
+		} catch (Exception p_e) {
+			throw new ResourceNotFoundException("Sorry! you are not allowed to make ");
 		}
 
 		int l_lastIndex = l_fileName.lastIndexOf('.');
@@ -81,7 +81,9 @@ public class FileValidationUtil {
 	 */
 	public static void copy(Path p_fileCopyFrom, Path p_fileCopyTo_destination) {
 		try {
-			Files.copy(p_fileCopyFrom, p_fileCopyTo_destination, StandardCopyOption.ATOMIC_MOVE);
+			if (!(new File(p_fileCopyTo_destination.toUri().getPath()).exists())) {
+				Files.copy(p_fileCopyFrom, p_fileCopyTo_destination, StandardCopyOption.REPLACE_EXISTING);
+			}
 		} catch (Exception l_skip) {
 			// Ignore the exception while the file is being copied
 		}
