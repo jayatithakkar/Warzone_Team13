@@ -4,7 +4,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /*
- * This class helps user to save/load important files or documents/maps inside downloades folder [a person can change the location if he/she wants]
+ * This class helps user to save/load important files or documents/maps inside downloades folder [a person can change the location if he/she wants
+ * @author Bhoomiben Bhatt
  */
 public class FindFilePathUtil {
 	private static FindFilePathUtil d_Object;

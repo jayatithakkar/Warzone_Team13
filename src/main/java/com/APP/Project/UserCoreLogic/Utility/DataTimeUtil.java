@@ -1,8 +1,12 @@
-package com.APP.Project.VirtualMachine.Utility;
+package com.APP.Project.UserCoreLogic.Utility;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/*
+ * This class file is responsible for displaying current date and time.
+ * @author Bhoomiben Bhatt
+ */
 public class DataTimeUtil {
     public static String getDateTime() {
         SimpleDateFormat currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SS");
