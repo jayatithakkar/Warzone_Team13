@@ -1,4 +1,4 @@
-package com.APP.Project.UserCoreLogic.GameEntities;
+package com.APP.Project.UserCoreLogic.game_entities;
 
 import java.util.ArrayList;
 import java.util.Objects;
