@@ -3,8 +3,11 @@ package com.APP.Project.UserCoreLogic.gamePlay.services;
 
 import com.APP.Project.UserCoreLogic.GameEntities.Country;
 import com.APP.Project.UserCoreLogic.GameEntities.Player;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+import com.APP.Project.UserCoreLogic.containers.CountryContainer;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.Exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ public class CountryDistributionService {
      * Captures the list of countries in a CountryRepository type object
      * to return the country based on the method used
      */
-    private CountryRepository d_allCountriesRepository = new CountryRepository();
+    private CountryContainer d_allCountriesRepository = new CountryContainer();
 
     /**
      * Captures all the list of countries
@@ -30,7 +33,7 @@ public class CountryDistributionService {
      * Default constructor for initalizing objects.
      */
     public CountryDistributionService() {
-        d_allCountriesList = MapEditorEngine.getInstance().getCountryList();
+        d_allCountriesList = MapFeatureEngine.getInstance().getAllCountryList();
         d_engine = GameEngine.getInstance();
     }
 
@@ -114,10 +117,8 @@ public class CountryDistributionService {
      * @return The success message for successful execution of method, else throws exception.
      * @throws InvalidInputException is thrown if the number of players equal zero.
      * @throws IllegalStateException is thrown when the method returns an empty list.
-     * @throws VMException           For any exception from while players in <code>GameLoop</code>.
      */
-    @Override
-    public String executeCommand(List<String> p_allCommandValues) throws VMException, IllegalStateException {
+    public String executeCommand(List<String> p_allCommandValues) throws IllegalStateException, EntityNotFoundException, InvalidInputException {
         // Below condition is to check if players have been added
         if (!GameEngine.getInstance().getPlayerList().isEmpty()) {
             String response = countryDistribution();

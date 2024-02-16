@@ -3,6 +3,8 @@ package com.APP.Project.UserCoreLogic.gamePlay.services;
 import com.APP.Project.UserCoreLogic.GameEntities.Country;
 import com.APP.Project.UserCoreLogic.GameEntities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.map_features.adapters.ShowMapAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 public class DisplayMapService {
     List<Player> d_allPlayerList;
     GameEngine d_engine;
-    com.warzone.team08.VM.map_editor.services.ShowMapService d_displayMapService;
+    ShowMapAdapter d_displayMapService;
 
     /**
      * Default constructor that initializes the different objects.
@@ -20,7 +22,7 @@ public class DisplayMapService {
     public DisplayMapService() throws EntityNotFoundException {
         d_engine = GameEngine.getInstance();
         d_allPlayerList = d_engine.getPlayerList();
-        d_displayMapService = new com.warzone.team08.VM.map_editor.services.ShowMapService();
+        d_displayMapService = new ShowMapAdapter();
     }
 
     /**
@@ -30,7 +32,7 @@ public class DisplayMapService {
      * @return The value of string of continent with associated neighbouring country information.
      * @throws EntityNotFoundException is thrown in case no player is available.
      */
-    @Override
+
     public String executeCommand(List<String> p_allCommandValues) throws EntityNotFoundException {
         StringBuilder l_playerInformation = new StringBuilder();
         // l_count used to denote the number of players in the list
@@ -60,7 +62,7 @@ public class DisplayMapService {
         LinkedList<String> l_allCountriesNames = new LinkedList<>();
 
         for (Country l_country : l_allCountriesList) {
-            l_allCountriesNames.add(l_country.getCountryName());
+            l_allCountriesNames.add(l_country.getUniqueCountryName());
         }
 
         String[] l_header = new String[l_allCountriesList.size() + 1];
