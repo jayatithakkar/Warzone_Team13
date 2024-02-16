@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3dffd24b-74d8-459f-b0b3-429db9002dca" name="Changes" comment="Main.java is almost ready. Currently working on user interface">
-      <change afterPath="$PROJECT_DIR$/maps/bigeurope.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/UserInterfaceClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/constants/states/GamingStateInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/constants/states/UserInteractionState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/mappers/UserCommandsMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/models/CommandLineArgument.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/models/UserCommand.java" afterDir="false" />
-    </list>
+    <list default="true" id="3dffd24b-74d8-459f-b0b3-429db9002dca" name="Changes" comment="Main.java is almost ready. Currently working on user interface" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="jayati-dev-2" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,25 +29,25 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2cHJuzpuWPL1H2hBaRUIWsY0ymE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "jayati-build-1",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/jayatithakkar/Desktop/warzone-team-08/APP-Project",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;jayati-build-1&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jayatithakkar/Desktop/warzone-team-08/APP-Project&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
