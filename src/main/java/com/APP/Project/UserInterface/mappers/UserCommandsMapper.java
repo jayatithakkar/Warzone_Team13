@@ -2,33 +2,43 @@ package com.APP.Project.UserInterface.mappers;
 
 import java.util.*;
 
+import com.APP.Project.UserInterface.constants.specifications.ArgumentsSpecification;
+import com.APP.Project.UserInterface.exceptions.InvalidArgumentException;
+import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
+import com.APP.Project.UserInterface.layouts.PlayerCommandLayout;
+import com.APP.Project.UserInterface.models.UsersCommands;
+import com.APP.Project.UserInterface.models.CommandLineArgument;
+import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
+
+/**
+ * This class converts manual user command to its structured class object
+ *
+ * @author Jayati Thakkar
+ * @version 1.0
+ */
 public class UserCommandsMapper {
 
-    public UserCommand toUserCommand(String p_userInput) {
-        // Cracks a command line string
+    public UsersCommands toUserCommand(String p_userInput) {
+        // user string is split using spaces
         List<String> l_commands = Arrays.asList(p_userInput.split("\\s"));
 
         if (l_commands.size() > 0) {
-            // UserCommand will be converted as user has entered
-            UserCommand l_userCommand = new UserCommand();
+            UsersCommands l_userCommand = new UsersCommands();
             String l_headOfCommand = l_commands.get(0);
-            l_userCommand.setHeadCommand(l_headOfCommand);
-            // Fetched predefined structure of the user command using the head
-            UserCommand l_predefinedUserCommand =
-                    PlayerCommandLayout.getUserCommand(l_headOfCommand);
+            l_userCommand.setHeaderCommand(l_headOfCommand);
+            // predefined structure of the user command
+            UsersCommands l_predefinedUserCommand = PlayerCommandLayout.getUserCommand(l_headOfCommand);
 
-            // Represents the body of the command line
+
             List<String> l_argumentBody = l_commands.subList(1, l_commands.size());
 
-            // Throws an exception if the command can not run alone
+            // exception is thrown if the command can not run alone
             canCommandRunAlone(l_predefinedUserCommand, l_argumentBody.size());
 
-            // Throws an exception if the command does not have any argument
-            // Need to be checked again after extracting the argument and validating it.
             doesCommandNeedArgument(l_predefinedUserCommand, l_argumentBody.size());
 
-            // If the command can accept arguments and user have provided the arguments
-            if (l_predefinedUserCommand.getCommandArgumentList().size() > 0 &&
+            // If the command can accept arguments and user have provided those arguments
+            if (l_predefinedUserCommand.getArgumentKeys().size() > 0 &&
                     l_argumentBody.size() > 0) {
                 // Stores the position of the argument keys in the argument body
                 List<Integer> l_positionOfArgKeyList = new ArrayList<>();
@@ -42,15 +52,15 @@ public class UserCommandsMapper {
                     l_index++;
                 }
 
-                // Throws an exception if the input does not have any argument
+                // if there are no arguments entered, exception is thrown
                 doesCommandNeedArgument(l_predefinedUserCommand, l_positionOfArgKeyList.size());
 
-                // If user has provided the argument(s)
+                // only if user has entered arguments
                 for (int l_currentPosIndex = 0; l_currentPosIndex < l_positionOfArgKeyList.size(); l_currentPosIndex++) {
                     // The index of the argument key and the next argument key in the found-position list
                     int l_nextPosIndex = l_currentPosIndex + 1;
 
-                    // If there is next key, find the index of that key
+                    // if next key exists, finds its index
                     int l_indexOfNextKey;
                     if (l_nextPosIndex == l_positionOfArgKeyList.size()) {
                         l_indexOfNextKey = l_argumentBody.size();
@@ -58,32 +68,32 @@ public class UserCommandsMapper {
                         l_indexOfNextKey = l_positionOfArgKeyList.get(l_nextPosIndex);
                     }
 
-                    // Get argument details for the current argument key
+                    // arguments for the current argument key
                     String l_currentArgKey = l_argumentBody.get(l_positionOfArgKeyList.get(l_currentPosIndex));
-                    CommandArgument l_commandArgument = l_predefinedUserCommand.matchCommandArgument(l_currentArgKey);
+                    CommandLineArgument l_commandArgument = l_predefinedUserCommand.matchCommandArgument(l_currentArgKey);
                     int l_indexOfCurrentKey = l_positionOfArgKeyList.get(l_currentPosIndex);
 
                     // Get the number of values provided by the user for the current argument
                     List<String> l_values = l_argumentBody.subList(l_indexOfCurrentKey + 1, l_indexOfNextKey);
 
-                    // Checks if the user has entered the correct number of values for the argument
-                    if (l_commandArgument.getSpecification() == ArgumentSpecification.EQUAL &&
-                            l_commandArgument.getNumOfValues() == l_values.size()) {
-                        l_userCommand.pushUserArgument(l_commandArgument.getArgumentKey(), l_values);
+                    // if the number of values entered by the user is true or not
+                    if (l_commandArgument.getD_specification() == ArgumentsSpecification.EQUAL &&
+                            l_commandArgument.getD_values() == l_values.size()) {
+                        l_userCommand.pushUserArgument(l_commandArgument.getD_argument(), l_values);
                         continue;
-                    } else if (l_commandArgument.getSpecification() == ArgumentSpecification.MAX &&
-                            l_commandArgument.getNumOfValues() >= l_values.size()) {
-                        l_userCommand.pushUserArgument(l_commandArgument.getArgumentKey(), l_values);
+                    } else if (l_commandArgument.getD_specification() == ArgumentsSpecification.MAX &&
+                            l_commandArgument.getD_values() >= l_values.size()) {
+                        l_userCommand.pushUserArgument(l_commandArgument.getD_argument(), l_values);
                         continue;
-                    } else if (l_commandArgument.getSpecification() == ArgumentSpecification.MIN &&
-                            l_commandArgument.getNumOfValues() <= l_values.size()) {
-                        l_userCommand.pushUserArgument(l_commandArgument.getArgumentKey(), l_values);
+                    } else if (l_commandArgument.getD_specification() == ArgumentsSpecification.MIN &&
+                            l_commandArgument.getD_values() <= l_values.size()) {
+                        l_userCommand.pushUserArgument(l_commandArgument.getD_argument(), l_values);
                         continue;
                     }
 
-                    // Throw if the user has not provided the correct number of values
-                    if (l_commandArgument.getSpecification() != ArgumentSpecification.MAX &&
-                            l_commandArgument.getNumOfValues() >= l_values.size()
+                    // if correct values are not entered, the exception is thrown
+                    if (l_commandArgument.getD_specification() != ArgumentsSpecification.MAX &&
+                            l_commandArgument.getD_values() >= l_values.size()
                     ) {
                         throw new InvalidArgumentException("Required argument values not provided!");
                     } else {
@@ -93,22 +103,37 @@ public class UserCommandsMapper {
             }
             return l_userCommand;
         } else {
-            // If user has entered only spaces
+            // If user enters only spaces
             throw new InvalidCommandException("Invalid user input!");
         }
     }
 
+    /**
+     * checks if the command does not need any argument and that it may run alone
+     *
+     * @param p_userCommand  commmand we need to check
+     * @param numOfKeys      number of keys entered by the user
+     * @return               returns true if it can run alone; false otherwise
+     */
 
-    private boolean canCommandRunAlone(UserCommand p_userCommand, int numOfKeys) {
-        if (p_userCommand.getCommandSpecification() == CommandSpecification.CAN_RUN_ALONE &&
+    private boolean canCommandRunAlone(UsersCommands p_userCommand, int numOfKeys) {
+        if (p_userCommand.getCommandSpecification() == CommandsSpecification.RUN_ALONE &&
                 numOfKeys > 0) {
             throw new InvalidArgumentException("Unrecognized argument!");
         }
         return true;
     }
 
-    private boolean doesCommandNeedArgument(UserCommand p_userCommand, int numOfKeys) {
-        if (p_userCommand.getCommandSpecification() == CommandSpecification.AT_LEAST_ONE &&
+    /**
+     * checks if the command needs any argument or not
+     *
+     * @param p_userCommand  commmand we need to check
+     * @param numOfKeys      number of keys entered by the user
+     * @return               returns true if it needs any argument; false otherwise
+     */
+
+    private boolean doesCommandNeedArgument(UsersCommands p_userCommand, int numOfKeys) {
+        if (p_userCommand.getCommandSpecification() == CommandsSpecification.NEED_ONE &&
                 numOfKeys == 0) {
             throw new InvalidArgumentException("Command requires at least one argument to run!");
         }

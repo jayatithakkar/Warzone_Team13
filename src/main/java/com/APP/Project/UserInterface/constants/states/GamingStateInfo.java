@@ -1,6 +1,8 @@
 package com.APP.Project.UserInterface.constants.states;
 
 /**
+ * This enum stores the current state of the game
+ *
  * @author Jayati Thakkar
  * @version 1.0
  */

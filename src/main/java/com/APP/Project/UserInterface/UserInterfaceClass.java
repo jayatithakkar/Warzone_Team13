@@ -2,8 +2,11 @@ package com.APP.Project.UserInterface;
 
 import com.APP.Project.Main;
 import com.APP.Project.UserInterface.constants.states.UserInteractionState;
+import com.APP.Project.UserInterface.exceptions.InvalidArgumentException;
+import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
+import com.APP.Project.UserInterface.layouts.PlayerClassLayout;
 import com.APP.Project.UserInterface.mappers.UserCommandsMapper;
-import com.APP.Project.UserInterface.models.UserCommand;
+import com.APP.Project.UserInterface.models.UsersCommands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,7 +52,7 @@ public class UserInterfaceClass implements Runnable{
                 if (this.getInteractionState() == UserInteractionState.WAIT) {
                     try {
                         // Takes user input and interprets it for further processing
-                        UserCommand l_userCommand = d_userCommandMapper.toUserCommand(this.waitForUserInput());
+                        UsersCommands l_userCommand = d_userCommandMapper.toUserCommand(this.waitForUserInput());
                         // Takes action according to command instructions.
                         this.takeAction(l_userCommand);
                     } catch (IOException p_e) {
@@ -63,10 +66,13 @@ public class UserInterfaceClass implements Runnable{
             }
         }
     }
-    public void takeAction(UserCommand p_userCommand) throws InvalidArgumentException, InvalidCommandException {
+    public void takeAction(UsersCommands p_userCommand) throws InvalidArgumentException, InvalidCommandException {
         try {
             // Gets the mapped class of the command and calls its function; With arguments, if any.
-            Class<?> l_class = Class.forName(PlayerClassLayout.GetClassName(p_userCommand.getHeadCommand()));
+
+            Class<?> l_class = Class.forName(PlayerClassLayout.GetClassName(p_userCommand.getHeaderCommand()));
+
+
             Object l_object = l_class.getDeclaredConstructor().newInstance();
 
             // If the command does not have any argument keys
