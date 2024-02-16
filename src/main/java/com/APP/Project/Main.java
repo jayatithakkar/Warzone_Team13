@@ -1,7 +1,7 @@
 package com.APP.Project;
 
 import com.APP.Project.UserInterface.UserInterfaceClass;
-import com.APP.Project.UserInterface.constants.states.GamingState;
+import com.APP.Project.UserInterface.constants.states.GamingStateInfo;
 
 /**
  * The execution of the game will start from this class
@@ -9,20 +9,18 @@ import com.APP.Project.UserInterface.constants.states.GamingState;
  * @author Jayati Thakkar
  * @version 1.0
  */
-
-
 public class Main {
 
     /**
      * If the user is playing, it will return false; true otherwise
      */
-    private static volatile boolean d_isRunning = true;
+    private static volatile boolean d_ifRunning = true;
 
     /**
      * It will keep track of the game state
      */
 
-    private static GamingState d_gameState = GamingState.MAP_EDITOR;
+    private static GamingStateInfo d_gameState = GamingStateInfo.MAP_EDITOR;
 
     /**
      * Checks if the game is in play or not
@@ -30,17 +28,17 @@ public class Main {
      * @return False if user is playing; true otherwise
      */
     public static boolean isRunning() {
-        return d_isRunning;
+        return d_ifRunning;
     }
 
     /**
      * sets d_isRunning False if user is playing; true otherwise
      *
-     * @param d_isRunning
+     * @param d_ifRunning
      */
 
-    public static void setIsRunning(boolean d_isRunning) {
-        d_isRunning = d_isRunning;
+    public static void setIfRunning(boolean d_ifRunning) {
+        d_ifRunning = d_ifRunning;
     }
 
     /**
@@ -48,7 +46,7 @@ public class Main {
      *
      * @param p_gameState
      */
-    public static void setGameState(GamingState p_gameState) {
+    public static void setGameState(GamingStateInfo p_gameState) {
         d_gameState = p_gameState;
     }
 
@@ -57,13 +55,13 @@ public class Main {
      *
      * @return
      */
-    public static GamingState getGameState() {
+    public static GamingStateInfo getGameState() {
         return d_gameState;
     }
 
 
     public static void main(String[] args) throws InterruptedException {
-        setIsRunning(true);
+        setIfRunning(true);
 
         //An object of the interface for user to interact
         UserInterfaceClass l_userInteraction = new UserInterfaceClass();
@@ -78,6 +76,6 @@ public class Main {
      * This is to exit the game
      */
     public static void exit() {
-        Main.setIsRunning(false);
+        Main.setIfRunning(false);
     }
 }

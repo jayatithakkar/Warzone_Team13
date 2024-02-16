@@ -66,7 +66,7 @@ public class UserInterfaceClass implements Runnable{
     public void takeAction(UserCommand p_userCommand) throws InvalidArgumentException, InvalidCommandException {
         try {
             // Gets the mapped class of the command and calls its function; With arguments, if any.
-            Class<?> l_class = Class.forName(UserClassLayout.matchAndGetClassName(p_userCommand.getHeadCommand()));
+            Class<?> l_class = Class.forName(PlayerClassLayout.GetClassName(p_userCommand.getHeadCommand()));
             Object l_object = l_class.getDeclaredConstructor().newInstance();
 
             // If the command does not have any argument keys
