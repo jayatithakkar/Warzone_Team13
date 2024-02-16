@@ -4,8 +4,10 @@ package com.APP.Project.UserCoreLogic.gamePlay.services;
 import com.APP.Project.UserCoreLogic.GameEntities.Country;
 import com.APP.Project.UserCoreLogic.GameEntities.Player;
 import com.APP.Project.UserCoreLogic.containers.CountryContainer;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class CountryDistributionService {
      * Default constructor for initalizing objects.
      */
     public CountryDistributionService() {
-        d_allCountriesList = MapEditorEngine.getInstance().getCountryList();
+        d_allCountriesList = MapFeatureEngine.getInstance().getAllCountryList();
         d_engine = GameEngine.getInstance();
     }
 
