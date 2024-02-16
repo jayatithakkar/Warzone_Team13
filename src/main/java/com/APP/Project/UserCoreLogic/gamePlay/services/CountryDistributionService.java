@@ -3,6 +3,7 @@ package com.APP.Project.UserCoreLogic.gamePlay.services;
 
 import com.APP.Project.UserCoreLogic.GameEntities.Country;
 import com.APP.Project.UserCoreLogic.GameEntities.Player;
+import com.APP.Project.UserCoreLogic.containers.CountryContainer;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 
@@ -17,7 +18,7 @@ public class CountryDistributionService {
      * Captures the list of countries in a CountryRepository type object
      * to return the country based on the method used
      */
-    private CountryRepository d_allCountriesRepository = new CountryRepository();
+    private CountryContainer d_allCountriesRepository = new CountryContainer();
 
     /**
      * Captures all the list of countries
