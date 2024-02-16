@@ -1,6 +1,6 @@
 package com.APP.Project.UserCoreLogic.Container;
 
-import com.APP.Project.UserCoreLogic.GameEntities.Player;
+import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 

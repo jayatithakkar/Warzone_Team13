@@ -1,6 +1,6 @@
 package com.APP.Project.UserCoreLogic.Container;
 
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
