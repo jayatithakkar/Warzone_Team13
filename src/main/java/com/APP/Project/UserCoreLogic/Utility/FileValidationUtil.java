@@ -13,8 +13,7 @@ import com.APP.Project.UserCoreLogic.Exceptions.ResourceNotFoundException;
  This class validates if user entered map file is exits or not. 
  If doesn't exits then throw and exception otherwise copy the details of .map file.
 
- @auther Bhoomi Bhatt
- @v 1.0
+ @auther Bhoomiben Bhatt
  */
 
 public class FileValidationUtil {
