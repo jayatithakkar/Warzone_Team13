@@ -1,12 +1,31 @@
-package com.APP.Project.UserCoreLogic.Exceptions;
+package com.APP.Project.UserCoreLogic.exceptions;
 
-public class ResourceNotFoundException extends Exception {
+/**
+ * Exception indicating that a requested resource was not found.
+ * This exception is typically thrown when a resource, such as a user or entity,
+ * is expected to exist but cannot be located in the system.
+ * It extends the UserCoreLogicException class.
+ *
+ * @author Rikin Dipakkumar Chauhan
+ */
+public class ResourceNotFoundException extends UserCoreLogicException{
 
-    public ResourceNotFoundException(String p_errorMessage) {
-        super(p_errorMessage);
-    }
+     /**
+     * Constructs an ResourceNotFoundException with the specified detail message.
+     *
+     * @param p_exceptionMessage detailed Exception message
+     */
+     public ResourceNotFoundException(String p_exceptionMessage) {
+          super(p_exceptionMessage);
+     }
 
-    public ResourceNotFoundException(String p_errorMessage, Throwable p_causeOfException) {
-        super(p_errorMessage, p_causeOfException);
-    }
+     /**
+     * Constructs an ResourceNotFoundException with the specified detail message and cause.
+     *
+     * @param p_exceptionMessage detailed Exception message
+     * @param p_exceptionCause detailed cause that causes the current exception
+     */
+     public ResourceNotFoundException(String p_exceptionMessage, Throwable p_exceptionCause) {
+          super(p_exceptionMessage, p_exceptionCause);
+     }
 }

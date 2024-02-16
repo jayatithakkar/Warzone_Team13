@@ -1,12 +1,29 @@
-package com.APP.Project.UserCoreLogic.Exceptions;
+package com.APP.Project.UserCoreLogic.exceptions;
 
-public class InvalidInputException extends Exception {
+/**
+ * Custom exception class representing an invalid input scenario entered by user.
+ * It extends the UserCoreLogicException class.
+ *
+ * @author Rikin Dipakkumar Chauhan
+ */
+public class InvalidInputException extends UserCoreLogicException {
 
-	public InvalidInputException(String p_errorMessage) {
-		super(p_errorMessage);
-	}
+     /**
+     * Constructs an InvalidInputException with the specified detail message.
+     *
+     * @param p_exceptionMessage detailed Exception message
+     */
+     public InvalidInputException(String p_exceptionMessage) {
+          super(p_exceptionMessage);
+     }
 
-	public InvalidInputException(String p_errorMessage, Throwable p_causeOfException) {
-		super(p_errorMessage, p_causeOfException);
-	}
+     /**
+     * Constructs an InvalidInputException with the specified detail message and cause.
+     *
+     * @param p_exceptionMessage detailed Exception message
+     * @param p_exceptionCause detailed cause that causes the current exception
+     */
+     public InvalidInputException(String p_exceptionMessage, Throwable p_exceptionCause) {
+          super(p_exceptionMessage, p_exceptionCause);
+     }
 }
