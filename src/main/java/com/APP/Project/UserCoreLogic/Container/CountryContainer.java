@@ -8,20 +8,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CountryContainer {
-    public List<Country> findByCountryName(String p_countryName) {
+    public List<Country> searchByCountryName(String p_countryName) {
         return MapFeatureEngine.getInstance().getAllCountryList().stream()
                 .filter(p_country -> p_country.getUniqueCountryName().equals(p_countryName))
                 .collect(Collectors.toList());
     }
 
-    public Country findFirstByCountryName(String p_countryName) throws EntityNotFoundException {
-        List<Country> l_countryList = this.findByCountryName(p_countryName);
+    public Country searchFirstByCountryName(String p_countryName) throws EntityNotFoundException {
+        List<Country> l_countryList = this.searchByCountryName(p_countryName);
         if (l_countryList.size() > 0)
             return l_countryList.get(0);
         throw new EntityNotFoundException(String.format("'%s' country not found", p_countryName));
     }
 
-    public Country findByCountryId(Integer p_countryId) {
+    public Country searchByCountryId(Integer p_countryId) {
         List<Country> l_countries = MapFeatureEngine.getInstance().getAllCountryList().stream()
                 .filter(p_country -> p_country.getUniqueCountryId().equals(p_countryId)).collect(Collectors.toList());
         if (!l_countries.isEmpty()) {
@@ -31,14 +31,14 @@ public class CountryContainer {
         }
     }
 
-    public List<Country> findByNeighbourOfCountries(Country p_country) {
+    public List<Country> searchByNeighbourOfCountries(Country p_country) {
         return MapFeatureEngine.getInstance().getAllCountryList().stream()
                 .filter(p_l_country -> !p_l_country.equals(p_country)
                         && p_l_country.getNeighborCountriesList().contains(p_country))
                 .collect(Collectors.toList());
     }
 
-    public List<Country> findCountryNeighborsAndNotOwned(Country p_country) throws IllegalStateException {
+    public List<Country> searchCountryNeighborsAndNotOwned(Country p_country) throws IllegalStateException {
         return p_country.getNeighborCountriesList().stream().filter((p_l_country) -> p_l_country.getOwnedBy() == null)
                 .collect(Collectors.toList());
     }

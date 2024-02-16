@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PlayerContainer {
-    public Player SearchByPlayerName(String p_playerName) throws EntityNotFoundException {
+    public Player searchByPlayerName(String p_playerName) throws EntityNotFoundException {
         List<Player> l_newfilteredPlayerList = GameEngine.getInstance().getPlayerList().stream()
                 .filter(p_player -> p_player.getName().equals(p_playerName)).collect(Collectors.toList());
         if (l_newfilteredPlayerList.size() > 0)

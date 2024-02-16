@@ -14,14 +14,14 @@ public class ContinentContainer {
                 .collect(Collectors.toList());
     }
 
-    public Continent findFirstByContinentName(String p_continentName) throws EntityNotFoundException {
+    public Continent searchFirstByContinentName(String p_continentName) throws EntityNotFoundException {
         List<Continent> l_continentList = this.searchByContinentName(p_continentName);
         if (l_continentList.size() > 0)
             return l_continentList.get(0);
         throw new EntityNotFoundException(String.format("'%s' continent not found", p_continentName));
     }
 
-    public Continent findByContinentId(Integer p_continentId) throws EntityNotFoundException {
+    public Continent searchByContinentId(Integer p_continentId) throws EntityNotFoundException {
         List<Continent> l_continentList = MapFeatureEngine.getInstance().getContinentList().stream()
                 .filter(p_continent -> p_continent.getUniqueContinentId().equals(p_continentId))
                 .collect(Collectors.toList());
