@@ -18,12 +18,27 @@ public class CommandLineArgument {
 
     private ArgumentsSpecification d_specification;
 
+    /**
+     *
+     * parameterized constructor
+     *
+     *
+     * @param p_argument
+     * @param p_values
+     * @param p_specification
+     */
+
     public CommandLineArgument(String p_argument, int p_values, ArgumentsSpecification p_specification) {
         d_argument = p_argument;
         d_values = p_values;
         d_specification = p_specification;
     }
 
+    /**
+     * getters and setters for all the attributes
+     *
+     * @return
+     */
     public String getD_argument() {
         return d_argument;
     }
@@ -47,6 +62,13 @@ public class CommandLineArgument {
     public void setD_specification(ArgumentsSpecification d_specification) {
         this.d_specification = d_specification;
     }
+
+    /**
+     * checks if the commands arguments are equal or not
+     *
+     * @param o  provided object to check
+     * @return true if it is same; false otherwise
+     */
 
     @Override
     public boolean equals(Object o) {

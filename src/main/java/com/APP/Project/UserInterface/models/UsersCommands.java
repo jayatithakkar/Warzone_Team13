@@ -14,21 +14,52 @@ import java.util.stream.Collectors;
 
 public class UsersCommands {
 
+    /**
+     * the headeer of the command
+     */
     private String d_headerCommand;
 
-    private List<CommandLineArgument> d_argumentList;
-
+    /**
+     * a map of the keys and its values for the arguments the user has to enter
+     */
     private Map<String, List<String>> d_userArguments;
 
-    private CommandsSpecification d_commandSpecification;
+    /**
+     * the list of the command related values
+     */
+    private List<String> d_CommandRelatedValues;
+
+    /**
+     * an object of the predefined user commands class
+     */
+    private PredefinedUserCommands d_predefinedUserCommand;
+
+    /**
+     * true if the command is <code> exit </code>
+     */
+    private boolean d_isExitCommand = false;
 
     /**
      * default constructor
      */
+
     public UsersCommands() {
-        d_argumentList = new ArrayList<CommandLineArgument>();
-        d_userArguments = new HashMap<>();
+
     }
+
+    /**
+     * parameterized constructor
+     *
+     * @param p_predefinedUserCommand an object of the Predefined user commands class
+     */
+    public UsersCommands(PredefinedUserCommands p_predefinedUserCommand) {
+        setHeaderCommand(p_predefinedUserCommand.getHeaderCommand());
+        d_predefinedUserCommand = p_predefinedUserCommand;
+        // Initialise references
+        d_userArguments = (Map<String, List<String>>) new ArrayList<>();
+        d_CommandRelatedValues = new ArrayList<>();
+    }
+
 
     /**
      * getter for header
@@ -48,23 +79,6 @@ public class UsersCommands {
     }
 
     /**
-     * getter for all the arguments
-     * @return the list of arguments of the given command
-     */
-
-    public List<CommandLineArgument> getArgumentList() {
-        return d_argumentList ;
-    }
-
-    /**
-     * arguments are push inside of the list
-     * @param p_commandArgument the list of argument
-     */
-    public void pushCommandArgument(CommandLineArgument p_commandArgument) {
-        d_argumentList.add(p_commandArgument);
-    }
-
-    /**
      * it gets all the userrguments and returns the key and value of those lists
      * @return
      */
@@ -76,35 +90,36 @@ public class UsersCommands {
         d_userArguments.put(argKey, values);
     }
 
-    public List<String> getArgumentKeys() {
-        return this.d_argumentList .stream().map((CommandLineArgument::getD_argument))
-                .collect(Collectors.toList());
+    /**
+     * getter for the command related values
+     * @return the list of string containing the values possible
+     */
+    public List<String> getD_CommandRelatedValues() {
+        return d_CommandRelatedValues;
     }
 
-    public CommandLineArgument matchCommandArgument(String p_argumentKey) {
-        // Returns only one element
-        return this.d_argumentList .stream().filter((p_p_argumentKey) ->
-                p_argumentKey.equals("-".concat(p_p_argumentKey.getD_argument()))
-        ).collect(Collectors.toList()).get(0);
+    /**
+     * setter to set the command related values
+     *
+     * @param d_commandRelatedValues
+     */
+    public void setCommandRelatedValues(List<String> d_commandRelatedValues) {
+        this.d_CommandRelatedValues = d_commandRelatedValues;
     }
 
-    public boolean isKeyOfCommand(String p_argKey) {
-        if (!p_argKey.startsWith("-"))
-            return false;
-        return this.getArgumentKeys().stream().anyMatch((p_p_argKey) ->
-                p_argKey.equals("-".concat(p_p_argKey))
-        );
+    /**
+     * it gets predefined version of the users command.
+     * @return the version of predefined form
+     */
+    public PredefinedUserCommands getPredefinedUserCommand() {
+        return d_predefinedUserCommand;
     }
 
-    public void setCommandSpecification(CommandsSpecification p_commandSpecification) {
-        this.d_commandSpecification = p_commandSpecification;
-    }
-
-
-    public CommandsSpecification getCommandSpecification() {
-        return d_commandSpecification;
-    }
-
+    /**
+     * overridden equals method to check if it equal
+     * @param l_p_o object that needs to be compared
+     * @return true if it is equal; false otherwise
+     */
     @Override
     public boolean equals(Object l_p_o) {
         if (this == l_p_o) return true;

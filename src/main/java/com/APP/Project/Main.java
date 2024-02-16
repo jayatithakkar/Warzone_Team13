@@ -1,5 +1,6 @@
 package com.APP.Project;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserInterface.UserInterfaceClass;
 import com.APP.Project.UserInterface.constants.states.GamingStateInfo;
 
@@ -17,18 +18,31 @@ public class Main {
     private static volatile boolean d_ifRunning = true;
 
     /**
-     * It will keep track of the game state
+     * an instance of the user interface class
      */
-
-    private static GamingStateInfo d_gameState = GamingStateInfo.MAP_EDITOR;
+    private static UserInterfaceClass d_CommandLineInterface;
 
     /**
-     * Checks if the game is in play or not
-     *
-     * @return False if user is playing; true otherwise
+     * an instance of the user core logic class
      */
-    public static boolean isRunning() {
-        return d_ifRunning;
+    private static UserCoreLogic d_VirtualMachine;
+
+
+    public Main(){
+        // Creates interface for user interaction.
+        // Just a local variable as the instance is not being used/shared with any other class.
+        d_CommandLineInterface = new UserInterfaceClass();
+
+        // Starts the runtime engine for the game.
+        // Virtual Machine will have the UI middleware.
+        d_VirtualMachine = UserCoreLogic.newInstance();
+
+        // Attaches the CLI (stub) to VM.
+        d_VirtualMachine.attachUIMiddleware(d_CommandLineInterface);
+    }
+
+    public static UserCoreLogic VIRTUAL_MACHINE() {
+        return d_VirtualMachine;
     }
 
     /**
@@ -42,24 +56,40 @@ public class Main {
     }
 
     /**
-     * sets the game set and keeps track of the same
-     *
-     * @param p_gameState
-     */
-    public static void setGameState(GamingStateInfo p_gameState) {
-        d_gameState = p_gameState;
-    }
-
-    /**
      * gets the state of the game
      *
      * @return
      */
     public static GamingStateInfo getGameState() {
-        return d_gameState;
+        return d_VirtualMachine.getGameState();
     }
 
+    /**
+     * it handles the startup of the game engine
+     */
+    public void handleApplicationStartup() {
+        setIfRunning(true);
+        VIRTUAL_MACHINE().setGameState(GamingStateInfo.MAP_EDITOR);
+    }
 
+    /**
+     * it handles the startup for the User Interface
+     * @throws InterruptedException
+     */
+
+    public void handleCLIStartUp() throws InterruptedException {
+        d_CommandLineInterface.d_thread.start();
+        // Wait till the game is over.
+        d_CommandLineInterface.d_thread.join();
+    }
+
+    /**
+     * sets the value of the variable if the game is running
+     * @return
+     */
+    public static boolean isRunning() {
+        return d_ifRunning;
+    }
     public static void main(String[] args) throws InterruptedException {
         setIfRunning(true);
 
@@ -77,5 +107,7 @@ public class Main {
      */
     public static void exit() {
         Main.setIfRunning(false);
+        UserCoreLogic.exit();
+        System.exit(0);
     }
 }

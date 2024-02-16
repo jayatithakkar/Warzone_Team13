@@ -1,12 +1,12 @@
 package com.APP.Project.UserInterface.layouts;
 
 import com.APP.Project.Main;
-import com.APP.Project.UserInterface.constants.states.GamingState;
+import com.APP.Project.UserInterface.constants.states.GamingStateInfo;
 import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
 import com.APP.Project.UserInterface.layouts.commands.CommonCommand;
 import com.APP.Project.UserInterface.layouts.commands.GamePlayCommand;
 import com.APP.Project.UserInterface.layouts.commands.MapEditorCommand;
-import com.APP.Project.UserInterface.models.PredefinedCommandList;
+import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,7 @@ public class PlayerCommandLayout {
     /**
      * The list of all classes
      */
-    private static Map<GamingState, CommandLayout> d_GamePlayStateMap = new HashMap<>();
+    private static Map<GamingStateInfo, CommandLayout> d_GamePlayStateMap = new HashMap<>();
 
     /**
      * Object that stores user commands for map editor game state
@@ -43,11 +43,11 @@ public class PlayerCommandLayout {
      */
     static {
         d_GamePlayStateMap.put(
-                GamingState.MAP_EDITOR,
+                GamingStateInfo.MAP_EDITOR,
                 PlayerCommandLayout.MAP_EDITOR_COMMAND_LAYOUT);
 
         d_GamePlayStateMap.put(
-                GamingState.GAME_PLAY,
+                GamingStateInfo.PLAYING,
                 PlayerCommandLayout.GAME_PLAY_COMMAND_LAYOUT);
     }
 
@@ -62,10 +62,10 @@ public class PlayerCommandLayout {
      * @throws InvalidCommandException If no command had found matching the provided
      *                                 head of the command.
      */
-    public static PredefinedCommandList getUserCommand(String p_keyOfCommand) throws InvalidCommandException {
+    public static PredefinedUserCommands getUserCommand(String p_keyOfCommand) throws InvalidCommandException {
         // Gets the list of command from the layout, and then it is being streamed over
         // to filter the list
-        List<PredefinedCommandList> l_globalCommandList = PlayerCommandLayout.findByKeyOfCommand(COMMON_COMMAND_LAYOUT,
+        List<PredefinedUserCommands> l_globalCommandList = PlayerCommandLayout.findByKeyOfCommand(COMMON_COMMAND_LAYOUT,
                 p_keyOfCommand);
         return l_globalCommandList.size() > 0 ? l_globalCommandList.get(0)
                 : PlayerCommandLayout.getUsingKeyOfHead(d_GamePlayStateMap.get(Main.getGameState()),
@@ -80,10 +80,10 @@ public class PlayerCommandLayout {
      * @param p_keyOfCommand       Value of the key to find the command
      * @return Value of found command
      */
-    private static List<PredefinedCommandList> findByKeyOfCommand(CommandLayout p_commandLayoutClass,
+    private static List<PredefinedUserCommands> findByKeyOfCommand(CommandLayout p_commandLayoutClass,
             String p_keyOfCommand) {
         return p_commandLayoutClass.fetchUserCommands()
-                .stream().filter((userCommand) -> userCommand.getHeadCommand().equals(p_keyOfCommand))
+                .stream().filter((userCommand) -> userCommand.getHeaderCommand().equals(p_keyOfCommand))
                 .collect(Collectors.toList());
 
     }
@@ -97,7 +97,7 @@ public class PlayerCommandLayout {
      * @return Value of found command
      * @throws InvalidCommandException If command not found in this gamestate
      */
-    private static PredefinedCommandList getUsingKeyOfHead(CommandLayout p_commandLayoutClass, String p_keyOfCommand) {
+    private static PredefinedUserCommands getUsingKeyOfHead(CommandLayout p_commandLayoutClass, String p_keyOfCommand) {
         try {
             return PlayerCommandLayout.findByKeyOfCommand(p_commandLayoutClass, p_keyOfCommand).get(0);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
