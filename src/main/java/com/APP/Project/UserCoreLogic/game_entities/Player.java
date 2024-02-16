@@ -1,16 +1,16 @@
-package com.APP.Project.UserCoreLogic.GameEntities;
+package com.APP.Project.UserCoreLogic.game_entities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.APP.Project.UserCoreLogic.UserCommandLogic;
-import com.APP.Project.UserCoreLogic.constants.enums.OrderType;
+import com.APP.Project.UserCoreLogic.constants.enums.OrderTypes;
+import com.APP.Project.UserCoreLogic.responses.CommandResponses;
 import com.APP.Project.UserCoreLogic.exceptions.*;
-import com.APP.Project.UserCoreLogic.responses.CommandResponse;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.ExecutionException;
+import java.io.IOException;
 
 /**
  * TThis class is for getter and setter methods specific to Player GameEntities
@@ -183,7 +183,7 @@ public class Player {
 
     /**
      * Generates the number of balance reinforcements for the player.
-     * <p>Shows error if the player orders more than
+     * <p>Shows error if the player orders more than allowed
      * reinforcements than in possession. This method also sets the remaining number of reinforcements left for the
      * future use.
      *
@@ -217,16 +217,16 @@ public class Player {
         // Requests user interface for input from user.
         String l_responseVal = "";
         do {
-            UserCoreLogic.getInstance().stdout(String.format("\nPlayer: %s\nUSAGE: Map status can be accessed using\n> showmap <return>", this.d_uniquePlayerName, this.d_remainingReinforcementCounter));
-            Future<String> l_responseOfFuture = UserCoreLogic.getInstance().askForUserInput(String.format("Enter Order:"));
+            UserCommandLogic.getInstance().stdout(String.format("\nPlayer: %s\nUSAGE: Map status can be accessed using\n> showmap <enter>", this.d_uniquePlayerName, this.d_remainingReinforcementCounter));
+            Future<String> l_responseOfFuture = UserCommandLogic.getInstance().askForUserInput(String.format("Enter Order:"));
             l_responseVal = l_responseOfFuture.get();
         } while (l_responseVal.isEmpty());
         try {
             ObjectMapper l_objectMapper = new ObjectMapper();
-            CommandResponse l_commandResponse = l_objectMapper.readValue(l_responseVal, CommandResponse.class);
-            Order l_newOrder = Order.map(l_commandResponse);
-            if (l_newOrder.getOrderType() == OrderType.deploy) {
-                if (this.getAssignedCountries().contains(l_newOrder.getCountry())) {
+            CommandResponses l_commandResponses = l_objectMapper.readValue(l_responseVal, CommandResponses.class);
+            Order l_newOrder = Order.map(l_commandResponses);
+            if (l_newOrder.getOrderType() == OrderTypes.deploy) {
+                if (this.getAssignedCountries().contains(l_newOrder.getCountryDetails())) {
                     if (this.getRemainingReinforcementCount() != 0 && this.canPlayerReinforce(l_newOrder.getNumOfReinforcements())) {
                         l_newOrder.setOwner(this);
                         this.addOrder(l_newOrder);
