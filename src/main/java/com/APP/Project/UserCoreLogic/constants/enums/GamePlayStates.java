@@ -4,7 +4,7 @@ package com.APP.Project.UserCoreLogic.constants.enums;
  *
  * @author Rupal Kapoor
  */
-public class GamePlayStates {
+public enum GamePlayStates {
 
     /**
      * This is the state for assigning the reinforcements.
@@ -17,12 +17,12 @@ public class GamePlayStates {
     /**
      * This is the state where the user has not entered the assigncountries.
      */
-    NOT_AVAILABLE("not_available");
+    NOT_AVAILABLE("not_available"),
 
     /**
      * This is used by the player to issue an order in this state.
      */
-    ISSUE_ORDER("issue_order")   
+    ISSUE_ORDER("issue_order");
 
     /**
      * This variable captures the enum value.
