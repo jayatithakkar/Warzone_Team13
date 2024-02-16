@@ -4,6 +4,8 @@ import com.APP.Project.UserCoreLogic.GameEntities.Continent;
 import com.APP.Project.UserCoreLogic.GameEntities.Country;
 import com.APP.Project.UserCoreLogic.GameEntities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +18,13 @@ public class ReinforcementService {
      */
     public Map<String, List<String>> d_allContinentCountryList;
 
-    public MapEditorEngine d_mapEngine;
+    public MapFeatureEngine d_mapEngine;
 
     /**
      * Default constructor to initialise values
      */
     public ReinforcementService() {
-        d_mapEngine = MapEditorEngine.getInstance();
+        d_mapEngine = MapFeatureEngine.getInstance();
     }
 
     /**
@@ -64,7 +66,7 @@ public class ReinforcementService {
     private int checkPlayerOwnsContinent(Player d_allPlayerList, List<String> p_allCountriesList, Continent p_continent) {
         List<String> l_country = new ArrayList<>();
         for (Country l_continentCountry : d_allPlayerList.getAssignedCountries()) {
-            l_country.add(l_continentCountry.getCountryName());
+            l_country.add(l_continentCountry.getUniqueCountryName());
         }
         boolean l_checkCountry = l_country.containsAll(p_allCountriesList);
         if (l_checkCountry) {
