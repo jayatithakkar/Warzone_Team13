@@ -3,8 +3,8 @@ package com.APP.Project.UserCoreLogic.gamePlay.services;
 import com.APP.Project.UserCoreLogic.GameEntities.Player;
 import com.APP.Project.UserCoreLogic.containers.PlayerContainer;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.Exceptions.InvalidInputException;
 
 public class ManageGamePlayerService {
 
@@ -40,7 +40,7 @@ public class ManageGamePlayerService {
      * @return value of request response.
      * @throws InvalidInputException is thrown in case of error in processing of player creation.
      */
-    public String addPlayer(String p_gamePlayerName) throws InvalidInputException {
+    public String addPlayer(String p_gamePlayerName) throws com.APP.Project.UserCoreLogic.Exceptions.InvalidInputException {
         if (!d_gamePlayerContainer.existByPlayerName(p_gamePlayerName)) {
             try {
                 Player l_gamePlayer = new Player();
