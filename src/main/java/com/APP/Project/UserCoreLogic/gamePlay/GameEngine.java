@@ -1,16 +1,12 @@
 package com.APP.Project.UserCoreLogic.gamePlay;
 
-import com.APP.Project.UserCoreLogic.GameEntities.Continent;
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
 import com.APP.Project.UserCoreLogic.GameEntities.Player;
 import com.APP.Project.UserCoreLogic.constants.enums.GamePlayStates;
-import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidCommandException;
-import com.APP.Project.UserCoreLogic.exceptions.OrderOutOfBoundException;
-import com.APP.Project.UserCoreLogic.exceptions.ReinforcementOutOfBoundException;
+import com.APP.Project.UserCoreLogic.exceptions.*;
+import com.APP.Project.UserCoreLogic.gamePlay.services.ReinforcementService;
 
 import java.util.*;
-import java.util.concud_gameEngineInstancerrent.ExecutionException;
+import java.util.concurrent.ExecutionException;
 
 public class GameEngine {    
     private static GameEngine d_gameEngineInstance;
@@ -71,11 +67,7 @@ public class GameEngine {
     private GameEngine() {
         this.initialise();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
+  
     public void initialise() {
         d_playerList = new ArrayList<>();
         setGamePlayStates(GamePlayStates.NOT_AVAILABLE);
@@ -172,17 +164,14 @@ public class GameEngine {
      *
      * @throws GameLoopIllegalStateException Throws if the engine tries to jump to illegal state.
      */
-    public void onAssignReinforcementPhase() throws GameLoopIllegalStateException {
+    public void onAssignReinforcementPhase() throws GameLoopIllegalStateException, EntityNotFoundException {
         if (GameEngine.getGamePlayStates() == GamePlayStates.NOT_AVAILABLE ||
                 GameEngine.getGamePlayStates() == GamePlayStates.EXECUTE_ORDER) {
             GameEngine.setGamePlayStates(GamePlayStates.ASSIGN_REINFORCEMENTS);
 
-            try {
-                AssignReinforcementService l_reinforcementService = new AssignReinforcementService();
+                ReinforcementService l_reinforcementService = new ReinforcementService();
                 l_reinforcementService.execute();
-            } catch (VMException p_vmException) {
-                VirtualMachine.getInstance().stderr(p_vmException.getMessage());
-            }
+
         } else {
             throw new GameLoopIllegalStateException("Illegal state transition!");
         }
@@ -226,7 +215,6 @@ public class GameEngine {
                     l_invalidPreviousOrder = true;
 
                     // Send exception message to CLI.
-                    VirtualMachine.getInstance().stderr(p_e.getMessage());
 
                     // If all of its reinforcements have been placed, don't ask the player again.
                     if (l_currentPlayer.getRemainingReinforcementCount() == 0) {
@@ -236,8 +224,7 @@ public class GameEngine {
                 } catch (EntityNotFoundException | InvalidCommandException | InvalidArgumentException p_exception) {
                     l_invalidPreviousOrder = true;
                     // Show VMException error to the user.
-                    VirtualMachine.getInstance().stderr(p_exception.getMessage());
-                } catch (InterruptedException | ExecutionException p_e) {
+                   } catch (InterruptedException | ExecutionException | ExecutionException p_e) {
                     // If interruption occurred while issuing the order.
                     l_invalidPreviousOrder = true;
                 }
@@ -262,7 +249,6 @@ public class GameEngine {
         GameEngine.setGamePlayStates(GamePlayStates.EXECUTE_ORDER);
         List<Player> finishedExecutingOrders = new ArrayList<>();
 
-        VirtualMachine.getInstance().stdout("Execution of orders started!");
 
         this.d_currentPlayerTurn = this.d_currentPlayerForExecutionPhase;
 
@@ -278,14 +264,12 @@ public class GameEngine {
                 // Use VirtualMachine.stdout()
                 l_currentOrder.execute();
 
-                VirtualMachine.getInstance().stdout(String.format("\nExecuted %s", l_currentOrder.toString()));
 
                 // If the current player does not have any orders left.
                 if (!l_currentPlayer.hasOrders()) {
                     finishedExecutingOrders.add(l_currentPlayer);
                 }
             } catch (OrderOutOfBoundException p_e) {
-                VirtualMachine.getInstance().stderr(p_e.getMessage());
                 finishedExecutingOrders.add(l_currentPlayer);
             }
         }
