@@ -1,7 +1,7 @@
 package com.APP.Project.UserCoreLogic;
 
 import com.APP.Project.InterfaceCoreMiddleware;
-import com.APP.Project.UserCoreLogic.exceptions.ExceptionHandlingClass;
+import com.APP.Project.UserCoreLogic.exceptions.ExceptionsHandlingClass;
 import com.APP.Project.UserInterface.constants.states.GamingStateInfo;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
@@ -139,7 +139,7 @@ public class UserCoreLogic {
     public static UserCoreLogic newInstance() {
         d_userCoreLogic = new UserCoreLogic();
         // Default exception handler.
-        ExceptionHandlingClass l_exceptionHandler = new ExceptionHandlingClass();
+        ExceptionsHandlingClass l_exceptionHandler = new ExceptionsHandlingClass();
         Thread.setDefaultUncaughtExceptionHandler(l_exceptionHandler);
         return d_userCoreLogic;
     }

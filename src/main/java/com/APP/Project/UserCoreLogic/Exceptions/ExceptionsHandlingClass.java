@@ -9,7 +9,7 @@ import com.APP.Project.UserCoreLogic.UserCoreLogic;
  * @version 1.0
  */
 
-public class ExceptionHandlingClass implements Thread.UncaughtExceptionHandler {
+public class ExceptionsHandlingClass implements Thread.UncaughtExceptionHandler {
 
     public void uncaughtException(Thread t, Throwable e) {
         UserCoreLogic.getInstance().stderr("Something went wrong!");
