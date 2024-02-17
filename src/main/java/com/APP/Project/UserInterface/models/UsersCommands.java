@@ -1,6 +1,7 @@
 package com.APP.Project.UserInterface.models;
 
 import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -111,6 +112,7 @@ public class UsersCommands {
      * it gets predefined version of the users command.
      * @return the version of predefined form
      */
+    @JsonIgnore
     public PredefinedUserCommands getPredefinedUserCommand() {
         return d_predefinedUserCommand;
     }
