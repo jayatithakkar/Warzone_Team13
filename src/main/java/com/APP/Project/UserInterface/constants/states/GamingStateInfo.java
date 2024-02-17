@@ -7,6 +7,7 @@ package com.APP.Project.UserInterface.constants.states;
  * @version 1.0
  */
 public enum GamingStateInfo {
+    NOT_STARTED("not_started"),
     MAP_EDITOR("map_editor"),
     PLAYING("playing");
     public String d_jsonValue;
