@@ -1,29 +1,31 @@
 package com.APP.Project.UserInterface.layouts.commands;
 
-import com.APP.Project.UserInterface.constants.specifications.CommandConfiguration;
+import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
 import com.APP.Project.UserInterface.layouts.CommandLayout;
-import com.APP.Project.UserInterface.models.PredefinedCommandList;
+import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommonCommand implements CommandLayout {
-    List<PredefinedCommandList> d_playerCommands;
+    List<PredefinedUserCommands> d_playerCommands;
 
     // Default constructor
     public CommonCommand() {
         d_playerCommands = new ArrayList<>();
-        addCommand("exit", CommandConfiguration.CAN_RUN_ALONE);
+        addCommand("exit", CommandsSpecification.RUN_ALONE);
     }
     //  Configuration of the PlayerCommands
-    private void addCommand(String headCommand, CommandConfiguration config) {
-        PredefinedCommandList command = new PredefinedCommandList(headCommand, config);
+    private void addCommand(String headCommand, CommandsSpecification config) {
+        PredefinedUserCommands command = new PredefinedUserCommands();
+        command.setHeadCommand(headCommand);
+        command.setCommandSpecification(config);
         d_playerCommands.add(command);
     }
 
     // return value of the list of user commands for this class.
     @Override
-    public List<PredefinedCommandList> fetchUserCommands() {
+    public List<PredefinedUserCommands> fetchUserCommands() {
         return this.d_playerCommands;
     }
 }

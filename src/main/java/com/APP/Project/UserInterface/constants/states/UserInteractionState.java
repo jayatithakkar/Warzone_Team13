@@ -8,7 +8,9 @@ package com.APP.Project.UserInterface.constants.states;
 
 public enum UserInteractionState {
     WAIT("wait"),
-    IN_PROGRESS("in_progress");
+    IN_PROGRESS("in_progress"),
+
+    GAME_ENGINE("game_engine");
 
     public String d_jsonValue;
 

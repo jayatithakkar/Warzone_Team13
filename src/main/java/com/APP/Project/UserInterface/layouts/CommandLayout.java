@@ -1,6 +1,6 @@
 package com.APP.Project.UserInterface.layouts;
 
-import com.APP.Project.UserInterface.models.PredefinedCommandList;
+import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
 public interface CommandLayout {
 
     // Fetches and returns the list of user commands
-    public List<PredefinedCommandList> fetchUserCommands();
+    public List<PredefinedUserCommands> fetchUserCommands();
 }

@@ -1,7 +1,7 @@
 package com.APP.Project.UserInterface.layouts;
 
 import com.APP.Project.Main;
-import com.APP.Project.UserInterface.constants.states.GamingState;
+import com.APP.Project.UserInterface.constants.states.GamingStateInfo;
 import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
 import com.APP.Project.UserInterface.layouts.classes.CommonClass;
 import com.APP.Project.UserInterface.layouts.classes.GamePlayClass;
@@ -15,7 +15,7 @@ public class PlayerClassLayout {
     /**
      * Complete class list of all game states
      */
-    private static Map<GamingState, ClassLayout> d_GamePlayStateMap = new HashMap<>();
+    private static Map<GamingStateInfo, ClassLayout> d_GamePlayStateMap = new HashMap<>();
 
     /**
      * Object that stores user commands for map editor game state
@@ -37,11 +37,11 @@ public class PlayerClassLayout {
      */
     static {
         d_GamePlayStateMap.put(
-                GamingState.MAP_EDITOR,
+                GamingStateInfo.MAP_EDITOR,
                 PlayerClassLayout.MAP_EDITOR_CLASS_LAYOUT);
 
         d_GamePlayStateMap.put(
-                GamingState.GAME_PLAY,
+                GamingStateInfo.PLAYING,
                 PlayerClassLayout.GAME_PLAY_CLASS_LAYOUT);
     }
 
