@@ -170,7 +170,7 @@ public class UserCommandsMapper {
      * @return True if the entered command has at least one argument; false otherwise
      */
     private boolean validateIfCommandDoesNeedArgument(PredefinedUserCommands p_predefinedUserCommand, int p_numOfKeys) {
-        if (p_predefinedUserCommand.getCommandSpecification() == CommandsSpecification.NEED_ONE) {
+        if (p_predefinedUserCommand.getCommandSpecification() == CommandsSpecification.AT_LEAST_ONE) {
             // Means the user has not provided any required argument keys
             if (p_numOfKeys == 0)
                 throw new InvalidArgumentException("Command requires at least one argument to run!");

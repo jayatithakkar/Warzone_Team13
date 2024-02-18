@@ -14,7 +14,7 @@ public class MapEditorClass implements ClassLayout {
     // Default constructor to map command with file.
     public MapEditorClass() {
         d_commandToServiceMap.put("editcontinent",
-                "com.APP.Project.UserCoreLogic.map_features.adapters.services.ContinentAdapter");
+                "com.APP.Project.UserCoreLogic.map_features.adapters.ContinentAdapter");
         d_commandToServiceMap.put("editcountry", "com.APP.Project.UserCoreLogic.map_features.adapters.CountryAdapter");
         d_commandToServiceMap.put("editneighbor",
                 "com.APP.Project.UserCoreLogic.map_features.adapters.CountryNeighborAdapter");

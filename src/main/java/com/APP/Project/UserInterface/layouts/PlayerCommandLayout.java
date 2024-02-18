@@ -78,18 +78,18 @@ public class PlayerCommandLayout {
      * Finds the first matched command from the predefined command list using the
      * key of the command
      * 
-     * @param p_commandLayoutClass Represents the command sub class.
-     * @param p_keyOfCommand       Value of the key to find the command
+     * @param p_commandLayout Represents the command sub class.
+     * @param p_headOfCommand       Value of the key to find the command
      * @return Value of found command
      */
-    private static List<PredefinedUserCommands> findByKeyOfCommand(CommandLayout p_commandLayoutClass,
-            String p_keyOfCommand) {
+    private static List<PredefinedUserCommands> findByKeyOfCommand(CommandLayout p_commandLayout,
+            String p_headOfCommand) {
 //                System.out.println("\ninside findbykeyofcommand & comm is "+p_keyOfCommand);
 //                System.out.println("from fetchuser = "+p_commandLayoutClass.fetchUserCommands());
                 
 //                System.out.println("\nfunction returns: "+p_commandLayoutClass.fetchUserCommands().stream().filter((userCommand) -> userCommand.getHeadCommand().equals(p_keyOfCommand)).collect(Collectors.toList()));
-                return p_commandLayoutClass.fetchUserCommands()
-                .stream().filter((userCommand) -> userCommand.getHeadCommand().equals(p_keyOfCommand))
+                return p_commandLayout.fetchUserCommands()
+                .stream().filter((userCommand) -> userCommand.getHeadCommand().equals(p_headOfCommand))
                 .collect(Collectors.toList());
 
     }
@@ -98,14 +98,14 @@ public class PlayerCommandLayout {
      * Finds the first matched command from the predefined command list using the
      * key of the command
      * 
-     * @param p_commandLayoutClass Represents the command sub class.
-     * @param p_keyOfCommand       Value of the key to find the command
+     * @param p_commandLayout Represents the command sub class.
+     * @param p_headOfCommand       Value of the key to find the command
      * @return Value of found command
      * @throws InvalidCommandException If command not found in this gamestate
      */
-    private static PredefinedUserCommands getUsingKeyOfHead(CommandLayout p_commandLayoutClass, String p_keyOfCommand) {
+    private static PredefinedUserCommands getUsingKeyOfHead(CommandLayout p_commandLayout, String p_headOfCommand) {
         try {
-            return PlayerCommandLayout.findByKeyOfCommand(p_commandLayoutClass, p_keyOfCommand).get(0);
+            return PlayerCommandLayout.findByKeyOfCommand(p_commandLayout, p_headOfCommand).get(0);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             throw new InvalidCommandException("Unrecognized command!");
         }
