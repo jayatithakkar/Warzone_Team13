@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import com.APP.Project.UserCoreLogic.Exceptions.CoreLogicException;
-import com.APP.Project.UserCoreLogic.Exceptions.InvalidInputException;
-import com.APP.Project.UserCoreLogic.Exceptions.ResourceNotFoundException;
+import com.APP.Project.UserCoreLogic.exceptions.CoreLogicException;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
 
 /*
  This class validates if user entered map file is exits or not. 

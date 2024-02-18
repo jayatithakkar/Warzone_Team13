@@ -10,53 +10,98 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapEditorCommand implements CommandLayout {
+
+    List<PredefinedUserCommands> d_userCommands;
+
     private final List<PredefinedUserCommands> d_playerCommands;
 
     // Default constructor
     public MapEditorCommand() {
         d_playerCommands = new ArrayList<>();
-        initializeCommands();
-    }
+        d_userCommands = new ArrayList<>();
+        PredefinedUserCommands l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("editcontinent");
+        l_userCommand.setCommandSpecification(CommandsSpecification.NEED_ONE);
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "add",
+                2,
+                ArgumentsSpecification.EQUAL
+        ));
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "remove",
+                1,
+                ArgumentsSpecification.EQUAL
+        ));
+        d_userCommands.add(l_userCommand);
 
-    // This method configures and set up the commands based on the game state
-    private void initializeCommands() {
-        addCommandWithArguments("editcontinent", CommandsSpecification.NEED_ONE,
-                new CommandLineArgument("add", 2, ArgumentsSpecification.EQUAL),
-                new CommandLineArgument("remove", 1, ArgumentsSpecification.EQUAL));
+        // Example of the below command:
+        // > editcountry -add countryID continentID -remove countryID
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("editcountry");
+        l_userCommand.setCommandSpecification(CommandsSpecification.NEED_ONE);
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "add",
+                2,
+                ArgumentsSpecification.EQUAL
+        ));
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "remove",
+                1,
+                ArgumentsSpecification.EQUAL
+        ));
+        d_userCommands.add(l_userCommand);
 
-        addCommandWithArguments("editcountry", CommandsSpecification.NEED_ONE,
-                new CommandLineArgument("add", 2, ArgumentsSpecification.EQUAL),
-                new CommandLineArgument("remove", 1, ArgumentsSpecification.EQUAL));
+        // Example of the below command:
+        // > editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("editneighbor");
+        l_userCommand.setCommandSpecification(CommandsSpecification.NEED_ONE);
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "add",
+                2,
+                ArgumentsSpecification.EQUAL
+        ));
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "remove",
+                2,
+                ArgumentsSpecification.EQUAL
+        ));
+        d_userCommands.add(l_userCommand);
 
-        addCommandWithArguments("editneighbor", CommandsSpecification.NEED_ONE,
-                new CommandLineArgument("add", 2, ArgumentsSpecification.EQUAL),
-                new CommandLineArgument("remove", 2, ArgumentsSpecification.EQUAL));
+        // Example of the below command:
+        // > showmap
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("showmap");
+        l_userCommand.setCommandSpecification(CommandsSpecification.RUN_ALONE);
+        d_userCommands.add(l_userCommand);
 
-        addCommand("showmap", CommandsSpecification.RUN_ALONE);
-        addCommand("savemap", CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        addCommand("editmap", CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        addCommand("validatemap", CommandsSpecification.RUN_ALONE);
-        addCommand("loadmap", CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
-    }
+        // Example of the below command:
+        // > savemap filename
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("savemap");
+        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        d_userCommands.add(l_userCommand);
 
-    // Method to confgure commands with arguments
-    private void addCommandWithArguments(String headCommand, CommandsSpecification config,
-            CommandLineArgument... arguments) {
-        PredefinedUserCommands command = new PredefinedUserCommands();
-        command.setHeadCommand(headCommand);
-        command.setCommandSpecification(config);
-        for (CommandLineArgument argument : arguments) {
-            command.pushCommandArgument(argument);
-        }
-        d_playerCommands.add(command);
-    }
+        // Example of the below command:
+        // > editmap filename
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("editmap");
+        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        d_userCommands.add(l_userCommand);
 
-    // Method to confgure commands without arguments
-    private void addCommand(String headCommand, CommandsSpecification config) {
-        PredefinedUserCommands command = new PredefinedUserCommands();
-        command.setHeadCommand(headCommand);
-        command.setCommandSpecification(config);
-        d_playerCommands.add(command);
+        // Example of the below command:
+        // > validatemap
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("validatemap");
+        l_userCommand.setCommandSpecification(CommandsSpecification.RUN_ALONE);
+        d_userCommands.add(l_userCommand);
+
+        // Example of the below command:
+        // > loadmap filename
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("loadmap");
+        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        d_userCommands.add(l_userCommand);
     }
 
     // Get and list predefined commands

@@ -1,6 +1,6 @@
-package com.APP.Project.UserCoreLogic.Exceptions;
+package com.APP.Project.UserCoreLogic.exceptions;
 
-public class ResourceNotFoundException extends Exception {
+public class ResourceNotFoundException extends UserCoreLogicException {
 
     public ResourceNotFoundException(String p_errorMessage) {
         super(p_errorMessage);

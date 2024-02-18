@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class PredefinedUserCommands {
 
-    private String d_headerCommand;
+    private String d_headCommand;
 
     private final List<CommandLineArgument> d_commandArgumentList;
 
@@ -36,19 +36,19 @@ public class PredefinedUserCommands {
     }
 
     /**
-     * gives the header of the command
-     * @return returns the header of the command
+     * gives the head of the command
+     * @return returns the head of the command
      */
-    public String getHeaderCommand() {
-        return d_headerCommand;
+    public String getHeadCommand() {
+        return d_headCommand;
     }
 
     /**
      * sets the heafer command
-     * @param p_headerCommand string value that will initialize the header variable
+     * @param p_headCommand string value that will initialize the head variable
      */
-    public void setHeadCommand(String p_headerCommand) {
-        d_headerCommand = p_headerCommand;
+    public void setHeadCommand(String p_headCommand) {
+        d_headCommand = p_headCommand;
     }
 
     /**
@@ -152,10 +152,14 @@ public class PredefinedUserCommands {
      */
     @Override
     public boolean equals(Object l_p_o) {
+        System.out.println("from euals of predef "+l_p_o);
         if (this == l_p_o) return true;
         if (l_p_o == null || getClass() != l_p_o.getClass()) return false;
+
         PredefinedUserCommands l_that = (PredefinedUserCommands) l_p_o;
-        return Objects.equals(d_headerCommand, l_that.d_headerCommand) &&
+
+        
+        return Objects.equals(d_headCommand, l_that.d_headCommand) &&
                 Objects.equals(d_commandArgumentList, l_that.d_commandArgumentList);
     }
 

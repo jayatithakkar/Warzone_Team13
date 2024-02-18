@@ -4,7 +4,7 @@ import com.APP.Project.UserCoreLogic.constants.enums.OrderTypes;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidCommandException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidArgumentException;
-import com.APP.Project.UserCoreLogic.containers.CountryContainer;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 import com.APP.Project.UserCoreLogic.responses.CommandResponses;
 
 /**
@@ -115,7 +115,7 @@ public class Order {
         Order l_newOrder = new Order();
         l_newOrder.setOrderType(OrderTypes.valueOf(p_commandResponses.getHeadCommand().toLowerCase()));
         try {
-            Country l_targetCountry = COUNTRY_CONTAINER.findFirstByCountryName(p_commandResponses.getCommandValuesList().get(0));
+            Country l_targetCountry = COUNTRY_CONTAINER.searchFirstByCountryName(p_commandResponses.getCommandValuesList().get(0));
             // Get country from repository.
             l_newOrder.setCountryDetails(l_targetCountry);
             try {

@@ -3,11 +3,11 @@ package com.APP.Project.UserCoreLogic.map_features.adapters;
 import com.jakewharton.fliptables.FlipTable;
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
-import com.APP.Project.UserCoreLogic.GameEntities.Continent;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.containers.CountryContainer;
-import com.APP.Project.UserCoreLogic.containers.ContinentContainer;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
+import com.APP.Project.UserCoreLogic.Container.ContinentContainer;
 
 import java.util.*;
 
@@ -37,7 +37,7 @@ public class ShowMapAdapter implements StandaloneCommand {
                ArrayList<String> l_continentsList = new ArrayList<>();
                l_continentsList.add(l_entry.getKey());
                try {
-                    Continent l_continent = d_continentRepository.findFirstByContinentName(l_entry.getKey());
+                    Continent l_continent = d_continentRepository.searchFirstByContinentName(l_entry.getKey());
                     l_continentsList.add(String.valueOf(l_continent.getContinentControlValue()));
 
                     List<String> l_sortedCountryList = new ArrayList<>(l_entry.getValue());
@@ -78,11 +78,11 @@ public class ShowMapAdapter implements StandaloneCommand {
           for (int l_row = 1; l_row < l_neighbourCountryMatrix.length; l_row++) {
                Country l_countryRow;
                try {
-                    l_countryRow = d_countryRepository.findFirstByCountryName(l_neighbourCountryMatrix[l_row][0]);
+                    l_countryRow = d_countryRepository.searchFirstByCountryName(l_neighbourCountryMatrix[l_row][0]);
                     List<Country> l_countryNeighbourList = l_countryRow.getNeighborCountriesList();
                     for (int l_col = 1; l_col < l_neighbourCountryMatrix.length; l_col++) {
                          Country l_countryColumn = d_countryRepository
-                                   .findFirstByCountryName(l_neighbourCountryMatrix[0][l_col]);
+                                   .searchFirstByCountryName(l_neighbourCountryMatrix[0][l_col]);
                          if (l_countryRow.equals(l_countryColumn) || l_countryNeighbourList.contains(l_countryColumn)) {
                               l_neighbourCountryMatrix[l_row][l_col] = "X";
                          } else {

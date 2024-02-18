@@ -3,11 +3,11 @@ package com.APP.Project.UserCoreLogic.map_features.adapters;
 import com.APP.Project.UserCoreLogic.constants.enums.MapModelTypes;
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.exceptions.*;
-import com.APP.Project.UserCoreLogic.containers.CountryContainer;
-import com.APP.Project.UserCoreLogic.utilities.FileUtil;
-import com.APP.Project.UserCoreLogic.utilities.PathResolverUtil;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
+import com.APP.Project.UserCoreLogic.Utility.FindFilePathUtil;
+import com.APP.Project.UserCoreLogic.Utility.FileValidationUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,7 +42,7 @@ public class EditMapAdapter implements StandaloneCommand {
           if (new File(p_filePath).exists()) {
                try {
 
-                    FileUtil.retrieveFile(p_filePath);
+                    FileValidationUtil.fetchFile(p_filePath);
 
                     BufferedReader l_reader = new BufferedReader(new FileReader(p_filePath));
 
@@ -67,9 +67,9 @@ public class EditMapAdapter implements StandaloneCommand {
                }
           } else if (shouldCreateNew) {
                // Throws exception if file doesn't have required extension.
-               FileUtil.checksIfFileHasRequiredExtension(p_filePath);
+               FileValidationUtil.VerifyIfFileHasRequiredExtensionOrNot(p_filePath);
 
-               FileUtil.createFileIfNotExists(p_filePath);
+               FileValidationUtil.createFileIfNotExits(p_filePath);
                return "New file created!";
           } else {
                throw new InvalidMapException(
@@ -138,11 +138,11 @@ public class EditMapAdapter implements StandaloneCommand {
                     List<String> l_borderComponentList = this.getModelComponents(l_currentLine);
                     if (l_borderComponentList.size() > 1) {
                          Country l_country = d_countryRepository
-                                   .findByCountryId(Integer.parseInt(l_borderComponentList.get(0)));
+                                   .searchByCountryId(Integer.parseInt(l_borderComponentList.get(0)));
                          if (l_country != null) {
                               for (int i = 1; i < l_borderComponentList.size(); i++) {
                                    Country l_neighbourCountry = d_countryRepository
-                                             .findByCountryId(Integer.parseInt(l_borderComponentList.get(i)));
+                                             .searchByCountryId(Integer.parseInt(l_borderComponentList.get(i)));
                                    if (l_neighbourCountry != null) {
                                         d_countryNeighborService.add(l_country, l_neighbourCountry);
                                    }
@@ -189,7 +189,7 @@ public class EditMapAdapter implements StandaloneCommand {
                EntityNotFoundException {
           if (!p_commandValues.isEmpty()) {
                // Resolve file path using absolute path of user data directory.
-               String resolvedPathToFile = PathResolverUtil.resolveFilePath(p_commandValues.get(0));
+               String resolvedPathToFile = FindFilePathUtil.findFilePath(p_commandValues.get(0));
                return this.handleLoadMap(resolvedPathToFile);
           } else {
                throw new InvalidInputException("File name is empty!");

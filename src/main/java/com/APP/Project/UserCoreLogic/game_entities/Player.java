@@ -1,7 +1,7 @@
 package com.APP.Project.UserCoreLogic.game_entities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.APP.Project.UserCoreLogic.UserCommandLogic;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.enums.OrderTypes;
 import com.APP.Project.UserCoreLogic.responses.CommandResponses;
 import com.APP.Project.UserCoreLogic.exceptions.*;
@@ -217,8 +217,8 @@ public class Player {
         // Requests user interface for input from user.
         String l_responseVal = "";
         do {
-            UserCommandLogic.getInstance().stdout(String.format("\nPlayer: %s\nUSAGE: Map status can be accessed using\n> showmap <enter>", this.d_uniquePlayerName, this.d_remainingReinforcementCounter));
-            Future<String> l_responseOfFuture = UserCommandLogic.getInstance().askForUserInput(String.format("Enter Order:"));
+            UserCoreLogic.getInstance().stdout(String.format("\nPlayer: %s\nUSAGE: Map status can be accessed using\n> showmap <enter>", this.d_uniquePlayerName, this.d_remainingReinforcementCounter));
+            Future<String> l_responseOfFuture = UserCoreLogic.getInstance().askForUserInput(String.format("Enter Order:"));
             l_responseVal = l_responseOfFuture.get();
         } while (l_responseVal.isEmpty());
         try {

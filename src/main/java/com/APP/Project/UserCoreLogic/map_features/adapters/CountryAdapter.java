@@ -1,11 +1,11 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
-import com.APP.Project.UserCoreLogic.GameEntities.Continent;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.containers.CountryContainer;
-import com.APP.Project.UserCoreLogic.containers.ContinentContainer;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
+import com.APP.Project.UserCoreLogic.Container.ContinentContainer;
 
 import java.util.*;
 
@@ -30,7 +30,7 @@ public class CountryAdapter {
         Country l_country = new Country(d_mapEditorEngine.getAllCountryList().size() + 1);
         l_country.setCountryName(p_countryName);
 
-        Continent l_continent = d_continentRepository.findFirstByContinentName(p_continentName);
+        Continent l_continent = d_continentRepository.searchFirstByContinentName(p_continentName);
         
         l_country.setInsideContinent(l_continent);
 
@@ -43,7 +43,7 @@ public class CountryAdapter {
         Country l_country = new Country(p_countryId);
         l_country.setCountryName(p_countryName);
 
-        Continent l_continent = d_continentRepository.findByContinentId(p_continentId);
+        Continent l_continent = d_continentRepository.searchByContinentId(p_continentId);
 
         l_country.setInsideContinent(l_continent);
 
@@ -53,10 +53,10 @@ public class CountryAdapter {
     }
 
     public String remove(String p_countryName) throws EntityNotFoundException {
-        Country l_country = d_countryRepository.findFirstByCountryName(p_countryName);
+        Country l_country = d_countryRepository.searchFirstByCountryName(p_countryName);
         l_country.getInsideContinent().removeCountry(l_country);
 
-        List<Country> l_neighborOfCountryList = d_countryRepository.findByNeighbourOfCountries(l_country);
+        List<Country> l_neighborOfCountryList = d_countryRepository.searchByNeighbourOfCountries(l_country);
         for (Country l_neighborOfCountry : l_neighborOfCountryList) {
             l_neighborOfCountry.removeNeighborCountry(l_country);
         }

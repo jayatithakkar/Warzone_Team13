@@ -1,6 +1,6 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
-import com.APP.Project.UserCoreLogic.containers.PlayerContainer;
+import com.APP.Project.UserCoreLogic.Container.PlayerContainer;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
@@ -27,8 +27,8 @@ public class ManageGamePlayerService {
      * @return value of request response.
      * @throws EntityNotFoundException Is thrown if the player with given name is not found.
      */
-    public String removePlayer(String p_gamePlayerName) throws EntityNotFoundException {
-        Player l_gamePlayer = d_gamePlayerContainer.findByPlayerName(p_gamePlayerName);
+    public String remove(String p_gamePlayerName) throws EntityNotFoundException {
+        Player l_gamePlayer = d_gamePlayerContainer.searchByPlayerName(p_gamePlayerName);
         d_GameEngine.removePlayer(l_gamePlayer);
         return String.format("The player %s has been removed.", p_gamePlayerName);
     }
@@ -40,7 +40,7 @@ public class ManageGamePlayerService {
      * @return value of request response.
      * @throws InvalidInputException is thrown in case of error in processing of player creation.
      */
-    public String addPlayer(String p_gamePlayerName) throws InvalidInputException {
+    public String add(String p_gamePlayerName) throws InvalidInputException {
         if (!d_gamePlayerContainer.existByPlayerName(p_gamePlayerName)) {
             try {
                 Player l_gamePlayer = new Player();

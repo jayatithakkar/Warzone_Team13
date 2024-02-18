@@ -14,7 +14,7 @@ public class CommonClass implements ClassLayout {
     // Default constructor to map command with file.
 
     public CommonClass() {
-        d_commandToServiceMap.put("exit", "com.APP.Project.VirtualMachine.common.services.ApplicationExitService");
+        d_commandToServiceMap.put("exit", "com.APP.Project.UserCoreLogic.common.services.ApplicationExitService");
     }
 
     // Method to get and then return the value of mappings

@@ -1,6 +1,7 @@
 package com.APP.Project.UserInterface.layouts;
 
 import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.gamePlay.services.ManageGamePlayerService;
 import com.APP.Project.UserInterface.constants.states.GamingStateInfo;
 import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
 import com.APP.Project.UserInterface.layouts.commands.CommonCommand;
@@ -65,6 +66,7 @@ public class PlayerCommandLayout {
     public static PredefinedUserCommands getUserCommand(String p_keyOfCommand) throws InvalidCommandException {
         // Gets the list of command from the layout, and then it is being streamed over
         // to filter the list
+//        System.out.println("from getusercommand "+p_keyOfCommand);
         List<PredefinedUserCommands> l_globalCommandList = PlayerCommandLayout.findByKeyOfCommand(COMMON_COMMAND_LAYOUT,
                 p_keyOfCommand);
         return l_globalCommandList.size() > 0 ? l_globalCommandList.get(0)
@@ -82,8 +84,12 @@ public class PlayerCommandLayout {
      */
     private static List<PredefinedUserCommands> findByKeyOfCommand(CommandLayout p_commandLayoutClass,
             String p_keyOfCommand) {
-        return p_commandLayoutClass.fetchUserCommands()
-                .stream().filter((userCommand) -> userCommand.getHeaderCommand().equals(p_keyOfCommand))
+//                System.out.println("\ninside findbykeyofcommand & comm is "+p_keyOfCommand);
+//                System.out.println("from fetchuser = "+p_commandLayoutClass.fetchUserCommands());
+                
+//                System.out.println("\nfunction returns: "+p_commandLayoutClass.fetchUserCommands().stream().filter((userCommand) -> userCommand.getHeadCommand().equals(p_keyOfCommand)).collect(Collectors.toList()));
+                return p_commandLayoutClass.fetchUserCommands()
+                .stream().filter((userCommand) -> userCommand.getHeadCommand().equals(p_keyOfCommand))
                 .collect(Collectors.toList());
 
     }

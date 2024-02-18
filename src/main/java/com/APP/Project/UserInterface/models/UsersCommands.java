@@ -16,19 +16,19 @@ import java.util.stream.Collectors;
 public class UsersCommands {
 
     /**
-     * the headeer of the command
+     * the header of the command
      */
-    private String d_headerCommand;
+    private String headCommand;
 
     /**
      * a map of the keys and its values for the arguments the user has to enter
      */
-    private Map<String, List<String>> d_userArguments;
+    private List<Map<String, List<String>>> d_userArguments;
 
     /**
      * the list of the command related values
      */
-    private List<String> d_CommandRelatedValues;
+    private List<String> commandValuesList;
 
     /**
      * an object of the predefined user commands class
@@ -54,11 +54,11 @@ public class UsersCommands {
      * @param p_predefinedUserCommand an object of the Predefined user commands class
      */
     public UsersCommands(PredefinedUserCommands p_predefinedUserCommand) {
-        setHeaderCommand(p_predefinedUserCommand.getHeaderCommand());
+        setHeadCommand(p_predefinedUserCommand.getHeadCommand());
         d_predefinedUserCommand = p_predefinedUserCommand;
         // Initialise references
-        d_userArguments = (Map<String, List<String>>) new ArrayList<>();
-        d_CommandRelatedValues = new ArrayList<>();
+        d_userArguments = new ArrayList<>();
+        commandValuesList = new ArrayList<>();
     }
 
 
@@ -67,45 +67,48 @@ public class UsersCommands {
      * @return the header of the command
      */
 
-    public String getHeaderCommand() {
-        return d_headerCommand;
+    public String getHeadCommand() {
+        return headCommand;
     }
 
     /**
      * sets the header of the command into its variable
-     * @param p_headerCommand a string containing the header of the command
+     * @param p_headCommand a string containing the header of the command
      */
-    public void setHeaderCommand(String p_headerCommand) {
-        d_headerCommand = p_headerCommand;
+    public void setHeadCommand(String p_headCommand) {
+        headCommand = p_headCommand;
     }
 
     /**
      * it gets all the userrguments and returns the key and value of those lists
      * @return
      */
-    public Map<String, List<String>> getUserArguments() {
+    @JsonIgnore
+    public List<Map<String, List<String>>> getUserArguments() {
         return d_userArguments;
     }
 
     public void pushUserArgument(String argKey, List<String> values) {
-        d_userArguments.put(argKey, values);
+        Map<String, List<String>> l_newArgumentKeyValue = new HashMap<>();
+        l_newArgumentKeyValue.put(argKey, values);
+        d_userArguments.add(l_newArgumentKeyValue);
     }
 
     /**
      * getter for the command related values
      * @return the list of string containing the values possible
      */
-    public List<String> getD_CommandRelatedValues() {
-        return d_CommandRelatedValues;
+    public List<String> getCommandValuesList() {
+        return commandValuesList;
     }
 
     /**
      * setter to set the command related values
      *
-     * @param d_commandRelatedValues
+     * @param p_commandValuesList
      */
-    public void setCommandRelatedValues(List<String> d_commandRelatedValues) {
-        this.d_CommandRelatedValues = d_commandRelatedValues;
+    public void setCommandValuesList(List<String> p_commandValuesList) {
+        this.commandValuesList = p_commandValuesList;
     }
 
     /**
@@ -126,10 +129,7 @@ public class UsersCommands {
     public boolean equals(Object l_p_o) {
         if (this == l_p_o) return true;
         if (l_p_o == null || getClass() != l_p_o.getClass()) return false;
-        UsersCommands l_that = (UsersCommands) l_p_o;
-        return Objects.equals(d_headerCommand, l_that.d_headerCommand) &&
-                Objects.equals(d_userArguments.keySet(), l_that.d_userArguments.keySet());
+        UsersCommands that = (UsersCommands) l_p_o;
+        return d_isExitCommand == that.d_isExitCommand && headCommand.equals(that.headCommand) && d_userArguments.equals(that.d_userArguments) && d_predefinedUserCommand.equals(that.d_predefinedUserCommand);
     }
-
-
 }

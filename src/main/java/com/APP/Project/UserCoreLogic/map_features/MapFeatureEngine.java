@@ -1,8 +1,8 @@
 package com.APP.Project.UserCoreLogic.map_features;
 
 import com.APP.Project.UserCoreLogic.constants.interfaces.Engine;
-import com.APP.Project.UserCoreLogic.GameEntities.Continent;
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Continent;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 
 import java.util.*;

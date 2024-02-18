@@ -117,8 +117,10 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
                     d_reentrantLock.lockInterruptibly();
                     if (this.getInteractionState() == UserInteractionState.WAIT) {
                         try {
+                            String l_userInput = this.waitForUserInput();
                             // Takes user input and interprets it for further processing
-                            UsersCommands l_userCommand = d_commandMapperForUser.toUserCommand(this.waitForUserInput());
+                            UsersCommands l_userCommand = d_commandMapperForUser.toUserCommand(l_userInput);
+//                            System.out.print("workingnnnn\n");
                             this.setInteractionState(UserInteractionState.IN_PROGRESS);
                             // Takes action according to command instructions.
                             d_requestService.takeAction(l_userCommand);

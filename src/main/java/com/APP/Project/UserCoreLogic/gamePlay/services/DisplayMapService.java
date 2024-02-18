@@ -1,5 +1,6 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
+import com.jakewharton.fliptables.FlipTable;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
@@ -33,7 +34,7 @@ public class DisplayMapService {
      * @throws EntityNotFoundException is thrown in case no player is available.
      */
 
-    public String executeCommand(List<String> p_allCommandValues) throws EntityNotFoundException {
+    public String execute(List<String> p_allCommandValues) throws EntityNotFoundException {
         StringBuilder l_playerInformation = new StringBuilder();
         // l_count used to denote the number of players in the list
         int l_count = 0;

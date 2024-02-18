@@ -14,6 +14,7 @@ public class CommonCommand implements CommandLayout {
     public CommonCommand() {
         d_playerCommands = new ArrayList<>();
         addCommand("exit", CommandsSpecification.RUN_ALONE);
+        addCommand("loadmap", CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
     }
     //  Configuration of the PlayerCommands
     private void addCommand(String headCommand, CommandsSpecification config) {

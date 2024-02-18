@@ -17,7 +17,7 @@ public class CommandResponses {
     /**
      * List to store the command values
      */
-    private List<String> d_commandValuesList;
+    private List<String> commandValuesList;
 
     /**
      * Receive the head of the command from the User
@@ -43,7 +43,7 @@ public class CommandResponses {
      * @return List of values of the head
      */
     public List<String> getCommandValuesList() {
-        return d_commandValuesList;
+        return commandValuesList;
     }
 
     /**
@@ -52,6 +52,6 @@ public class CommandResponses {
      * @param p_commandValuesList list values for command
      */
     public void setCommandValuesList(List<String> p_commandValuesList) {
-        this.d_commandValuesList = p_commandValuesList;
+        this.commandValuesList = p_commandValuesList;
     }
 }
