@@ -37,7 +37,7 @@ public class RequestsService {
             
             // If the command does not have any argument keys
             if (p_userCommand.getPredefinedUserCommand().getCommandSpecification()
-            != CommandsSpecification.NEED_ONE) {
+            != CommandsSpecification.AT_LEAST_ONE) {
                 // Call the default method of the instance with the arguments
                 this.handleMethodInvocation(l_object, DEFAULT_METHOD_NAME, p_userCommand.getCommandValuesList(), true);
             } else {

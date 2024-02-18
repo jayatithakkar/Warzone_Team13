@@ -9,6 +9,6 @@ package com.APP.Project.UserInterface.constants.specifications;
 
 public enum CommandsSpecification {
     RUN_ALONE,
-    NEED_ONE,
+    AT_LEAST_ONE,
     CAN_RUN_ALONE_WITH_VALUE
 }

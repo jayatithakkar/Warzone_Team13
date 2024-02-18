@@ -13,15 +13,12 @@ public class MapEditorCommand implements CommandLayout {
 
     List<PredefinedUserCommands> d_userCommands;
 
-    private final List<PredefinedUserCommands> d_playerCommands;
-
     // Default constructor
     public MapEditorCommand() {
-        d_playerCommands = new ArrayList<>();
         d_userCommands = new ArrayList<>();
         PredefinedUserCommands l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editcontinent");
-        l_userCommand.setCommandSpecification(CommandsSpecification.NEED_ONE);
+        l_userCommand.setCommandSpecification(CommandsSpecification.AT_LEAST_ONE);
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "add",
                 2,
@@ -38,7 +35,7 @@ public class MapEditorCommand implements CommandLayout {
         // > editcountry -add countryID continentID -remove countryID
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editcountry");
-        l_userCommand.setCommandSpecification(CommandsSpecification.NEED_ONE);
+        l_userCommand.setCommandSpecification(CommandsSpecification.AT_LEAST_ONE);
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "add",
                 2,
@@ -55,7 +52,7 @@ public class MapEditorCommand implements CommandLayout {
         // > editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editneighbor");
-        l_userCommand.setCommandSpecification(CommandsSpecification.NEED_ONE);
+        l_userCommand.setCommandSpecification(CommandsSpecification.AT_LEAST_ONE);
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "add",
                 2,
@@ -107,6 +104,6 @@ public class MapEditorCommand implements CommandLayout {
     // Get and list predefined commands
     @Override
     public List<PredefinedUserCommands> fetchUserCommands() {
-        return d_playerCommands;
+        return this.d_userCommands;
     }
 }

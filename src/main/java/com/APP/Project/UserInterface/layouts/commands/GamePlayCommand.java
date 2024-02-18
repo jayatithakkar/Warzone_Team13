@@ -30,7 +30,7 @@ public class GamePlayCommand implements CommandLayout {
         // > gameplayer -add playername -remove playername
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("gameplayer");
-        l_userCommand.setCommandSpecification(CommandsSpecification.NEED_ONE);
+        l_userCommand.setCommandSpecification(CommandsSpecification.AT_LEAST_ONE);
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "add",
                 1,
@@ -69,7 +69,7 @@ public class GamePlayCommand implements CommandLayout {
         List<CommandLineArgument> gameplayerArgs = new ArrayList<>();
         gameplayerArgs.add(new CommandLineArgument("add", 1, ArgumentsSpecification.EQUAL));
         gameplayerArgs.add(new CommandLineArgument("remove", 1, ArgumentsSpecification.EQUAL));
-        addCommand("gameplayer", CommandsSpecification.NEED_ONE, false, false, gameplayerArgs);
+        addCommand("gameplayer", CommandsSpecification.AT_LEAST_ONE, false, false, gameplayerArgs);
 
         addCommand("assigncountries", CommandsSpecification.RUN_ALONE, true, false, null);
 
