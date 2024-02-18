@@ -2,14 +2,14 @@ package com.APP.Project.UserCoreLogic.map_features.adapters;
 
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
-import com.APP.Project.UserCoreLogic.GameEntities.Continent;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidMapException;
 import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
-import com.APP.Project.UserCoreLogic.utilities.FileUtil;
-import com.APP.Project.UserCoreLogic.utilities.PathResolverUtil;
+import com.APP.Project.UserCoreLogic.Utility.FileValidationUtil;
+import com.APP.Project.UserCoreLogic.Utility.FindFilePathUtil;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -65,6 +65,6 @@ public class SaveMapAdapter implements StandaloneCommand{
           ValidateMapAdapter l_validateObj = new ValidateMapAdapter();
           l_validateObj.execute(null);
 
-          return saveToFile(FileUtil.retrieveFile(PathResolverUtil.resolveFilePath(p_commandValues.get(0))));
+          return saveToFile(FileValidationUtil.fetchFile(FindFilePathUtil.findFilePath(p_commandValues.get(0))));
      }
 }

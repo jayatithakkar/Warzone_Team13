@@ -1,8 +1,8 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.containers.CountryContainer;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,8 +15,8 @@ public class CountryNeighborAdapter {
     }
 
      public String add(String p_countryName, String p_neighborCountryName) throws EntityNotFoundException {
-          Country l_country = d_countryRepository.findFirstByCountryName(p_countryName);
-          Country l_neighborCountry = d_countryRepository.findFirstByCountryName(p_neighborCountryName);
+          Country l_country = d_countryRepository.searchFirstByCountryName(p_countryName);
+          Country l_neighborCountry = d_countryRepository.searchFirstByCountryName(p_neighborCountryName);
           return this.add(l_country, l_neighborCountry);
      }
 
@@ -27,8 +27,8 @@ public class CountryNeighborAdapter {
      }
 
      public String remove(String p_countryName, String p_neighborCountryName) throws EntityNotFoundException {
-          Country l_country = d_countryRepository.findFirstByCountryName(p_countryName);
-          Country l_neighborCountry = d_countryRepository.findFirstByCountryName(p_neighborCountryName);
+          Country l_country = d_countryRepository.searchFirstByCountryName(p_countryName);
+          Country l_neighborCountry = d_countryRepository.searchFirstByCountryName(p_neighborCountryName);
 
           return this.remove(l_country, l_neighborCountry);
      }

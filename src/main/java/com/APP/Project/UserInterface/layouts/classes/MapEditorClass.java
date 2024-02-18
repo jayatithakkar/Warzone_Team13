@@ -14,16 +14,16 @@ public class MapEditorClass implements ClassLayout {
     // Default constructor to map command with file.
     public MapEditorClass() {
         d_commandToServiceMap.put("editcontinent",
-                "com.APP.Project.VirtualMachine.map_editor.services.ContinentService");
-        d_commandToServiceMap.put("editcountry", "com.APP.Project.VirtualMachine.map_editor.services.CountryService");
+                "com.APP.Project.UserCoreLogic.map_features.adapters.services.ContinentAdapter");
+        d_commandToServiceMap.put("editcountry", "com.APP.Project.UserCoreLogic.map_features.adapters.CountryAdapter");
         d_commandToServiceMap.put("editneighbor",
-                "com.APP.Project.VirtualMachine.map_editor.services.CountryNeighborService");
-        d_commandToServiceMap.put("editmap", "com.APP.Project.VirtualMachine.map_editor.services.EditMapService");
+                "com.APP.Project.UserCoreLogic.map_features.adapters.CountryNeighborAdapter");
+        d_commandToServiceMap.put("editmap", "com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter");
         d_commandToServiceMap.put("validatemap",
-                "com.APP.Project.VirtualMachine.map_editor.services.ValidateMapService");
-        d_commandToServiceMap.put("showmap", "com.APP.Project.VirtualMachine.map_editor.services.ShowMapService");
-        d_commandToServiceMap.put("savemap", "com.APP.Project.VirtualMachine.map_editor.services.SaveMapService");
-        d_commandToServiceMap.put("loadmap", "com.APP.Project.VirtualMachine.map_editor.services.LoadMapService");
+                "com.APP.Project.UserCoreLogic.map_features.adapters.ValidateMapAdapter");
+        d_commandToServiceMap.put("showmap", "com.APP.Project.UserCoreLogic.map_features.adapters.ShowMapAdapter");
+        d_commandToServiceMap.put("savemap", "com.APP.Project.UserCoreLogic.map_features.adapters.SaveMapAdapter");
+        d_commandToServiceMap.put("loadmap", "com.APP.Project.UserCoreLogic.map_features.adapters.LoadMapAdapter");
     }
 
     // Method to get and then return the value of mappings

@@ -1,6 +1,8 @@
 package com.APP.Project.UserCoreLogic.gamePlay;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.enums.GamePlayStates;
+import com.APP.Project.UserCoreLogic.constants.interfaces.Engine;
 import com.APP.Project.UserCoreLogic.exceptions.*;
 import com.APP.Project.UserCoreLogic.gamePlay.services.ReinforcementService;
 import com.APP.Project.UserCoreLogic.game_entities.Order;
@@ -8,7 +10,7 @@ import com.APP.Project.UserCoreLogic.game_entities.Player;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-public class GameEngine {    
+public class GameEngine implements Engine {
     private static GameEngine d_gameEngineInstance;
 
     /**
@@ -109,28 +111,6 @@ public class GameEngine {
     }
 
     /**
-     * This method begins the thread to iterate through various states of the game.
-     */
-    public void startGameLoop() {
-        if (d_LoopThread != null && d_LoopThread.isAlive()) {
-            d_LoopThread.interrupt();
-        }
-        d_LoopThread = new Thread(() -> {
-
-                while (!Thread.currentThread().isInterrupted()) {
-                    try {
-                        this.onAssignReinforcementPhase();
-                        this.onStartIssueOrderPhase();
-                        this.onStartExecuteOrderPhase();
-                    } catch (GameLoopIllegalStateException| EntityNotFoundException e ) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        });
-        d_LoopThread.start();
-    }
-
-    /**
      * This method is used to fetch the player whose turn it is for issuing the order.
      *
      * @return the value of the player who will issue the order.
@@ -144,20 +124,17 @@ public class GameEngine {
         return l_currentPlayer;
     }
 
-
-    /**
-     * This method assigns each player the correct number of reinforcement armies
-     * according to the standard Warzone rules.
-     *
-     * @throws GameLoopIllegalStateException Throws if the engine tries to jump to illegal state.
-     */
-    public void onAssignReinforcementPhase() throws GameLoopIllegalStateException, EntityNotFoundException {
+    public void onAssignReinforcementPhase() throws GameLoopIllegalStateException {
         if (GameEngine.getGamePlayStates() == GamePlayStates.NOT_AVAILABLE ||
                 GameEngine.getGamePlayStates() == GamePlayStates.EXECUTE_ORDER) {
             GameEngine.setGamePlayStates(GamePlayStates.ASSIGN_REINFORCEMENTS);
 
+            try {
                 ReinforcementService l_reinforcementService = new ReinforcementService();
                 l_reinforcementService.execute();
+            } catch (UserCoreLogicException p_vmException) {
+                UserCoreLogic.getInstance().stderr(p_vmException.getMessage());
+            }
 
         } else {
             throw new GameLoopIllegalStateException("Illegal state transition!");
@@ -191,11 +168,13 @@ public class GameEngine {
                 Order l_currentOrder = l_currentPlayer.nextOrder();
                 l_currentOrder.execute();
 
+                UserCoreLogic.getInstance().stdout(String.format("\nExecuted %s", l_currentOrder.toString()));
 
                 if (!l_currentPlayer.hasOrders()) {
                     finishedExecutingOrders.add(l_currentPlayer);
                 }
             } catch (OrderOutOfBoundException p_e) {
+                UserCoreLogic.getInstance().stderr(p_e.getMessage());
                 finishedExecutingOrders.add(l_currentPlayer);
             }
         }
@@ -239,12 +218,16 @@ public class GameEngine {
                 } catch (ReinforcementOutOfBoundException p_e) {
                     l_invalidPreviousOrder = true;
 
+                    UserCoreLogic.getInstance().stderr(p_e.getMessage());
+
                     if (l_currentPlayer.getRemainingReinforcementCount() == 0) {
                         l_canTryAgain = false;
                         finishedIssuingOrders.add(l_currentPlayer);
                     }
                 } catch (EntityNotFoundException | InvalidCommandException | InvalidArgumentException p_exception) {
                     l_invalidPreviousOrder = true;
+
+                    UserCoreLogic.getInstance().stderr(p_exception.getMessage());
                 } catch (InterruptedException | ExecutionException p_e) {
                     l_invalidPreviousOrder = true;
                 }
@@ -253,6 +236,39 @@ public class GameEngine {
 
         this.d_currentPlayerForIssuePhase = this.d_currentPlayerTurn;
     }
+
+    /**
+     * This method assigns each player the correct number of reinforcement armies
+     * according to the standard Warzone rules.
+     *
+     * @throws GameLoopIllegalStateException Throws if the engine tries to jump to illegal state.
+     */
+    /**
+     * This method begins the thread to iterate through various states of the game.
+     */
+    public void startGameLoop() {
+        if (d_LoopThread != null && d_LoopThread.isAlive()) {
+            d_LoopThread.interrupt();
+        }
+        d_LoopThread = new Thread(() -> {
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    this.onAssignReinforcementPhase();
+                    this.onStartIssueOrderPhase();
+                    this.onStartExecuteOrderPhase();
+                }
+            } catch (GameLoopIllegalStateException p_loopIllegalStateException) {
+                UserCoreLogic.getInstance().stderr(p_loopIllegalStateException.getMessage());
+            }
+            finally {
+                // Set CLI#UserInteractionState to WAIT
+                UserCoreLogic.getInstance().stdout("GAME_ENGINE_TO_WAIT");
+            }
+
+        });
+        d_LoopThread.start();
+    }
+
     /**
      * This method shuts the GameEngine
      */

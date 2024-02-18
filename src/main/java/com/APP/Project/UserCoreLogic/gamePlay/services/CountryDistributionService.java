@@ -1,9 +1,11 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
 
-import com.APP.Project.UserCoreLogic.containers.CountryContainer;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
+import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
@@ -14,7 +16,7 @@ import java.util.List;
 
 import static java.lang.Math.floor;
 
-public class CountryDistributionService {
+public class CountryDistributionService implements StandaloneCommand {
 
     /**
      * Captures the list of countries in a CountryRepository type object
@@ -57,7 +59,7 @@ public class CountryDistributionService {
             Country l_countrySelected = d_allCountriesList.get(l_count);
             if (l_countrySelected.getOwnedBy() == null) {
                 l_countrySelected.setOwnedBy(p_gamePlayer);
-                l_allGroupOfCountries = d_allCountriesRepository.findCountryNeighborsAndNotOwned(l_countrySelected);
+                l_allGroupOfCountries = d_allCountriesRepository.searchCountryNeighborsAndNotOwned(l_countrySelected);
                 l_allGroupOfCountries.add(0, l_countrySelected);
 
                 l_groupCountrySize = l_allGroupOfCountries.size();
@@ -118,7 +120,8 @@ public class CountryDistributionService {
      * @throws InvalidInputException is thrown if the number of players equal zero.
      * @throws IllegalStateException is thrown when the method returns an empty list.
      */
-    public String executeCommand(List<String> p_allCommandValues) throws IllegalStateException, EntityNotFoundException, InvalidInputException {
+    @Override
+    public String execute(List<String> p_allCommandValues) throws UserCoreLogicException, IllegalStateException {
         // Below condition is to check if players have been added
         if (!GameEngine.getInstance().getPlayerList().isEmpty()) {
             String response = countryDistribution();

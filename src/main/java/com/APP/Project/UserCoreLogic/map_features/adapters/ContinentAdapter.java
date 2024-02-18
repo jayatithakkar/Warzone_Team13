@@ -1,10 +1,10 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
-import com.APP.Project.UserCoreLogic.GameEntities.Continent;
+import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.containers.ContinentContainer;
+import com.APP.Project.UserCoreLogic.Container.ContinentContainer;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,7 +32,7 @@ public class ContinentAdapter {
      }
 
      public String remove(String p_continentName) throws EntityNotFoundException {
-          Continent l_continent = d_continentRepository.findFirstByContinentName(p_continentName);
+          Continent l_continent = d_continentRepository.searchFirstByContinentName(p_continentName);
           List<Continent> l_filteredContinentList = d_mapEditorEngine.getContinentList().stream()
                     .filter(p_continent -> !p_continent.equals(l_continent)).collect(Collectors.toList());
 

@@ -12,12 +12,52 @@ import java.util.List;
 // This class encompasses all the commands which can be entered by the user during the gameplay game state.
 
 public class GamePlayCommand implements CommandLayout {
-    private final List<PredefinedUserCommands> d_playerCommands;
+    List<PredefinedUserCommands> d_playerCommands;
 
     // Default constructor
     public GamePlayCommand() {
         d_playerCommands = new ArrayList<>();
-        initializeCommands();
+
+        PredefinedUserCommands l_userCommand;
+        // Example of the command:
+        // > showmap
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("showmap");
+        l_userCommand.setCommandSpecification(CommandsSpecification.RUN_ALONE);
+        d_playerCommands.add(l_userCommand);
+
+        // Example of the command:
+        // > gameplayer -add playername -remove playername
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("gameplayer");
+        l_userCommand.setCommandSpecification(CommandsSpecification.NEED_ONE);
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "add",
+                1,
+                ArgumentsSpecification.EQUAL
+        ));
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "remove",
+                1,
+                ArgumentsSpecification.EQUAL
+        ));
+        d_playerCommands.add(l_userCommand);
+
+        // Example of the command:
+        // > assigncountries
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("assigncountries");
+        l_userCommand.setCommandSpecification(CommandsSpecification.RUN_ALONE);
+        l_userCommand.setGameEngineStartCommand(true);
+        d_playerCommands.add(l_userCommand);
+
+        // Example of the command:
+        // > deploy countryID num
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("deploy");
+        l_userCommand.setGameEngineCommand(true);
+        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        d_playerCommands.add(l_userCommand);
     }
 
     // Methods initializeCommands and addCommand

@@ -1,4 +1,4 @@
-package com.APP.Project.UserCoreLogic.Exceptions;
+package com.APP.Project.UserCoreLogic.exceptions;
 
 //base class which handles different types of custom exceptions.
 //@author Bhatt Bhoomi

@@ -2,11 +2,11 @@ package com.APP.Project.UserCoreLogic.map_features.adapters;
 
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.GameEntities.Country;
-import com.APP.Project.UserCoreLogic.GameEntities.Continent;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidMapException;
-import com.APP.Project.UserCoreLogic.containers.CountryContainer;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 
 import java.util.*;
 
@@ -35,7 +35,7 @@ public class ValidateMapAdapter implements StandaloneCommand {
 
                     for (String l_countryNameCompare : l_countriesIntoContinent) {
                          try {
-                              l_foundCountry = l_countryRepository.findFirstByCountryName(l_countryNameCompare);
+                              l_foundCountry = l_countryRepository.searchFirstByCountryName(l_countryNameCompare);
                          } catch (EntityNotFoundException e) {
                               e.printStackTrace();
                          }

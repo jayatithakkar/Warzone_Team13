@@ -22,17 +22,19 @@ public class UserCommandsMapper {
 
     public UsersCommands toUserCommand(String p_userInput) {
         // user string is split using spaces
+        
         List<String> l_commands = Arrays.asList(p_userInput.split("\\s"));
-
+        
         l_commands = l_commands.stream().filter(l_command ->
                 !l_command.trim().isEmpty()
         ).collect(Collectors.toList());
-
+        
         if (l_commands.size() > 0) {
             String l_headOfCommand = l_commands.get(0);
+//            System.out.println("working and command is "+l_headOfCommand);
             PredefinedUserCommands l_predefinedUserCommand =
                     PlayerCommandLayout.getUserCommand(l_headOfCommand);
-
+                    
             UsersCommands l_parsedUserCommand = new UsersCommands(l_predefinedUserCommand);
 
             List<String> l_argumentBody = l_commands.subList(1, l_commands.size());
@@ -40,7 +42,7 @@ public class UserCommandsMapper {
             // Throws an exception if the command needs its value to run and not provided by the user
             if (validateIfCommandDoesNeedValue(l_predefinedUserCommand, l_argumentBody.size())) {
                 // This UserCommand instance will be returned from here.
-                l_parsedUserCommand.setCommandRelatedValues(l_argumentBody);
+                l_parsedUserCommand.setCommandValuesList(l_argumentBody);
                 return l_parsedUserCommand;
             } else if (validateIfCommandCanRunAlone(l_predefinedUserCommand, l_argumentBody.size())) {
                 // Throws an exception if the command can run alone and the user has provided with some random text

@@ -1,6 +1,6 @@
-package com.APP.Project.UserCoreLogic.Exceptions;
+package com.APP.Project.UserCoreLogic.exceptions;
 
-public class InvalidInputException extends Exception {
+public class InvalidInputException extends UserCoreLogicException {
 
 	public InvalidInputException(String p_errorMessage) {
 		super(p_errorMessage);

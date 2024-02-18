@@ -41,6 +41,16 @@ public class Main {
         d_VirtualMachine.attachUIMiddleware(d_CommandLineInterface);
     }
 
+    public static void main(String[] args) throws InterruptedException {
+        Main l_application = new Main();
+
+        // Sets the environment for game.
+        l_application.handleApplicationStartup();
+
+        // Starts the CLI
+        l_application.handleCLIStartUp();
+    }
+
     public static UserCoreLogic VIRTUAL_MACHINE() {
         return d_VirtualMachine;
     }
@@ -90,17 +100,17 @@ public class Main {
     public static boolean isRunning() {
         return d_ifRunning;
     }
-    public static void main(String[] args) throws InterruptedException {
-        setIfRunning(true);
-
-        //An object of the interface for user to interact
-        UserInterfaceClass l_userInteraction = new UserInterfaceClass();
-
-        l_userInteraction.d_thread.start();
-
-        //It waits until the game is over.
-        l_userInteraction.d_thread.join();
-    }
+//    public static void main(String[] args) throws InterruptedException {
+//        setIfRunning(true);
+//
+//        //An object of the interface for user to interact
+//        UserInterfaceClass l_userInteraction = new UserInterfaceClass();
+//
+//        l_userInteraction.d_thread.start();
+//
+//        //It waits until the game is over.
+//        l_userInteraction.d_thread.join();
+//    }
 
     /**
      * This is to exit the game

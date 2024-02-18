@@ -14,10 +14,10 @@ public class GamePlayClass implements ClassLayout {
 
     // Default constructor to map command with file.
     public GamePlayClass() {
-        d_commandToServiceMap.put("gameplayer", "com.APP.Project.VirtualMachine.game_play.services.PlayerService");
+        d_commandToServiceMap.put("gameplayer", "com.APP.Project.UserCoreLogic.gamePlay.services.ManageGamePlayerService");
         d_commandToServiceMap.put("assigncountries",
-                "com.APP.Project.VirtualMachine.game_play.services.DistributeCountriesService");
-        d_commandToServiceMap.put("showmap", "com.APP.Project.VirtualMachine.game_play.services.ShowMapService");
+                "com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService");
+        d_commandToServiceMap.put("showmap", "com.APP.Project.UserCoreLogic.gamePlay.services.DisplayMapService");
     }
 
     // Method to get and then return the value of mappings
