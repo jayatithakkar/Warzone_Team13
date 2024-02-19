@@ -9,25 +9,23 @@ import com.APP.Project.UserCoreLogic.Utility.FindFilePathUtil;
 import java.util.List;
 
 /**
- * LoadMapAdapter class implements the StandaloneCommand interface and defines
- * the behavior for loading a map.
+ * This file loads map file in the user console.
+ * <p>
+ * This service handles `loadmap` user command.
  *
- * @author Rikin Dipakkumar Chauhan
- * @version 1.0
- * 
+ * @author Brijesh Lakkad
  */
 public class LoadMapAdapter implements StandaloneCommand {
-    
     /**
-     * Executes the command to load a map.
+     * Handles the load map operation for user command.
      *
-     * @param p_commandValues a list of command values containing the path to the map file
-     * @return a response indicating the outcome of the load operation
-     * @throws InvalidMapException    if the loaded map is invalid
-     * @throws ResourceNotFoundException if the required resource is not found
-     * @throws InvalidInputException  if the input provided is invalid
-     * @throws AbsentTagException     if a required tag is absent
-     * @throws EntityNotFoundException if the entity is not found
+     * @param p_commandValues Represents the values passed while running the command.
+     * @return Value of string acknowledging user that the file is loaded or not.
+     * @throws InvalidMapException       Throws if the map was not valid.
+     * @throws ResourceNotFoundException Throws if file not found.
+     * @throws InvalidInputException     Throws if the user command is invalid.
+     * @throws AbsentTagException        Throws if any tag is missing in map file.
+     * @throws EntityNotFoundException   Throws if entity is missing
      */
     @Override
     public String execute(List<String> p_commandValues)
@@ -38,10 +36,12 @@ public class LoadMapAdapter implements StandaloneCommand {
             EntityNotFoundException {
         try {
             EditMapAdapter l_editMapService = new EditMapAdapter();
+            // Resolve file path using absolute path of user data directory.
             String resolvedPathToFile = FindFilePathUtil.findFilePath(p_commandValues.get(0));
             String response = l_editMapService.handleLoadMap(resolvedPathToFile, false);
 
             try {
+                // Validates the map before saving the file.
                 ValidateMapAdapter l_validateObj = new ValidateMapAdapter();
                 l_validateObj.execute(null);
             } catch (InvalidMapException | EntityNotFoundException l_e) {
@@ -49,6 +49,9 @@ public class LoadMapAdapter implements StandaloneCommand {
                 throw l_e;
             }
 
+            /*
+             * Sets the game state to <code>Game Play</code>
+             */
             Main.VIRTUAL_MACHINE().setGameStatePlaying();
             return response;
         } catch (ArrayIndexOutOfBoundsException p_e) {

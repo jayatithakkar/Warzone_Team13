@@ -16,11 +16,6 @@ import java.util.List;
 
 import static java.lang.Math.floor;
 
-/**
- * This class is responsible for handling distribution of countries within all the players.
- *
- * @author Rupal Kapoor
- */
 public class CountryDistributionService implements StandaloneCommand {
 
     /**
@@ -34,9 +29,6 @@ public class CountryDistributionService implements StandaloneCommand {
      */
     private List<Country> d_allCountriesList;
 
-    /**
-     * Instance of GameEngine to perform all game play related operations using services
-     */
     private final GameEngine d_engine;
 
     /**

@@ -9,34 +9,30 @@ import com.APP.Project.UserCoreLogic.exceptions.CoreLogicException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
 
-/**
+/*
  This class validates if user entered map file is exits or not. 
  If doesn't exits then throw and exception otherwise copy the details of .map file.
 
- @author Bhoomiben Bhatt
+ @auther Bhoomiben Bhatt
  */
 
 public class FileValidationUtil {
 	private static final String UPLOADED_FILE_EXTENSION = "map";
 
-	/**
-	 * Take given file extension
-	 * 
-	 * @return valid .map file extension.
-	 */
+	// Take file extension and return valid .map file extension.
 	public static String getUploadedFileExtension() {
 		return UPLOADED_FILE_EXTENSION;
 	}
 
-
-	/**
+	/*
 	 * Verify that file name is valid or not.
 	 * 
-	 * @param p_enteredFilePath is path of file where it exists.
+	 * p_enteredFilePath is path of file where it exists.
 	 * 
-	 * @throws InvalidInputException     throws incase file does not exists
-	 * @throws ResourceNotFoundException if is unable to create a file
+	 * InvalidInputException throws incase file does not exists otherwise throws
+	 * ResourceNotFoundException if is unable to find
 	 */
+
 	public static File fetchFile(String p_enteredFilePath) throws ResourceNotFoundException, InvalidInputException {
 		File l_file = new File(p_enteredFilePath);
 		String l_fileName = l_file.getName();
@@ -59,14 +55,10 @@ public class FileValidationUtil {
 		throw new InvalidInputException("Not a valid File!");
 	}
 
-	
-	/**
-	 * 
+	/*
 	 * checks if file has valid extension or not
+	 * if file name is inappropriate then InvalidInputException take place
 	 * 
-	 * @param p_fileName name of file
-	 * @return True if file has valid passed parameters arguent or false
-	 * @throws InvalidInputException if file name is inappropriate
 	 */
 	public static boolean VerifyIfFileHasRequiredExtensionOrNot(String p_fileName) throws InvalidInputException {
 		int l_lastindex = p_fileName.lastIndexOf('.');
@@ -83,14 +75,16 @@ public class FileValidationUtil {
 		throw new InvalidInputException("This file is must be having some valid extension");
 	}
 
-
-	/**
+	/*
 	 * create a file if found to be non exist
 	 * 
-	 * @param p_filePath is path of fle
-	 * @return instance of class
-	 * @throws ResourceNotFoundExcetion if existace of a file not found
+	 * p_filePath is path of fle
+	 * 
+	 * return instance of class
+	 * it will return object of new file
+	 * No resources for file existace found then throw ResourceNotFoundExcetion
 	 */
+
 	public static File createFileIfNotExits(String p_filePath) throws ResourceNotFoundException {
 		File l_file = new File(p_filePath);
 		try {
@@ -101,13 +95,15 @@ public class FileValidationUtil {
 		return l_file;
 	}
 
-	/**
+	/*
 	 * It checks if file exits or not
 	 * 
-	 * @param p_fileInstace If file is unable to find
-	 * @return True if file exist otherwise throw an exception
-	 * @throw ResourceNotFoundException if file is not found.
+	 * If file is unable to find and throws ResourceNotFoundException if file is not
+	 * found.
+	 * 
+	 * If file exits then it will return true.
 	 */
+
 	private static boolean checkIfFileExistsOrNot(File p_fileInstace) throws ResourceNotFoundException {
 		if (!p_fileInstace.exists()) {
 			throw new ResourceNotFoundException("Mentioned file does not exist!!!");
@@ -115,12 +111,12 @@ public class FileValidationUtil {
 		return true;
 	}
 
-	/**
+	/*
 	 * Copies the file from source to destination or we can say overwrites the
 	 * destination file.
 	 * 
-	 * @param p_fileCopyFrom           is source path
-	 * @param p_fileCopyTo_destination destination path to the file
+	 * p_fileCopyFrom is source path
+	 * p_fileCopyTo_destination destination path to the file
 	 */
 	public static void copy(Path p_fileCopyFrom, Path p_fileCopyTo_destination) {
 		try {

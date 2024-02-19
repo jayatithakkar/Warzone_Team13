@@ -10,32 +10,13 @@ import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 
 import java.util.*;
 
-/**
- * ValidateMapAdapter class is responsible for validating maps in a map editor.
- * It checks whether the continents form a connected subgraph and whether the entire map is a connected graph.
- * It also ensures that certain conditions are met regarding the map structure.
- *
- * @author Rikin Dipakkumar Chauhan
- * @version 1.0
- * 
- */
 public class ValidateMapAdapter implements StandaloneCommand {
      private final MapFeatureEngine d_mapEditorEngine;
 
-     /**
-     * Constructor for ValidateMapAdapter class.
-     * Initializes the map editor engine.
-     */
     public ValidateMapAdapter() {
         d_mapEditorEngine = MapFeatureEngine.getInstance();
     }
 
-    /**
-     * Checks if the continents form a connected subgraph.
-     *
-     * @return true if the continents form a connected subgraph, otherwise false
-     * @throws EntityNotFoundException if a required entity is not found
-     */
      public boolean isContinentConnectedSubgraph() throws EntityNotFoundException {
           if (d_mapEditorEngine.getContinentList().size() > 1) {
                boolean l_isInvalid = false;
@@ -87,11 +68,6 @@ public class ValidateMapAdapter implements StandaloneCommand {
           }
      }
 
-     /**
-     * Checks if the entire map is a connected graph.
-     *
-     * @return true if the map is a connected graph, otherwise false
-     */
      public boolean isMapConnectedGraph() {
           boolean l_isValid = false;
           int l_connectedGraphCount = 0;
@@ -139,12 +115,6 @@ public class ValidateMapAdapter implements StandaloneCommand {
           return l_isValid;
      }
 
-     /**
-     * Validates the control value of each continent.
-     *
-     * @param p_continentList the list of continents to be validated
-     * @return true if all continents have valid control values, otherwise false
-     */
      private boolean validationControlValue(List<Continent> p_continentList) {
           boolean l_isValid = true;
 
@@ -157,14 +127,6 @@ public class ValidateMapAdapter implements StandaloneCommand {
           return l_isValid;
      }
 
-     /**
-     * Executes the map validation process.
-     *
-     * @param p_commandValues list of command values
-     * @return a message indicating the success of map validation
-     * @throws InvalidMapException    if the map is invalid
-     * @throws EntityNotFoundException if a required entity is not found
-     */
      @Override
      public String execute(List<String> p_commandValues) throws InvalidMapException, EntityNotFoundException {
           // Checks map has atleast 1 continent

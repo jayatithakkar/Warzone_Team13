@@ -5,28 +5,89 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dffd24b-74d8-459f-b0b3-429db9002dca" name="Changes" comment="Main.java is almost ready. Currently working on user interface">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-02-16__1_45p_m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-02-16__1_45p_m___Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/utilities/FileUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/utilities/PathResolverUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/constants/specifications/CommandsSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/constants/specifications/CommandsSpecification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/layouts/PlayerCommandLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/layouts/PlayerCommandLayout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/layouts/classes/MapEditorClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/layouts/classes/MapEditorClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/layouts/commands/GamePlayCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/layouts/commands/GamePlayCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/layouts/commands/MapEditorCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/layouts/commands/MapEditorCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/mappers/UserCommandsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/mappers/UserCommandsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/service/RequestsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/service/RequestsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/CountryDistributionServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/MapEditorTestSuite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapAdapterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapAdapterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/CommandsTestCases.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/mappers/CommandMapperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/services/RequestsServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/gamePlay/services/CountryDistributionServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/MapEditorTestSuite.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapAdapterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapAdapterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserInterface/constants/CommandsTestCases.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserInterface/mappers/CommandMapperTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserInterface/services/RequestsServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/APP-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/APP-Project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Container/ContinentContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Container/ContinentContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Container/CountryContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Container/CountryContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Container/PlayerContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Container/PlayerContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/DataTimeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/DataTimeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/FileValidationUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/FileValidationUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/FindFilePathUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/FindFilePathUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/AbsentTagException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/AbsentTagException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/EntityNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/EntityNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/GameLoopIllegalStateException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/GameLoopIllegalStateException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/InvalidArgumentException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/InvalidArgumentException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/InvalidCommandException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/InvalidCommandException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/InvalidMapException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/InvalidMapException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/OrderOutOfBoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/OrderOutOfBoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/ReinforcementOutOfBoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/ReinforcementOutOfBoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/UserCoreLogicException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/UserCoreLogicException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/services/CountryDistributionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/services/CountryDistributionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/services/ManageGamePlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/services/ManageGamePlayerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/MapFeatureEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/MapFeatureEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/GameEntities/Continent.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/GameEntities/Country.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/GameEntities/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/ContinentContainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/ContinentContainer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/CountryContainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/CountryContainer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/PlayerContainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/PlayerContainer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/UserCoreLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/UserCoreLogic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Utility/DataTimeUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Utility/DataTimeUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Utility/FileValidationUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Utility/FileValidationUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Utility/FindFilePathUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Utility/FindFilePathUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/common/services/ApplicationExitService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/common/services/ApplicationExitService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/GamePlayStates.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/GamePlayStates.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/MapModelTypes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/MapModelTypes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/containers/ContinentContainer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/containers/CountryContainer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/containers/PlayerContainer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/OrderTypes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/OrderTypes.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/AbsentTagException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/AbsentTagException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/CoreLogicException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/CoreLogicException.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/EntityNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/EntityNotFoundException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/ExceptionsHandlingClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/ExceptionsHandlingClass.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/GameLoopIllegalStateException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/GameLoopIllegalStateException.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/InvalidArgumentException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/InvalidArgumentException.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/InvalidCommandException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/exceptions/InvalidCommandException.class" afterDir="false" />
@@ -41,22 +102,29 @@
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/gamePlay/services/ManageGamePlayerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/gamePlay/services/ManageGamePlayerService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/game_entities/Continent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/game_entities/Continent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/game_entities/Country.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/game_entities/Country.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/game_entities/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/game_entities/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/game_entities/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/game_entities/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/MapFeatureEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/MapFeatureEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapAdapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapAdapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/utilities/FileUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/utilities/PathResolverUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/responses/CommandResponses.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/responses/CommandResponses.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/UserInterfaceClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/UserInterfaceClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/specifications/ArgumentsSpecification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/specifications/ArgumentsSpecification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/specifications/CommandsSpecification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/specifications/CommandsSpecification.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/states/GamingStateInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/states/GamingStateInfo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/states/UserInteractionState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/states/UserInteractionState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/exceptions/InvalidArgumentException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/exceptions/InvalidArgumentException.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/exceptions/InvalidCommandException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/exceptions/InvalidCommandException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/CommandLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/CommandLayout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/PlayerClassLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/PlayerClassLayout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/PlayerCommandLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/PlayerCommandLayout.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/classes/CommonClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/classes/CommonClass.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/classes/GamePlayClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/classes/GamePlayClass.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/classes/MapEditorClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/classes/MapEditorClass.class" afterDir="false" />
@@ -65,7 +133,9 @@
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/commands/MapEditorCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/commands/MapEditorCommand.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/mappers/UserCommandsMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/mappers/UserCommandsMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/CommandLineArgument.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/CommandLineArgument.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/UserCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/PredefinedUserCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/PredefinedUserCommands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/UsersCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/UsersCommands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/service/RequestsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/service/RequestsService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,39 +164,57 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
   <component name="ProjectId" id="2cHJuzpuWPL1H2hBaRUIWsY0ymE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;jayati-build-1&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/jayatithakkar/Desktop/warzone-team-13/APP-Project&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;
-  }
-}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunManager" selected="JUnit.CountryDistributionServiceTest">
+    <configuration name="CountryDistributionServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="APP-Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.APP.Project.UserCoreLogic.gamePlay.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.APP.Project.UserCoreLogic.gamePlay.services" />
+      <option name="MAIN_CLASS_NAME" value="com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="APP-Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.APP.Project.UserCoreLogic.game_entities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.APP.Project.UserCoreLogic.game_entities" />
+      <option name="MAIN_CLASS_NAME" value="com.APP.Project.UserCoreLogic.game_entities.PlayerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CountryDistributionServiceTest" />
+        <item itemvalue="JUnit.PlayerTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -165,6 +253,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Main.java is almost ready. Currently working on user interface" />

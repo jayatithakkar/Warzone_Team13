@@ -10,16 +10,7 @@ import com.APP.Project.UserCoreLogic.game_entities.Player;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-/**
- * This class is responsible for managing players and their orders runtime information and is also
- * additionally is responsible for executing orders for each player one-by-one.
- *
- * @author Rupal Kapoor
- */
 public class GameEngine implements Engine {
-    /**
-     * Instance of GameEngine to perform all game play related operations using services
-     */
     private static GameEngine d_gameEngineInstance;
 
     /**

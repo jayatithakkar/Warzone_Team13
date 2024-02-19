@@ -11,13 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * This particular class is used to provide reinforcement
- * to the army to respective players at each of their turns.
- *
- * @author Rupal Kapoor
- */
-
 public class ReinforcementService {
 
     /**
@@ -25,9 +18,6 @@ public class ReinforcementService {
      */
     public Map<String, List<String>> d_allContinentCountryList;
 
-   /**
-    * Instance of MapFeatureEngine
-    */
     public MapFeatureEngine d_mapEngine;
 
     /**
