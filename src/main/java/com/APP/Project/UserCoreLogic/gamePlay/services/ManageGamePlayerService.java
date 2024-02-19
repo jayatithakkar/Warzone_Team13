@@ -6,11 +6,22 @@ import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 
+/**
+ * This class manages all the functionality related to the gameplayer command.
+ * This entails adding or removing players from the game.
+ *
+ * @author Rupal Kapoor
+ */
 public class ManageGamePlayerService {
 
+    /**
+     * Instance of the player container class to provide specific Player functionalities
+     */
     private final PlayerContainer d_gamePlayerContainer;
 
-
+    /**
+     * Instance of GameEngine to perform all game play related operations using services
+     */
     private final GameEngine d_GameEngine;
     /**
      * Default constructor to initialise all objects
