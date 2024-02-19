@@ -5,8 +5,6 @@ package com.APP.Project.UserCoreLogic.exceptions;
  * It extends the base Exception class.
  *
  * @author Rikin Dipakkumar Chauhan
- * @version 1.0
- * 
  */
 public class UserCoreLogicException extends Exception {
 

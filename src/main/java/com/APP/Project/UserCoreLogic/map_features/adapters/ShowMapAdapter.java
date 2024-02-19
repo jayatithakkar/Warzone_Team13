@@ -11,14 +11,6 @@ import com.APP.Project.UserCoreLogic.Container.ContinentContainer;
 
 import java.util.*;
 
-/**
- * This class represents a ShowMapAdapter which implements StandaloneCommand.
- * It provides methods to display continent-country content and neighbor countries in a map.
- * 
- * @author Rikin Dipakkumar Chauhan
- * @version 1.0
- * 
- */
 public class ShowMapAdapter implements StandaloneCommand {
      MapFeatureEngine d_mapEditorEngine;
      ContinentContainer d_continentRepository;
@@ -27,12 +19,6 @@ public class ShowMapAdapter implements StandaloneCommand {
      List<Country> d_countryList;
      Map<String, List<String>> d_continentCountryMap;
 
-     /**
-     * Constructs a new ShowMapAdapter.
-     * Initializes necessary components and repositories.
-     * 
-     * @throws EntityNotFoundException if any entity is not found.
-     */
     public ShowMapAdapter() throws EntityNotFoundException {
         d_mapEditorEngine = MapFeatureEngine.getInstance();
         d_continentList = d_mapEditorEngine.getContinentList();
@@ -42,11 +28,6 @@ public class ShowMapAdapter implements StandaloneCommand {
         d_countryRepository = new CountryContainer();
     }
 
-    /**
-     * Displays the content of continents and their countries.
-     * 
-     * @return a formatted string representing the continent-country content.
-     */
      public String showContinentCountryContent() {
 
           String[] l_header = { "Continent Name", "Control Value", "Countries" };
@@ -79,11 +60,6 @@ public class ShowMapAdapter implements StandaloneCommand {
           return FlipTable.of(l_header, l_continentMapMatrix);
      }
 
-     /**
-     * Displays the neighboring countries of each country in the map.
-     * 
-     * @return a formatted string representing the neighbor countries.
-     */
      public String showNeighbourCountries() {
           LinkedList<String> l_countryNames = new LinkedList<>();
           String[][] l_neighbourCountryMatrix = new String[d_countryList.size() + 1][d_countryList.size() + 1];
@@ -126,13 +102,6 @@ public class ShowMapAdapter implements StandaloneCommand {
           return FlipTable.of(l_countryCountHeader, l_neighbourCountryMatrix);
      }
 
-     /**
-     * Executes the ShowMapAdapter command and returns the formatted results.
-     *
-     * @param p_commandValues List of command values (not used in this implementation).
-     * @return Formatted results of showing continent-country content and neighboring countries.
-     * @throws EntityNotFoundException If entities are not found during execution.
-     */
      @Override
      public String execute(List<String> p_commandValues) throws EntityNotFoundException {
           if (!this.d_continentCountryMap.isEmpty() || !this.d_countryList.isEmpty()) {

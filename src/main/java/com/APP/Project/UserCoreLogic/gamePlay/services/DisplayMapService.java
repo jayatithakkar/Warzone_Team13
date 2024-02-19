@@ -10,27 +10,9 @@ import com.APP.Project.UserCoreLogic.map_features.adapters.ShowMapAdapter;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * This class is responsible for displaying all continents, countries armies on each country,
- * ownership, and connectivity of each of the map.
- *
- * @author Rupal Kapoor
- */
 public class DisplayMapService {
-
-    /**
-     * Captures the entire list of players in the game
-     */
     List<Player> d_allPlayerList;
-    /**
-      * Instance of GameEngine to perform all game play related operations using services
-      */
     GameEngine d_engine;
-
-    /*
-     *
-     * Instance of the show map adapter to perform map related operations using map services
-     */
     ShowMapAdapter d_displayMapService;
 
     /**

@@ -9,16 +9,15 @@ import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
+/*
  * This class file is responsible for searching continents from map engine.
  * @author Bhoomiben Bhatt
  */
 public class ContinentContainer {
-    /**
-     * search continent by it's name
-     * 
-     * @param p_continentName value of name of continent
-     * @return value of matched continents.
+    /*
+     * search continent by its name
+     * p_continentName is name of continent
+     * returns value of matched continents.
      */
     public List<Continent> searchByContinentName(String p_continentName) {
         return MapFeatureEngine.getInstance().getContinentList().stream()
@@ -26,12 +25,8 @@ public class ContinentContainer {
                 .collect(Collectors.toList());
     }
 
-    /**
+    /*
      * search only one continent by it's name.
-     * 
-     * @param p_continentName name is value of continent
-     * @return value of very first match continent
-     * @throws EntityNotFoundException if searching entity not found
      */
     public Continent searchFirstByContinentName(String p_continentName) throws EntityNotFoundException {
         /*
@@ -46,12 +41,10 @@ public class ContinentContainer {
         throw new EntityNotFoundException(String.format("'%s' continent not found", p_continentName));
     }
 
-    /**
+
+
+    /*
      * search continent by it's id.
-     * 
-     * @param p_continentId is value of continentId
-     * @return value of first matched continent
-     * @throws EntityNotFoundException if searching entity not found.
      */
     public Continent searchByContinentId(Integer p_continentId) throws EntityNotFoundException {
         /*
