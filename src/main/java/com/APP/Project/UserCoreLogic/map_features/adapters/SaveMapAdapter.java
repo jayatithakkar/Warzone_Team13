@@ -19,13 +19,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * SaveMapAdapter class implements the StandaloneCommand interface to provide functionality
+ * for saving map data to a file.
+ * 
+ * @author Rikin Dipakkumar Chauhan
+ * @version 1.0
+ * 
+ */
 public class SaveMapAdapter implements StandaloneCommand{
      private final MapFeatureEngine d_mapEditorEngine;
 
+     /**
+     * Constructor for SaveMapAdapter class.
+     * Initializes the MapFeatureEngine instance.
+     */
      public SaveMapAdapter() {
           d_mapEditorEngine = MapFeatureEngine.getInstance();
      }
 
+     /**
+     * Saves map data to the specified file.
+     * 
+     * @param p_fileObject The file object to save the map data to.
+     * @return A string indicating the status of the file saving operation.
+     * @throws InvalidInputException If an error occurs due to invalid input.
+     */
      public String saveToFile(File p_fileObject) throws InvalidInputException {
           try (Writer l_writer = new FileWriter(p_fileObject)) {
                l_writer.write("[" + "Continents" + "]\n");
@@ -59,6 +78,17 @@ public class SaveMapAdapter implements StandaloneCommand{
           }
      }
 
+     /**
+     * Executes the SaveMapAdapter command.
+     * Validates the map using ValidateMapAdapter and saves it to the specified file.
+     * 
+     * @param p_commandValues List of command values.
+     * @return A string indicating the status of the execution.
+     * @throws InvalidInputException If an error occurs due to invalid input.
+     * @throws InvalidMapException If the map is invalid.
+     * @throws ResourceNotFoundException If a resource is not found.
+     * @throws EntityNotFoundException If an entity is not found.
+     */
      @Override
      public String execute(List<String> p_commandValues) throws InvalidInputException, InvalidMapException, ResourceNotFoundException, EntityNotFoundException {
 
