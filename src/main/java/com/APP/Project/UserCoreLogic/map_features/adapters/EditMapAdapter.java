@@ -16,6 +16,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * The EditMapAdapter class implements the StandaloneCommand interface to handle map editing operations.
+ * This class facilitates loading map files, reading continents, countries, and their neighbors, and executing map editing commands.
+ *
+ * @author Rikin Dipakkumar Chauhan
+ * @version 1.0
+ */
 public class EditMapAdapter implements StandaloneCommand {
      private final MapFeatureEngine d_mapEditorEngine;
      private final CountryContainer d_countryRepository;
@@ -23,6 +30,9 @@ public class EditMapAdapter implements StandaloneCommand {
      private final CountryAdapter d_countryService;
      private final CountryNeighborAdapter d_countryNeighborService;
 
+     /**
+     * Constructs an instance of EditMapAdapter.
+     */
     public EditMapAdapter() {
         d_mapEditorEngine = MapFeatureEngine.getInstance();
         d_countryRepository = new CountryContainer();
@@ -31,6 +41,18 @@ public class EditMapAdapter implements StandaloneCommand {
         d_countryNeighborService = new CountryNeighborAdapter();
     }
 
+    /**
+     * Handles the loading of a map from the specified file path.
+     *
+     * @param p_filePath      The file path of the map.
+     * @param shouldCreateNew A boolean flag indicating whether a new map should be created if the specified file doesn't exist.
+     * @return A message indicating the status of the map loading operation.
+     * @throws InvalidMapException      If the map is invalid.
+     * @throws AbsentTagException       If a required tag is absent.
+     * @throws ResourceNotFoundException If the specified resource is not found.
+     * @throws InvalidInputException    If the input is invalid.
+     * @throws EntityNotFoundException  If an entity is not found.
+     */
      public String handleLoadMap(String p_filePath, boolean shouldCreateNew)
                throws InvalidMapException,
                AbsentTagException,
@@ -77,11 +99,30 @@ public class EditMapAdapter implements StandaloneCommand {
           }
      }
 
+     /**
+     * Handles the loading of a map from the specified file path.
+     *
+     * @param p_filePath The file path of the map.
+     * @return A message indicating the status of the map loading operation.
+     * @throws AbsentTagException       If a required tag is absent.
+     * @throws InvalidMapException      If the map is invalid.
+     * @throws ResourceNotFoundException If the specified resource is not found.
+     * @throws InvalidInputException    If the input is invalid.
+     * @throws EntityNotFoundException  If an entity is not found.
+     */
      public String handleLoadMap(String p_filePath) throws AbsentTagException, InvalidMapException,
                ResourceNotFoundException, InvalidInputException, EntityNotFoundException {
           return this.handleLoadMap(p_filePath, true);
      }
 
+     /**
+     * Reads continents from the provided BufferedReader and adds them to the map.
+     *
+     * @param p_reader BufferedReader containing map data
+     * @throws InvalidInputException if the input is invalid
+     * @throws InvalidMapException  if the map is invalid
+     * @throws AbsentTagException   if a required tag is absent
+     */
      private void readContinents(BufferedReader p_reader)
                throws InvalidInputException, InvalidMapException, AbsentTagException {
           String l_currentLine;
@@ -104,6 +145,14 @@ public class EditMapAdapter implements StandaloneCommand {
           }
      }
 
+     /**
+     * Reads countries from the provided BufferedReader and adds them to the map.
+     *
+     * @param p_reader BufferedReader containing map data
+     * @throws EntityNotFoundException if the entity is not found
+     * @throws InvalidMapException     if the map is invalid
+     * @throws AbsentTagException      if a required tag is absent
+     */
      private void readCountries(BufferedReader p_reader)
                throws EntityNotFoundException, InvalidMapException, AbsentTagException {
           String l_currentLine;
@@ -128,6 +177,13 @@ public class EditMapAdapter implements StandaloneCommand {
 
      }
 
+     /**
+     * Reads neighbors from the provided BufferedReader and adds them to the corresponding countries.
+     *
+     * @param p_reader BufferedReader containing map data
+     * @throws AbsentTagException if a required tag is absent
+     * @throws InvalidMapException if the map is invalid
+     */
      private void readNeighbours(BufferedReader p_reader) throws AbsentTagException, InvalidMapException {
           String l_currentLine;
           try {
@@ -158,11 +214,24 @@ public class EditMapAdapter implements StandaloneCommand {
           }
      }
 
+     /**
+     * Checks if the line contains model data of a specific type.
+     *
+     * @param p_currentLine   the current line of text
+     * @param p_mapModelType the type of map model
+     * @return true if the line has model data, otherwise false
+     */
      private boolean doLineHasModelData(String p_currentLine, MapModelTypes p_mapModelType) {
           return p_currentLine.substring(p_currentLine.indexOf("[") + 1, p_currentLine.indexOf("]"))
                     .equalsIgnoreCase(p_mapModelType.getJsonValue());
      }
 
+     /**
+     * Retrieves components from a line of text representing model data.
+     *
+     * @param p_line the line of text
+     * @return a list of model components
+     */
      public List<String> getModelComponents(String p_line) {
           try {
                if (!p_line.isEmpty() && p_line.contains(" ")) {
@@ -180,6 +249,17 @@ public class EditMapAdapter implements StandaloneCommand {
           return new ArrayList<>();
      }
 
+     /**
+     * Executes the command to load a map from a file.
+     *
+     * @param p_commandValues the list of command values
+     * @return a message indicating the result of the operation
+     * @throws InvalidMapException        if the map is invalid
+     * @throws ResourceNotFoundException if the resource is not found
+     * @throws InvalidInputException     if the input is invalid
+     * @throws AbsentTagException         if a required tag is absent
+     * @throws EntityNotFoundException    if the entity is not found
+     */
      @Override
      public String execute(List<String> p_commandValues)
                throws InvalidMapException,
