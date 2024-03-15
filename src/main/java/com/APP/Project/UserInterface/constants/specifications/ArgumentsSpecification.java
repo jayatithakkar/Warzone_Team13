@@ -1,14 +1,21 @@
 package com.APP.Project.UserInterface.constants.specifications;
 
 /**
- * This enum is specifies the required number of arguments whether it is supposed to be equal to, at mox or should be minimum to the number specified.
+ * Specifies types for the # of required values for the argument
  *
- * @author Jayati Thakkar
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
-
 public enum ArgumentsSpecification {
+    /**
+     * An argument should be equal
+     */
+    EQUAL,
+    /**
+     * An argument should have minimum number of values
     MIN,
-    MAX,
-    EQUAL
+    /**
+     * An argument should have maximum number of values
+     */
+    MAX
 }
