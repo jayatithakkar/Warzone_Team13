@@ -1,26 +1,20 @@
 package com.APP.Project.UserInterface;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.APP.Project.InterfaceCoreMiddleware;
 import com.APP.Project.Main;
-import com.APP.Project.UserInterface.constants.states.UserInteractionState;
-import com.APP.Project.UserInterface.exceptions.InvalidArgumentException;
-import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
-import com.APP.Project.UserInterface.layouts.PlayerClassLayout;
 import com.APP.Project.UserInterface.mappers.UserCommandsMapper;
 import com.APP.Project.UserInterface.models.UsersCommands;
 import com.APP.Project.UserInterface.service.RequestsService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.APP.Project.UserInterface.constants.states.UserInteractionState;
+import com.APP.Project.UserInterface.exceptions.InvalidArgumentException;
+import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
+import com.APP.Project.InterfaceCoreMiddleware;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.LinkedList;
-import java.util.List;
 import java.io.InputStream;
-import java.util.Map;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -30,23 +24,26 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Jayati Thakkar
  * @version 1.0
  */
-
 public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
 
-    //used to convert user input to a form understandable by the engine
-    private static UserCommandsMapper d_commandMapperForUser;
+    /**
+     * used to convert user input to a form understandable by the engine
+     */
+    private static UserCommandsMapper d_UserCommandMapper;
 
-    //it indicates the current state of the user
-    private UserInteractionState d_currentUserState = UserInteractionState.WAIT;
+    /**
+     * it indicates the current state of the user
+     */
+    private UserInteractionState d_interactionState = UserInteractionState.WAIT;
+
 
     /**
      * returns the current user state
      *
      * @return Value of the state of user interaction
      */
-
     public UserInteractionState getInteractionState() {
-        return d_currentUserState;
+        return d_interactionState;
     }
 
     /**
@@ -54,17 +51,15 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
      *
      * @param p_interactionState  indicates the state of the user
      */
-
-
     public void setInteractionState(UserInteractionState p_interactionState) {
-        this.d_currentUserState = p_interactionState;
+        this.d_interactionState = p_interactionState;
     }
 
     public final Thread d_thread;
 
-    private Queue<UsersCommands> d_userCommandQueue = new LinkedList<>();
+    private final Queue<UsersCommands> d_userCommandQueue = new LinkedList<>();
 
-    private RequestsService d_requestService = new RequestsService();
+    private final RequestsService d_requestService;
 
     /**
      * It can lock the shared data
@@ -72,13 +67,19 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
     ReentrantLock d_reentrantLock = new ReentrantLock();
 
     /**
+     * It is an instance of <code>Main</code>
+     */
+    private final Main d_application;
+
+    /**
      * default constructor
      *
      * defines thread and assigns the mapper class
      */
-    public UserInterfaceClass() {
+    public UserInterfaceClass(Main p_application) {
+        d_application = p_application;
         d_thread = new Thread(this);
-        d_commandMapperForUser = new UserCommandsMapper();
+        d_UserCommandMapper = new UserCommandsMapper();
         d_requestService = new RequestsService();
     }
 
@@ -86,7 +87,6 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
      * Stream for the users to add the input
      * @param p_inputStream an object of input stream class for the user to enter the data from
      */
-
     public void setIn(InputStream p_inputStream) {
         System.setIn(p_inputStream);
     }
@@ -96,31 +96,36 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
      * @return the string entered by the user
      * @throws IOException
      */
-
     private String waitForUserInput() throws IOException {
         // Enter data using BufferReader
         BufferedReader l_bufferedReader =
                 new BufferedReader(new InputStreamReader(System.in));
 
-        // Reading data using readLine
-        return l_bufferedReader.readLine();
+        // Reading data using readLine and trim the input string
+        return l_bufferedReader.readLine().trim();
     }
 
     /**
      * whenever thread is executed, this method is called
      */
-
     public void run() {
-        while (Main.isRunning()) {
+        while (d_application.isRunning()) {
             try {
+                d_reentrantLock.lockInterruptibly();
                 try {
-                    d_reentrantLock.lockInterruptibly();
                     if (this.getInteractionState() == UserInteractionState.WAIT) {
                         try {
                             String l_userInput = this.waitForUserInput();
+
+                            if(l_userInput.trim().equals("exit"))
+                            {
+                                System.out.println("Thanks for playing, shutting down the game.");
+                                System.exit(0);
+                            }
+
                             // Takes user input and interprets it for further processing
-                            UsersCommands l_userCommand = d_commandMapperForUser.toUserCommand(l_userInput);
-//                            System.out.print("workingnnnn\n");
+                            UsersCommands l_userCommand = d_UserCommandMapper.toUserCommand(l_userInput);
+
                             this.setInteractionState(UserInteractionState.IN_PROGRESS);
                             // Takes action according to command instructions.
                             d_requestService.takeAction(l_userCommand);
@@ -130,7 +135,6 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
                                 this.setInteractionState(UserInteractionState.WAIT);
                             }
                         } catch (IOException p_e) {
-                            p_e.printStackTrace();
                         }
                     }
                     if (!d_userCommandQueue.isEmpty()) {
@@ -138,10 +142,10 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
                         // Takes action according to command instructions.
                         d_requestService.takeAction(l_userCommand);
                     }
-                } catch (InvalidArgumentException | InvalidCommandException e) {
+                } catch (InvalidArgumentException | InvalidCommandException p_exception) {
                     // Show exception message
                     // In Graphical User Interface, we can show different modals respective to the exception.
-                    System.out.println(e.getMessage());
+                    System.out.println(p_exception.getMessage());
 
                     if (this.getInteractionState() == UserInteractionState.IN_PROGRESS) {
                         this.setInteractionState(UserInteractionState.WAIT);
@@ -159,7 +163,6 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
      * @param p_message message that asks user to input
      * @return
      */
-
     @Override
     public String askForUserInput(String p_message) {
         try {
@@ -170,11 +173,13 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
                     System.out.println(p_message);
                 }
                 ObjectMapper mapper = new ObjectMapper();
-                UsersCommands l_userCommand = d_commandMapperForUser.toUserCommand(this.waitForUserInput());
-                if (l_userCommand.getPredefinedUserCommand().isGameEngineCommand()) {
+                UsersCommands l_userCommand = d_UserCommandMapper.toUserCommand(this.waitForUserInput());
+                if (l_userCommand.getPredefinedUserCommand().isOrderCommand()) {
                     return mapper.writeValueAsString(l_userCommand);
-                } else {
+                } else if (l_userCommand.getPredefinedUserCommand().isGameEngineCommand()) {
                     d_userCommandQueue.add(l_userCommand);
+                } else {
+                    this.stderr("Invalid command!");
                 }
                 return "";
             } catch (IOException p_ioException) {
@@ -194,9 +199,8 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
      *
      * @param p_message this is the message to print
      */
-
     public void stdout(String p_message) {
-        if (p_message.equals("GAME_ENGINE_TO_WAIT")) {
+        if (p_message.equals("GAME_ENGINE_STOPPED")) {
             this.setInteractionState(UserInteractionState.WAIT);
         } else {
             System.out.println(p_message);
