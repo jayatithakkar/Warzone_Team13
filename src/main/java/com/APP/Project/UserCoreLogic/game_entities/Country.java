@@ -1,159 +1,158 @@
 package com.APP.Project.UserCoreLogic.game_entities;
 
-import java.util.Objects;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
- * This class is to set and get the country variables
+ * This class provides the getter and setter methods for the Country entity
  *
  * @author Sushant Sinha
  */
 public class Country {
     /**
-     * Auto-generated ID of the country.
+     * Generate ID of the country.
      */
-    private Integer d_uniqueCountryId;
-    private String d_uniqueCountryName;
-    private Continent d_insideContinent;
-    private List<Country> d_neighborCountriesList;
-    private Player d_ownedByPlayer;
+    private final Integer COUNTRY_ID;
+    private String d_countryName;
+    private Continent d_continent;
+    private List<Country> d_neighbourCountries;
+    private Player d_ownedBy;
     private int d_numberOfArmies;
 
     /**
-     * Used for generating unique IDs for each country.
+     * Needed for tracking the used IDs for the Country.
      */
-    public static int d_counter = 0;
+    public static int d_SerialNumber = 0;
 
     /**
-     * Assigns country id using counter to the country and initializes the neighbor countries ArrayList.
+     * Assigns country id to the country and creates a list of neighbouring countries.
      */
     public Country() {
-        this.d_uniqueCountryId = ++d_counter;
-        d_neighborCountriesList = new ArrayList<>();
+        this.COUNTRY_ID = ++d_SerialNumber;
+        d_neighbourCountries = new ArrayList<>();
     }
 
     /**
-     * Assigns country id using the argument passed and initializes the neighbour countries ArrayList.
+     * Assigns country id to the country and creates a list of neighbouring countries.
      *
-     * @param p_uniqueCountryId
+     * @param p_countryId Country id.
      */
-    public Country(int p_uniqueCountryId) {
-        this.d_uniqueCountryId = p_uniqueCountryId;
-        d_neighborCountriesList = new ArrayList<>();
+    public Country(int p_countryId) {
+        this.COUNTRY_ID = p_countryId;
+        d_neighbourCountries = new ArrayList<>();
     }
 
     /**
-     * Get the ID for the country.
+     * Sets the ID for the country.
      *
-     * @return the country ID.
+     * @return Value of the country ID.
      */
-    public Integer getUniqueCountryId() {
-        return d_uniqueCountryId;
+    public Integer getCountryId() {
+        return COUNTRY_ID;
     }
 
 
     /**
-     * Set the country name.
+     * Sets the name for the country.
      *
-     * @param p_uniqueCountryName Value of the country name.
+     * @param p_countryName Value of the country name.
      */
-    public void setCountryName(String p_uniqueCountryName) {
-        d_uniqueCountryName = p_uniqueCountryName;
+    public void setCountryName(String p_countryName) {
+        d_countryName = p_countryName;
     }
 
     /**
-     * Get the country name.
+     * Gets the name of this country.
      *
      * @return this name of the country.
      */
-    public String getUniqueCountryName() {
-        return d_uniqueCountryName;
+    public String getCountryName() {
+        return d_countryName;
     }
 
     /**
-     * Set the continent inside which this country is.
+     * Sets the continent inside which this country is.
      *
-     * @param p_insideContinent Represents the value of continent.
+     * @param p_continent Represents the value of continent.
      */
-    public void setInsideContinent(Continent p_insideContinent) {
-        d_insideContinent = p_insideContinent;
+    public void setContinent(Continent p_continent) {
+        d_continent = p_continent;
     }
 
 
     /**
-     * Get the continent inside which this country is.
+     * Gets the continent inside which this is country is.
      *
      * @return continent of this country.
      */
-    public Continent getInsideContinent() {
-        return d_insideContinent;
+    public Continent getContinent() {
+        return d_continent;
     }
 
     /**
-     * Set the list of the neighboring countries.
+     * Sets the list of the neighboring countries.
      *
-     * @param p_neighborCountriesList List of neighboring countries.
+     * @param p_neighbourCountries List of neighboring countries.
      */
-    public void setNeighborCountriesList(List<Country> p_neighborCountriesList) {
-        d_neighborCountriesList = p_neighborCountriesList;
+    public void setNeighbourCountries(List<Country> p_neighbourCountries) {
+        d_neighbourCountries = p_neighbourCountries;
     }
 
     /**
-     * Get the list of neighboring countries.
+     * Gets the list of neighboring countries.
      *
      * @return Value of neighboring countries list.
      */
-    public List<Country> getNeighborCountriesList() {
-        return d_neighborCountriesList;
+    public List<Country> getNeighbourCountries() {
+        return d_neighbourCountries;
     }
 
     /**
-     * Add the neighbor to the country.
+     * Adds a neighbor to the country.
      *
-     * @param p_neighborCountry Value of the neighbor country.
+     * @param p_neighbourCountry Value of the neighbor country.
      */
-    public void addNeighbourCountry(Country p_neighborCountry) {
-        d_neighborCountriesList.add(p_neighborCountry);
+    public void addNeighbourCountry(Country p_neighbourCountry) {
+        d_neighbourCountries.add(p_neighbourCountry);
     }
 
     /**
-     * Remove the neighbor from the country's neighboring list.
+     * Removes a neighbor from the country.
      *
-     * @param p_neighborCountry Value of the neighbor country.
+     * @param p_neighbourCountry Value of the neighbor country.
      */
-    public void removeNeighborCountry(Country p_neighborCountry) {
-        d_neighborCountriesList.remove(p_neighborCountry);
+    public void removeNeighbourCountry(Country p_neighbourCountry) {
+        d_neighbourCountries.remove(p_neighbourCountry);
     }
 
     /**
-     * Reset the counter to 0 (zero). 
-     * Needed when the engine resets.
+     * Resets the serial number to zero. Needed when the map engine is being reset.
      */
-    public static void resetCounter() {
-        d_counter = 0;
+    public static void resetSerialNumber() {
+        d_SerialNumber = 0;
     }
 
     /**
-     * Get Player which owns the country.
+     * Getter method to determine who owns this country.
      *
-     * @return Player.
+     * @return country owner object.
      */
     public Player getOwnedBy() {
-        return d_ownedByPlayer;
+        return d_ownedBy;
     }
 
     /**
-     * Set Player which owns the country.
+     * Setter method for country owner.
      *
-     * @param p_ownedByPlayer Country owner object.
+     * @param p_ownedBy Country owner object.
      */
-    public void setOwnedBy(Player p_ownedByPlayer) {
-        d_ownedByPlayer = p_ownedByPlayer;
+    public void setOwnedBy(Player p_ownedBy) {
+        d_ownedBy = p_ownedBy;
     }
 
     /**
-     * Get the number of armies that are placed on this country by the Player
+     * Gets the number of armies that are placed on this country by the player <code>getOwnedBy</code>
      *
      * @return Value of the count of armies.
      */
@@ -162,7 +161,7 @@ public class Country {
     }
 
     /**
-     * Set the number of armies for this country placed by the Player.
+     * Sets the number of armies for this country placed by the player.
      *
      * @param p_numberOfArmies Values of the count of armies.
      */
@@ -181,8 +180,8 @@ public class Country {
         if (this == p_l_o) return true;
         if (p_l_o == null || getClass() != p_l_o.getClass()) return false;
         Country l_l_country = (Country) p_l_o;
-        return d_uniqueCountryId.equals(l_l_country.d_uniqueCountryId) &&
-                d_insideContinent.equals(l_l_country.d_insideContinent);
+        return COUNTRY_ID.equals(l_l_country.COUNTRY_ID) &&
+                d_continent.equals(l_l_country.d_continent);
     }
 
     /**
@@ -192,6 +191,6 @@ public class Country {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(d_uniqueCountryId, d_insideContinent);
+        return Objects.hash(COUNTRY_ID, d_continent);
     }
 }
