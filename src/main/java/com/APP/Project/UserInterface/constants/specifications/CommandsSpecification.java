@@ -1,14 +1,23 @@
 package com.APP.Project.UserInterface.constants.specifications;
 
 /**
- * This enum specifies whether command can run alone with no values, with values or it needs at least one argument.
+ * Specification types to run command
  *
- * @author Jayati Thakkar
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
-
 public enum CommandsSpecification {
-    RUN_ALONE,
-    AT_LEAST_ONE,
-    CAN_RUN_ALONE_WITH_VALUE
+    /**
+     * No Arguements needed for this command to run
+     */
+    CAN_RUN_ALONE,
+    /**
+     * Arguement values required for the command to run
+     * For this specification, command layout will use ArgumentsSpecification to indicate # of arguments it needs to run
+     */
+    CAN_RUN_ALONE_WITH_VALUE,
+    /**
+     * One arguement and value atleast needed
+     */
+    AT_LEAST_ONE
 }
