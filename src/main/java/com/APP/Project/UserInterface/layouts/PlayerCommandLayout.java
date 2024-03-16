@@ -1,134 +1,106 @@
 package com.APP.Project.UserInterface.layouts;
 
-import com.APP.Project.Main;
-import com.APP.Project.UserCoreLogic.gamePlay.services.ManageGamePlayerService;
-import com.APP.Project.UserInterface.constants.states.GamingStateInfo;
+import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
 import com.APP.Project.UserInterface.layouts.commands.CommonCommand;
 import com.APP.Project.UserInterface.layouts.commands.GamePlayCommand;
 import com.APP.Project.UserInterface.layouts.commands.MapEditorCommand;
-import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * This class maps the command-layout classes to their game state. The class can
- * be used without creating any instance.
+ * The command-layout classes are mapped to their game states by this class. No instances of the class need to be created in order to use it.
+ *
+ * @author Raj Kumar Ramesh
+ * @version 1.0
  */
 public class PlayerCommandLayout {
     /**
-     * The list of all classes
+     * List of all class in every GameState (a game state) is listed.
      */
-    private static Map<GamingStateInfo, CommandLayout> d_GamePlayStateMap = new HashMap<>();
+    private final static List<PredefinedUserCommands> d_GameCommandLayouts = new ArrayList<>();
 
     /**
-     * Object that stores user commands for map editor game state
+     * The object contains user commands for GAME_PLAY game state.
      */
-    private static final MapEditorCommand MAP_EDITOR_COMMAND_LAYOUT = new MapEditorCommand();
+    private static final CommonCommand COMMON_LAYOUT = new CommonCommand();
 
     /**
-     * Object that stores user commands for gameplay state
+     * The object contains user commands for Map_Editor game state.
      */
-    private static final GamePlayCommand GAME_PLAY_COMMAND_LAYOUT = new GamePlayCommand();
+    private static final MapEditorCommand MAP_EDITOR_LAYOUT = new MapEditorCommand();
 
     /**
-     * Object that stores user commands for any game state
+     * The object contains user commands for GAME_PLAY game state.
      */
-    private static final CommonCommand COMMON_COMMAND_LAYOUT = new CommonCommand();
+    private static final GamePlayCommand GAME_PLAY_LAYOUT = new GamePlayCommand();
 
     /*
-     * Stores the commands according to the game state
+     * Stores the commands to it's game state.
      */
     static {
-        d_GamePlayStateMap.put(
-                GamingStateInfo.MAP_EDITOR,
-                PlayerCommandLayout.MAP_EDITOR_COMMAND_LAYOUT);
-
-        d_GamePlayStateMap.put(
-                GamingStateInfo.PLAYING,
-                PlayerCommandLayout.GAME_PLAY_COMMAND_LAYOUT);
+        d_GameCommandLayouts.addAll(COMMON_LAYOUT.getUserCommands());
+        d_GameCommandLayouts.addAll(MAP_EDITOR_LAYOUT.getUserCommands());
+        d_GameCommandLayouts.addAll(GAME_PLAY_LAYOUT.getUserCommands());
     }
 
     /**
-     * Gets matched the user command It decides the which list of predefined command
-     * using the game state Then it
-     * matches the user command with the head of the command provided
+     * Complies with the user's instruction Using the game state, it determines which predefined command list to use. 
+     * Next, it * compares the supplied command head with the user's command.
      *
-     * @param p_keyOfCommand key that needs to matched to list of predefined
-     *                       commands
-     * @return Value that macthes between user command and key value
-     * @throws InvalidCommandException If no command had found matching the provided
-     *                                 head of the command.
+     * @param p_headOfCommand head of the command which needs to be matched 
+     * @return Value of user command that matched with p_headOfCommand
+     * @throws InvalidCommandException If no command found thow exception.
      */
-    public static PredefinedUserCommands getUserCommand(String p_keyOfCommand) throws InvalidCommandException {
-        // Gets the list of command from the layout, and then it is being streamed over
-        // to filter the list
-//        System.out.println("from getusercommand "+p_keyOfCommand);
-        List<PredefinedUserCommands> l_globalCommandList = PlayerCommandLayout.findByKeyOfCommand(COMMON_COMMAND_LAYOUT,
-                p_keyOfCommand);
-        return l_globalCommandList.size() > 0 ? l_globalCommandList.get(0)
-                : PlayerCommandLayout.getUsingKeyOfHead(d_GamePlayStateMap.get(Main.getGameState()),
-                        p_keyOfCommand);
+    public static PredefinedUserCommands matchAndGetUserCommand(String p_headOfCommand) throws InvalidCommandException {
+        return PlayerCommandLayout.findFirstByHeadOfCommand(p_headOfCommand);
     }
 
     /**
-     * Finds the first matched command from the predefined command list using the
-     * key of the command
-     * 
-     * @param p_commandLayout Represents the command sub class.
-     * @param p_headOfCommand       Value of the key to find the command
-     * @return Value of found command
+     * Uses the head of the command headOfCommand data member to get the list of matched PredefinedUserCommands.
+     *
+     * @param p_headOfCommand Value of head command tha needs to be matched
+     * @return Value of found PredefinedUserCommands.
      */
-    private static List<PredefinedUserCommands> findByKeyOfCommand(CommandLayout p_commandLayout,
-            String p_headOfCommand) {
-//                System.out.println("\ninside findbykeyofcommand & comm is "+p_keyOfCommand);
-//                System.out.println("from fetchuser = "+p_commandLayoutClass.fetchUserCommands());
-                
-//                System.out.println("\nfunction returns: "+p_commandLayoutClass.fetchUserCommands().stream().filter((userCommand) -> userCommand.getHeadCommand().equals(p_keyOfCommand)).collect(Collectors.toList()));
-                return p_commandLayout.fetchUserCommands()
-                .stream().filter((userCommand) -> userCommand.getHeadCommand().equals(p_headOfCommand))
-                .collect(Collectors.toList());
-
+    private static List<PredefinedUserCommands> findByHeadOfCommand(String p_headOfCommand) {
+        return d_GameCommandLayouts
+                .stream().filter((userCommand) ->
+                        userCommand.getHeadCommand().equals(p_headOfCommand)
+                ).collect(Collectors.toList());
     }
 
     /**
-     * Finds the first matched command from the predefined command list using the
-     * key of the command
-     * 
-     * @param p_commandLayout Represents the command sub class.
-     * @param p_headOfCommand       Value of the key to find the command
-     * @return Value of found command
-     * @throws InvalidCommandException If command not found in this gamestate
+     * Uses the head of the command headOfCommand data member to find the first matched PredefinedUserCommands.
+     *
+     * @param p_headOfCommand Value of head command that needs to be matched
+     * @return Value of found PredefinedUserCommands.
+     * @throws InvalidCommandException If command not found throw exception.
      */
-    private static PredefinedUserCommands getUsingKeyOfHead(CommandLayout p_commandLayout, String p_headOfCommand) {
+    private static PredefinedUserCommands findFirstByHeadOfCommand(String p_headOfCommand) {
         try {
-            return PlayerCommandLayout.findByKeyOfCommand(p_commandLayout, p_headOfCommand).get(0);
+            return PlayerCommandLayout.findByHeadOfCommand(p_headOfCommand).get(0);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             throw new InvalidCommandException("Unrecognized command!");
         }
     }
 
     /**
-     * Gets the mappings between user-commands and java classnames for mapeditor
-     * game state
-     * 
-     * @return the list of the mappings.
+     * Gets the instance having the user command list for MAP_EDITOR game state.
+     *
+     * @return Value of instance having the list of MAP_EDITOR user commands.
      */
-    private static MapEditorCommand getMapEditorClassLayout() {
-        return PlayerCommandLayout.MAP_EDITOR_COMMAND_LAYOUT;
+    private static MapEditorCommand getMapEditorLayout() {
+        return PlayerCommandLayout.MAP_EDITOR_LAYOUT;
     }
 
     /**
-     * Gets the mappings between user-commands and java classnames for gameplay game
-     * state
-     * 
-     * @return the list of the mappings.
+     * Gets the instance having the user command list for GAME_PLAY game state.
+     *
+     * @return Value of instance having the list of GAME_PLAY user commands.
      */
-    private static GamePlayCommand getGamePlayClassLayout() {
-        return PlayerCommandLayout.GAME_PLAY_COMMAND_LAYOUT;
+    private static GamePlayCommand getGamePlayLayout() {
+        return PlayerCommandLayout.GAME_PLAY_LAYOUT;
     }
-
 }

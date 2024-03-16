@@ -9,13 +9,26 @@ import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class has all the commands entered by user during the MAP_EDITOR game state.
+ *
+ * @author Raj Kumar Ramesh
+ * @version 1.0
+ */
 public class MapEditorCommand implements CommandLayout {
-
+    /**
+    * The list of user commands entered during MAP_EDITOR state of GameState
+     */
     List<PredefinedUserCommands> d_userCommands;
 
-    // Default constructor
+    /**
+     * Constructor sets the predefined user commands. Commands used to check structure of command enetered by user.
+     */
     public MapEditorCommand() {
         d_userCommands = new ArrayList<>();
+
+        // Example of the below command:
+        // > editcontinent -add continentID continentvalue -remove continentID
         PredefinedUserCommands l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editcontinent");
         l_userCommand.setCommandSpecification(CommandsSpecification.AT_LEAST_ONE);
@@ -29,6 +42,7 @@ public class MapEditorCommand implements CommandLayout {
                 1,
                 ArgumentsSpecification.EQUAL
         ));
+        l_userCommand.setGamePhaseMethodName("editContinent");
         d_userCommands.add(l_userCommand);
 
         // Example of the below command:
@@ -46,6 +60,7 @@ public class MapEditorCommand implements CommandLayout {
                 1,
                 ArgumentsSpecification.EQUAL
         ));
+        l_userCommand.setGamePhaseMethodName("editCountry");
         d_userCommands.add(l_userCommand);
 
         // Example of the below command:
@@ -63,13 +78,7 @@ public class MapEditorCommand implements CommandLayout {
                 2,
                 ArgumentsSpecification.EQUAL
         ));
-        d_userCommands.add(l_userCommand);
-
-        // Example of the below command:
-        // > showmap
-        l_userCommand = new PredefinedUserCommands();
-        l_userCommand.setHeadCommand("showmap");
-        l_userCommand.setCommandSpecification(CommandsSpecification.RUN_ALONE);
+        l_userCommand.setGamePhaseMethodName("editNeighbor");
         d_userCommands.add(l_userCommand);
 
         // Example of the below command:
@@ -77,6 +86,7 @@ public class MapEditorCommand implements CommandLayout {
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("savemap");
         l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        l_userCommand.setGamePhaseMethodName("saveMap");
         d_userCommands.add(l_userCommand);
 
         // Example of the below command:
@@ -84,26 +94,25 @@ public class MapEditorCommand implements CommandLayout {
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editmap");
         l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        l_userCommand.setGamePhaseMethodName("editMap");
         d_userCommands.add(l_userCommand);
 
         // Example of the below command:
         // > validatemap
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("validatemap");
-        l_userCommand.setCommandSpecification(CommandsSpecification.RUN_ALONE);
-        d_userCommands.add(l_userCommand);
-
-        // Example of the below command:
-        // > loadmap filename
-        l_userCommand = new PredefinedUserCommands();
-        l_userCommand.setHeadCommand("loadmap");
-        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE);
+        l_userCommand.setGamePhaseMethodName("validateMap");
         d_userCommands.add(l_userCommand);
     }
 
-    // Get and list predefined commands
+    /**
+     * {@inheritDoc}
+     *
+     * @return Value of the list of user commands for this class.
+     */
     @Override
-    public List<PredefinedUserCommands> fetchUserCommands() {
+    public List<PredefinedUserCommands> getUserCommands() {
         return this.d_userCommands;
     }
 }

@@ -1,32 +1,64 @@
 package com.APP.Project.UserInterface.layouts.commands;
 
-import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
 import com.APP.Project.UserInterface.layouts.CommandLayout;
 import com.APP.Project.UserInterface.models.PredefinedUserCommands;
+import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class has all the commands entered by user during the GAME_PLAY game state.
+ *
+ * @author Raj Kumar Ramesh
+ * @version 1.0
+ */
 public class CommonCommand implements CommandLayout {
-    List<PredefinedUserCommands> d_playerCommands;
+    /**
+     * The list of user commands entered during GAME_PLAY state of GameState
+     */
+    List<PredefinedUserCommands> d_userCommands;
 
-    // Default constructor
+    /**
+     * Creates the instance of redefinedUserCommands
+     * Sets variables and adds to list of user commands.
+     */
     public CommonCommand() {
-        d_playerCommands = new ArrayList<>();
-        addCommand("exit", CommandsSpecification.RUN_ALONE);
-        addCommand("loadmap", CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
-    }
-    //  Configuration of the PlayerCommands
-    private void addCommand(String headCommand, CommandsSpecification config) {
-        PredefinedUserCommands command = new PredefinedUserCommands();
-        command.setHeadCommand(headCommand);
-        command.setCommandSpecification(config);
-        d_playerCommands.add(command);
+        d_userCommands = new ArrayList<>();
+
+        PredefinedUserCommands l_userCommand;
+
+        // Example of the below command:
+        // > loadmap filename
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("loadmap");
+        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        l_userCommand.setGamePhaseMethodName("loadMap");
+        d_userCommands.add(l_userCommand);
+
+        // Example of the below command:
+        // > showmap
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("showmap");
+        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE);
+        l_userCommand.setGamePhaseMethodName("showMap");
+        l_userCommand.setGameEngineCommand(true);
+        d_userCommands.add(l_userCommand);
+
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("done");
+        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE);
+        l_userCommand.setOrderCommand(true);
+        d_userCommands.add(l_userCommand);
     }
 
-    // return value of the list of user commands for this class.
+    /**
+     * {@inheritDoc}
+     *
+     * @return Value of the list of user commands.
+     */
     @Override
-    public List<PredefinedUserCommands> fetchUserCommands() {
-        return this.d_playerCommands;
+    public List<PredefinedUserCommands> getUserCommands() {
+        return this.d_userCommands;
     }
 }
