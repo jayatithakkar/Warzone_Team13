@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class shows all countries and continents, armies on each country, ownership, and connectivity in a way that
- * enables efficient game play.
+ * This class is responsible for showing all countries and continents, armies on each country,
+ * ownership, and connectivity in a way that enables efficient game play.
  *
- * @author MILESH
+ * @author Rupal Kapoor
  * @version 1.0
  */
 public class DisplayMapService implements StandaloneCommand {
@@ -30,9 +30,9 @@ public class DisplayMapService implements StandaloneCommand {
     private final LogEntryBuffer d_logEntryBuffer;
 
     /**
-     * Initializes the different objects.
+     * Default constructor to initializes various objects.
      *
-     * @throws EntityNotFoundException Throws if entity not found.
+     * @throws EntityNotFoundException is thrown if the entity not found.
      */
     public DisplayMapService() throws EntityNotFoundException {
         d_gamePlayEngine = GamePlayEngine.getInstance();
@@ -42,10 +42,10 @@ public class DisplayMapService implements StandaloneCommand {
     }
 
     /**
-     * Shows the information of countries owned by player with the army count on each country.
+     * This method denotes the information of countries owned by player with the army count on each country.
      *
-     * @param p_player Player for who information will be displayed.
-     * @return string of player information
+     * @param p_player the player for whom the information will be displayed
+     * @return the string with required player information
      */
     public String showPlayerContent(Player p_player) {
         List<Country> l_countryList = p_player.getAssignedCountries();
@@ -77,11 +77,11 @@ public class DisplayMapService implements StandaloneCommand {
     }
 
     /**
-     * Initiates all methods of ShowMapAdapter file.
+     * This method is used to initiate all the methods of ShowMapAdapter file
      *
-     * @param p_commandValues Value of parameters entered by the user.
-     * @return Value of string of continent and neighbour country information.
-     * @throws EntityNotFoundException If no player is available.
+     * @param p_commandValues the value of parameters entered by the user
+     * @return the value of string of continent and neighbour country information
+     * @throws EntityNotFoundException is thrown in case no player is available
      */
     @Override
     public String execute(List<String> p_commandValues) throws EntityNotFoundException, ResourceNotFoundException, InvalidInputException {
