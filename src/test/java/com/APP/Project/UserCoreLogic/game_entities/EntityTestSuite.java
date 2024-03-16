@@ -20,5 +20,5 @@ import org.junit.runners.Suite;
         NegotiateOrderTest.class
 })
 public class EntityTestSuite {
-    
+    // This class remains empty, it is used only as a holder for the above annotations
 }
