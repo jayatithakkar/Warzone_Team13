@@ -8,28 +8,27 @@ import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
 import com.APP.Project.UserCoreLogic.Container.PlayerContainer;
 
 /**
- * This class handles `gameplayer` user command to add and/or remove game player from the game.
+ * This class deals with managing the gameplayer user command to add and/or remove game player from the game
  *
- * @author Brijesh Lakkad
- * @author MILESH
+ * @author Rupal Kapoor
  * @version 1.0
  */
 public class ManageGamePlayerService {
 
     /**
-     * Engine to store and retrieve map data.
+     * The game play engine to store and retrieve map data.
      */
     private final GamePlayEngine d_gamePlayEngine;
 
     /**
-     * Player repository.
+     * This denotes the player container.
      */
     private final PlayerContainer d_playerRepository;
 
     private final LogEntryBuffer d_logEntryBuffer;
 
     /**
-     * Initialization of different objects.
+     * Default constructor to instantiate objects.
      */
     public ManageGamePlayerService() {
         d_gamePlayEngine = GamePlayEngine.getInstance();
@@ -38,11 +37,11 @@ public class ManageGamePlayerService {
     }
 
     /**
-     * Adds the player to the list stored at Game Play engine.
+     * This method is used to add the player to the list stored at Game Play engine.
      *
-     * @param p_playerName Value of the player name.
-     * @return Value of response of the request.
-     * @throws InvalidInputException Throws if processing the player creation.
+     * @param p_playerName the value of the player's name.
+     * @return the value of response of the request.
+     * @throws InvalidInputException is thrown in case of processing the player creation.
      */
     public String add(String p_playerName) throws InvalidInputException {
         if (!d_playerRepository.existByPlayerName(p_playerName)) {
@@ -61,11 +60,11 @@ public class ManageGamePlayerService {
     }
 
     /**
-     * Removes the player from the list using the name.
+     * This method is responsible for removing the player from the list using the name.
      *
-     * @param p_playerName Value of the continent name.
-     * @return Value of response of the request.
-     * @throws EntityNotFoundException If the player with provided name not found.
+     * @param p_playerName The continent name.
+     * @return The value of response of the request.
+     * @throws EntityNotFoundException is thrown in case the player with the provided name is not found.
      */
     public String remove(String p_playerName) throws EntityNotFoundException {
         // We can check if the continent exists before filtering?
