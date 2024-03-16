@@ -10,12 +10,10 @@ import java.util.Objects;
  * @author Jayati Thakkar
  * @version 1.0
  */
-
 public class CommandLineArgument {
 
-    private String d_argument;
-    private int d_values;
-
+    private String d_argumentKey;
+    private int d_numOfValues;
     private ArgumentsSpecification d_specification;
 
     /**
@@ -23,14 +21,13 @@ public class CommandLineArgument {
      * parameterized constructor
      *
      *
-     * @param p_argument
-     * @param p_values
+     * @param p_argumentKey
+     * @param p_numOfValues
      * @param p_specification
      */
-
-    public CommandLineArgument(String p_argument, int p_values, ArgumentsSpecification p_specification) {
-        d_argument = p_argument;
-        d_values = p_values;
+    public CommandLineArgument(String p_argumentKey, int p_numOfValues, ArgumentsSpecification p_specification) {
+        d_argumentKey = p_argumentKey;
+        d_numOfValues = p_numOfValues;
         d_specification = p_specification;
     }
 
@@ -39,47 +36,45 @@ public class CommandLineArgument {
      *
      * @return
      */
-    public String getD_argument() {
-        return d_argument;
+    public String getArgumentKey() {
+        return d_argumentKey;
     }
 
-    public void setD_argument(String d_argument) {
-        this.d_argument = d_argument;
+    public void setArgumentKey(String p_argumentKey) {
+        d_argumentKey = p_argumentKey;
     }
 
-    public int getD_values() {
-        return d_values;
+    public int getNumOfValues() {
+        return d_numOfValues;
     }
 
-    public void setD_values(int d_values) {
-        this.d_values = d_values;
+    public void setNumOfValues(int p_numOfValues) {
+        d_numOfValues = p_numOfValues;
     }
 
-    public ArgumentsSpecification getD_specification() {
+    public ArgumentsSpecification getSpecification() {
         return d_specification;
     }
 
-    public void setD_specification(ArgumentsSpecification d_specification) {
-        this.d_specification = d_specification;
+    public void setSpecification(ArgumentsSpecification p_specification) {
+        d_specification = p_specification;
     }
 
     /**
      * checks if the commands arguments are equal or not
      *
-     * @param o  provided object to check
+     * @param l_p_o  provided object to check
      * @return true if it is same; false otherwise
      */
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CommandLineArgument that = (CommandLineArgument) o;
-        return d_values == that.d_values && Objects.equals(d_argument, that.d_argument) && d_specification == that.d_specification;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(d_argument, d_values, d_specification);
+    public boolean equals(Object l_p_o) {
+        if (this == l_p_o) return true;
+        if (l_p_o == null || getClass() != l_p_o.getClass()) return false;
+        CommandLineArgument l_that = (CommandLineArgument) l_p_o;
+        return d_numOfValues == l_that.d_numOfValues &&
+                Objects.equals(d_argumentKey, l_that.d_argumentKey) &&
+                d_specification == l_that.d_specification;
     }
 }
+
