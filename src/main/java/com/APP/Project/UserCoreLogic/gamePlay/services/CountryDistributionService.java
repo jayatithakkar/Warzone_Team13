@@ -17,14 +17,14 @@ import java.util.List;
 import static java.lang.Math.floor;
 
 /**
- * This class handles the distribution of countries among all the players.
+ * This service manages distribution of countries among all the players.
  *
- * @author CHARIT
+ * @author Rupal Kapoor
  */
 public class CountryDistributionService implements StandaloneCommand {
     private List<Country> d_countryList;
     /**
-     * Country repository to find the country(s) using the filters.
+     * This is the country repository to lookup the countries using the filters.
      */
     private CountryContainer d_countryRepository = new CountryContainer();
 
@@ -33,7 +33,7 @@ public class CountryDistributionService implements StandaloneCommand {
     private final LogEntryBuffer d_logEntryBuffer;
 
     /**
-     * Constructor for instantiating required objects.
+     * Default constructor to instantiate objects.
      */
     public CountryDistributionService() {
         d_countryList = MapFeatureEngine.getInstance().getCountryList();
@@ -42,9 +42,9 @@ public class CountryDistributionService implements StandaloneCommand {
     }
 
     /**
-     * Method to assign countries to different players.
+     * This method is used to assign countries to different players.
      *
-     * @return Value of response of the request.
+     * @return the value of response as per the request.
      * @throws InvalidInputException Throws if number of players are zero.
      */
     public String distributeCountries() throws InvalidInputException {
@@ -74,11 +74,11 @@ public class CountryDistributionService implements StandaloneCommand {
     }
 
     /**
-     * Returns the list of countries to be assigned to player.
+     * This method gives the list of countries to be assigned to player.
      *
-     * @param p_player             Player object.
-     * @param p_playerCountryCount Number of countries can be assigned to player.
-     * @return Value of list of countries.
+     * @param p_player  The object of Player class.
+     * @param p_playerCountryCount The no. of countries that can be assigned to player.
+     * @return The list of countries in response
      */
     public List<Country> assignCountry(Player p_player, int p_playerCountryCount) {
         List<Country> l_assignedCountries = new ArrayList<>();
@@ -115,10 +115,10 @@ public class CountryDistributionService implements StandaloneCommand {
     }
 
     /**
-     * Assigns owner to different countries.
+     * This method assigns an owner to different countries.
      *
-     * @param p_player      Player object
-     * @param p_countryList List of countries
+     * @param p_player  The object of Player class.
+     * @param p_countryList The list of countries in response
      */
     public void assignOwnerToCountry(Player p_player, List<Country> p_countryList) {
         for (Country l_con : p_countryList) {
@@ -127,13 +127,13 @@ public class CountryDistributionService implements StandaloneCommand {
     }
 
     /**
-     * Calls the distributeCountries() method of the class and returns the result.
+     * This method internally calls the distributeCountries() method of the class and returns the result.
      *
-     * @param p_commandValues Represents the values passed while running the command.
-     * @return Success message if function runs without error, otherwise throws exception.
-     * @throws InvalidInputException Throws if number of players are zero.
-     * @throws IllegalStateException Throws if returns an empty list.
-     * @throws UserCoreLogicException           If any exception from while players in <code>GameLoop</code>.
+     * @param p_commandValues Denotes the values passed while running the command.
+     * @return An exception is thrown in case or error, else a success message if function runs without error
+     * @throws InvalidInputException is thrown if number of players are zero.
+     * @throws IllegalStateException is thrown if returns an empty list.
+     * @throws UserCoreLogicException is thrown in case any exception from while players in the game loop code
      */
     @Override
     public String execute(List<String> p_commandValues) throws UserCoreLogicException, IllegalStateException {
@@ -149,9 +149,9 @@ public class CountryDistributionService implements StandaloneCommand {
     }
 
     /**
-     * This method return the String of countries associated with each player.
+     * This method returns the string of countries associated with each player.
      *
-     * @return string of player's countries.
+     * @return The string of all of player's countries
      */
     public String getPlayerCountries() {
         String l_playerContent = "";
