@@ -1,10 +1,8 @@
 package  com.APP.Project.UserCoreLogic.gamePlay.services;
 
-import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
-import com.APP.Project.UserCoreLogic.gamePlay.services.ReinforcementService;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import  com.APP.Project.UserCoreLogic.game_entities.Player;
 import  com.APP.Project.UserCoreLogic.exceptions.*;
-import  com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import  com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import  com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
 import org.junit.Before;
@@ -28,7 +26,7 @@ public class ReinforcementServiceTest {
     private static URL d_TestFile;
     private static CountryDistributionService d_DistributeCountriesService;
     private static ReinforcementService d_AssignReinforcementService;
-    private static GameEngine d_GamePlayEngine;
+    private static GamePlayEngine d_GamePlayEngine;
 
 
     /**
@@ -36,7 +34,7 @@ public class ReinforcementServiceTest {
      */
     @BeforeClass
     public static void beforeClass() {
-        d_GamePlayEngine = GameEngine.getInstance();
+        d_GamePlayEngine = GamePlayEngine.getInstance();
         d_MapEditorEngine = MapFeatureEngine.getInstance();
         d_TestFile = ReinforcementServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
     }
@@ -76,7 +74,7 @@ public class ReinforcementServiceTest {
      */
     @Test(expected = Test.None.class)
     public void testAssignCountry() {
-        for (Player l_player : GameEngine.getInstance().getPlayerList()) {
+        for (Player l_player : GamePlayEngine.getInstance().getPlayerList()) {
             assertNotNull(l_player.getAssignedCountries());
         }
     }
@@ -89,10 +87,10 @@ public class ReinforcementServiceTest {
     @Test
     public void testingCalculatedReinforcedArmyValue() throws EntityNotFoundException {
         d_AssignReinforcementService.execute();
-        int l_reinforcementArmies = GameEngine.getInstance().getPlayerList().get(0).getReinforcementCount();
+        int l_reinforcementArmies = GamePlayEngine.getInstance().getPlayerList().get(0).getReinforcementCount();
         assertEquals(9, l_reinforcementArmies);
 
-        int l_reinforcementArmies1 = GameEngine.getInstance().getPlayerList().get(1).getReinforcementCount();
+        int l_reinforcementArmies1 = GamePlayEngine.getInstance().getPlayerList().get(1).getReinforcementCount();
         assertEquals(13, l_reinforcementArmies1);
     }
 }

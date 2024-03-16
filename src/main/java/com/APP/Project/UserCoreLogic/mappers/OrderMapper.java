@@ -18,8 +18,7 @@ import com.APP.Project.UserCoreLogic.responses.CommandResponses;
 public class OrderMapper {
     /**
      * This method is used to map CommandResponses to Order object.
-     * This method is static and returns a new
-     * order instance created from the CommandResponses class.
+     * This method is static and returns a new order instance created from the CommandResponses class.
      *
      * @param p_commandResponse This command object is received at the UserCoreLogic class which represents the user command input.
      * @param p_player          This is the player object which has issued the order.

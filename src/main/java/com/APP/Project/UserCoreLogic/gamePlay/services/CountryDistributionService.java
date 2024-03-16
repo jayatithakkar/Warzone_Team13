@@ -1,150 +1,169 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
-
-import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
-import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
+import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.floor;
 
+/**
+ * This service manages distribution of countries among all the players.
+ *
+ * @author Rupal Kapoor
+ */
 public class CountryDistributionService implements StandaloneCommand {
-
+    private List<Country> d_countryList;
     /**
-     * Captures the list of countries in a CountryRepository type object
-     * to return the country based on the method used
+     * This is the country repository to lookup the countries using the filters.
      */
-    private CountryContainer d_allCountriesRepository = new CountryContainer();
+    private CountryContainer d_countryRepository = new CountryContainer();
+
+    private final GamePlayEngine d_gamePlayEngine;
+
+    private final LogEntryBuffer d_logEntryBuffer;
 
     /**
-     * Captures all the list of countries
-     */
-    private List<Country> d_allCountriesList;
-
-    private final GameEngine d_engine;
-
-    /**
-     * Default constructor for initalizing objects.
+     * Default constructor to instantiate objects.
      */
     public CountryDistributionService() {
-        d_allCountriesList = MapFeatureEngine.getInstance().getAllCountryList();
-        d_engine = GameEngine.getInstance();
+        d_countryList = MapFeatureEngine.getInstance().getCountryList();
+        d_gamePlayEngine = GamePlayEngine.getInstance();
+        d_logEntryBuffer = LogEntryBuffer.getLogger();
     }
 
-
     /**
-     * This method returns the list of countries to be assigned to player.
+     * This method is used to assign countries to different players.
      *
-     * @param p_gamePlayerCountryCount Number of countries that are assigned to a player.
-     * @param p_gamePlayer player Object passed.
-     * @return The list of countries.
+     * @return the value of response as per the request.
+     * @throws InvalidInputException Throws if number of players are zero.
      */
-    public List<Country> countryAssignment(Player p_gamePlayer, int p_gamePlayerCountryCount) {
-        List<Country> l_allAssignedCountries = new ArrayList<>();
-        List<Country> l_allCountriesList;
-        List<Country> l_allGroupOfCountries;
-        int l_uniquePlayerObjectCountryCount = p_gamePlayerCountryCount;
+    public String distributeCountries() throws InvalidInputException {
+        int l_countryCount = d_countryList.size();
+        int l_playerCount = d_gamePlayEngine.getPlayerList().size();
+        try {
+            int l_floorVal = (int) floor(l_countryCount / l_playerCount);
+            int l_remainder = l_countryCount % l_playerCount;
 
-        int l_groupCountrySize;
-        int l_count = 0;
-        do {
-            Country l_countrySelected = d_allCountriesList.get(l_count);
-            if (l_countrySelected.getOwnedBy() == null) {
-                l_countrySelected.setOwnedBy(p_gamePlayer);
-                l_allGroupOfCountries = d_allCountriesRepository.searchCountryNeighborsAndNotOwned(l_countrySelected);
-                l_allGroupOfCountries.add(0, l_countrySelected);
-
-                l_groupCountrySize = l_allGroupOfCountries.size();
-                if (l_groupCountrySize < p_gamePlayerCountryCount) {
-                    p_gamePlayerCountryCount -= l_groupCountrySize;
-                    assignOwnerToCountry(p_gamePlayer, l_allGroupOfCountries);
-                    l_allAssignedCountries.addAll(l_allGroupOfCountries);
+            for (Player l_playerObj : d_gamePlayEngine.getPlayerList()) {
+                if (l_remainder > 0) {
+                    l_playerObj.setAssignedCountryCount(l_floorVal + 1);
+                    l_remainder--;
                 } else {
-                    l_allCountriesList = l_allGroupOfCountries.subList(0, p_gamePlayerCountryCount);
-                    assignOwnerToCountry(p_gamePlayer, l_allCountriesList);
-                    l_allAssignedCountries.addAll(l_allCountriesList);
+                    l_playerObj.setAssignedCountryCount(l_floorVal);
                 }
             }
-            l_count++;
-            if (l_count >= d_allCountriesList.size()) {
+            for (Player l_player : d_gamePlayEngine.getPlayerList()) {
+                int l_playerCountryCount = l_player.getAssignedCountryCount();
+                List<Country> l_assignedCountryList = assignCountry(l_player, l_playerCountryCount);
+                l_player.setAssignedCountries(l_assignedCountryList);
+            }
+            return "Countries are successfully assigned!";
+        } catch (ArithmeticException e) {
+            throw new InvalidInputException("Number of players are zero");
+        }
+    }
+
+    /**
+     * This method gives the list of countries to be assigned to player.
+     *
+     * @param p_player  The object of Player class.
+     * @param p_playerCountryCount The no. of countries that can be assigned to player.
+     * @return The list of countries in response
+     */
+    public List<Country> assignCountry(Player p_player, int p_playerCountryCount) {
+        List<Country> l_assignedCountries = new ArrayList<>();
+        List<Country> l_countryLst;
+        List<Country> l_groupOfCountries;
+        int l_playerCountryCount = p_playerCountryCount;
+
+        int l_size;
+        int l_iterateCountryCount = 0;
+        do {
+            Country selectedCountry = d_countryList.get(l_iterateCountryCount);
+            if (selectedCountry.getOwnedBy() == null) {
+                selectedCountry.setOwnedBy(p_player);
+                l_groupOfCountries = d_countryRepository.findCountryNeighborsAndNotOwned(selectedCountry);
+                l_groupOfCountries.add(0, selectedCountry);
+
+                l_size = l_groupOfCountries.size();
+                if (l_size < p_playerCountryCount) {
+                    p_playerCountryCount -= l_size;
+                    assignOwnerToCountry(p_player, l_groupOfCountries);
+                    l_assignedCountries.addAll(l_groupOfCountries);
+                } else {
+                    l_countryLst = l_groupOfCountries.subList(0, p_playerCountryCount);
+                    assignOwnerToCountry(p_player, l_countryLst);
+                    l_assignedCountries.addAll(l_countryLst);
+                }
+            }
+            l_iterateCountryCount++;
+            if (l_iterateCountryCount >= d_countryList.size()) {
                 break;
             }
-        } while (l_allAssignedCountries.size() < l_uniquePlayerObjectCountryCount);
-        return l_allAssignedCountries;
+        } while (l_assignedCountries.size() < l_playerCountryCount);
+        return l_assignedCountries;
     }
-    /**
-     * This function is used to assign countries to unique players.
-     *
-     * @return String response based on the request.
-     * @throws InvalidInputException is thrown for the condition where no. of players equal zero.
-     */
-    public String countryDistribution() throws InvalidInputException {
-        int l_allCountriesCount = d_allCountriesList.size();
-        int l_uniquePlayerObjectCount = d_engine.getPlayerList().size();
-        try {
-            int l_countryByPlayerFloorValue = (int) floor(l_allCountriesCount / l_uniquePlayerObjectCount);
-            int l_modValue = l_allCountriesCount % l_uniquePlayerObjectCount;
 
-            for (Player l_uniquePlayerObject : d_engine.getPlayerList()) {
-                if (l_modValue > 0) {
-                    l_uniquePlayerObject.setAssignedCountryCount(l_countryByPlayerFloorValue + 1);
-                    l_modValue--;
-                } else {
-                    l_uniquePlayerObject.setAssignedCountryCount(l_countryByPlayerFloorValue);
-                }
-            }
-            for (Player l_uniquePlayerObject : d_engine.getPlayerList()) {
-                int l_uniquePlayerObjectCountryCount = l_uniquePlayerObject.getAssignedCountryCount();
-                List<Country> l_assignedCountryList = countryAssignment(l_uniquePlayerObject, l_uniquePlayerObjectCountryCount);
-                l_uniquePlayerObject.setAssignedCountries(l_assignedCountryList);
-            }
-            return "The countries have been assigned successfully!";
-        } catch (ArithmeticException e) {
-            throw new InvalidInputException("The number of players equal zero");
+    /**
+     * This method assigns an owner to different countries.
+     *
+     * @param p_player  The object of Player class.
+     * @param p_countryList The list of countries in response
+     */
+    public void assignOwnerToCountry(Player p_player, List<Country> p_countryList) {
+        for (Country l_con : p_countryList) {
+            l_con.setOwnedBy(p_player);
         }
     }
 
     /**
-     * This method calls the countryDistribution() method.
+     * This method internally calls the distributeCountries() method of the class and returns the result.
      *
-     * @param p_allCommandValues Represents the values passed while running the command.
-     * @return The success message for successful execution of method, else throws exception.
-     * @throws InvalidInputException is thrown if the number of players equal zero.
-     * @throws IllegalStateException is thrown when the method returns an empty list.
+     * @param p_commandValues Denotes the values passed while running the command.
+     * @return An exception is thrown in case or error, else a success message if function runs without error
+     * @throws InvalidInputException is thrown if number of players are zero.
+     * @throws IllegalStateException is thrown if returns an empty list.
+     * @throws UserCoreLogicException is thrown in case any exception from while players in the game loop code
      */
     @Override
-    public String execute(List<String> p_allCommandValues) throws UserCoreLogicException, IllegalStateException {
-        // Below condition is to check if players have been added
-        if (!GameEngine.getInstance().getPlayerList().isEmpty()) {
-            String response = countryDistribution();
-            GameEngine.getInstance().startGameLoop();
-            return response;
+    public String execute(List<String> p_commandValues) throws UserCoreLogicException, IllegalStateException {
+        // Check if players have been added.
+        // What if only one player is available?
+        if (!GamePlayEngine.getInstance().getPlayerList().isEmpty()) {
+            String l_response = distributeCountries();
+            d_logEntryBuffer.dataChanged("assigncountries", "\n---ASSIGNCOUNTRIES---\n" + l_response + "\n" + this.getPlayerCountries() + "\n*******GAME LOOP BEGINS*******\n");
+            return l_response;
         } else {
-            throw new EntityNotFoundException("Kindly add the players to display game status!");
+            throw new EntityNotFoundException("Please, add players to show game status!");
         }
     }
 
     /**
-     * This method assigns the owner player to different countries.
-     * @param p_allCountriesList List of countries
-     * @param p_gamePlayer      Player object
-
+     * This method returns the string of countries associated with each player.
+     *
+     * @return The string of all of player's countries
      */
-    public void assignOwnerToCountry(Player p_gamePlayer, List<Country> p_allCountriesList) {
-        for (Country l_listOfCountries : p_allCountriesList) {
-            l_listOfCountries.setOwnedBy(p_gamePlayer);
+    public String getPlayerCountries() {
+        String l_playerContent = "";
+        for (Player l_player : d_gamePlayEngine.getPlayerList()) {
+            List<Country> l_countries = l_player.getAssignedCountries();
+            List<String> l_names = new ArrayList<>();
+            for (Country l_country : l_countries) {
+                l_names.add(l_country.getCountryName());
+            }
+            String l_countriesNames = String.join(",", l_names);
+            l_playerContent += l_player.getName() + ": " + l_names + "\n";
         }
+        return l_playerContent;
     }
-
-
-
 }
-
