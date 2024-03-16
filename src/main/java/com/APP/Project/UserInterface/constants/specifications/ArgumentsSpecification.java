@@ -13,6 +13,7 @@ public enum ArgumentsSpecification {
     EQUAL,
     /**
      * An argument should have minimum number of values
+     */
     MIN,
     /**
      * An argument should have maximum number of values

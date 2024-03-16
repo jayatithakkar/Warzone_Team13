@@ -5,149 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dffd24b-74d8-459f-b0b3-429db9002dca" name="Changes" comment="Main.java is almost ready. Currently working on user interface">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-02-16__1_45p_m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-02-16__1_45p_m___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-02-16,_1_45 p_m__[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-02-16__1_45p_m___Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Exceptions/CoreLogicException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/CoreLogicException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Exceptions/ExceptionsHandlingClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/exceptions/ExceptionsHandlingClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Exceptions/InvalidInputException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Exceptions/ResourceNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/CountryDistributionServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/CountryDistributionServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/MapEditorTestSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/MapEditorTestSuite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapAdapterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapAdapterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapAdapterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapAdapterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/CommandsTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/CommandsTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/mappers/CommandMapperTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/services/RequestsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/services/RequestsServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/ContinentContainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/ContinentContainer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/CountryContainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/CountryContainer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/PlayerContainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/Container/PlayerContainer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/UserCoreLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/UserCoreLogic.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/GamePlayStates.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/GamePlayStates.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/MapModelTypes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/MapModelTypes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/OrderTypes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/constants/enums/OrderTypes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/gamePlay/GameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/gamePlay/GameEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/specifications/ArgumentsSpecification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/specifications/ArgumentsSpecification.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/specifications/CommandsSpecification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/specifications/CommandsSpecification.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/states/GamingStateInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/states/GamingStateInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/states/UserInteractionState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/constants/states/UserInteractionState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/PlayerCommandLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/PlayerCommandLayout.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/commands/GamePlayCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/layouts/commands/GamePlayCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/mappers/UserCommandsMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/mappers/UserCommandsMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/PredefinedUserCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/APP/Project/UserInterface/models/PredefinedUserCommands.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/CommandLineInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/constants/specifications/ArgumentSpecification.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/constants/specifications/CommandSpecification.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/constants/states/GameState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/constants/states/UserInteractionState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/exceptions/InvalidArgumentException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/exceptions/InvalidCommandException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/ClassLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/CommandLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/UserClassLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/UserCommandLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/classes/CommonClassLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/classes/GamePlayClassLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/classes/MapEditorClassLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/commands/CommonCommandLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/commands/GamePlayCommandLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/layouts/commands/MapEditorCommandLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/mappers/UserCommandMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/models/CommandArgument.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/models/PredefinedUserCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/models/UserCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/CLI/services/RequestService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/UserInterfaceMiddleware.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/VirtualMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/common/services/ApplicationExitService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/constants/enums/GameLoopState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/constants/enums/MapModelType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/constants/enums/OrderType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/constants/interfaces/Engine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/constants/interfaces/SingleCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/entities/Continent.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/entities/Country.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/entities/Order.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/entities/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/AbsentTagException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/EntityNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/ExceptionHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/GameLoopIllegalStateException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/InvalidArgumentException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/InvalidCommandException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/InvalidInputException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/InvalidMapException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/OrderOutOfBoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/ReinforcementOutOfBoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/ResourceNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/exceptions/VMException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/game_play/GamePlayEngine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/game_play/services/AssignReinforcementService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/game_play/services/DistributeCountriesService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/game_play/services/PlayerService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/game_play/services/ShowMapService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/MapEditorEngine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/services/ContinentService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/services/CountryNeighborService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/services/CountryService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/services/EditMapService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/services/LoadMapService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/services/SaveMapService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/services/ShowMapService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/map_editor/services/ValidateMapService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/repositories/ContinentRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/repositories/CountryRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/repositories/PlayerRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/responses/CommandResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/utils/FileUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/utils/PathResolverUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warzone/team08/VM/utils/TimeUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/MapEditorTestSuite.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/MapEditorTestSuite.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentAdapterTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryAdapterTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborAdapterTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapterTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapAdapterTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapAdapterTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserInterface/constants/CommandsTestCases.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserInterface/constants/CommandsTestCases.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserInterface/mappers/CommandMapperTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserInterface/services/RequestsServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/APP/Project/UserInterface/services/RequestsServiceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/CLI/CLITestSuite.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/CLI/constants/UserCommandTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/CLI/mappers/UserCommandMapperTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/CLI/services/RequestServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/entities/PlayerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/game_play/GamePlayTestSuite.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/game_play/services/AssignReinforcementServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/game_play/services/DistributeCountriesServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/game_play/services/ShowMapServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/MapEditorTestSuite.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/services/ContinentServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/services/CountryNeighborServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/services/CountryServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/services/EditMapServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/services/LoadMapServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/services/SaveMapServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/services/ShowMapServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warzone/team08/VM/map_editor/services/ValidateMapServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/FileValidationUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/FileValidationUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/common/services/ApplicationExitService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/phases/GamePlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/phases/GamePlay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/phases/MapEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/phases/MapEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/constants/specifications/ArgumentsSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/constants/specifications/ArgumentsSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/UserCoreLogicTestSuite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/CountryDistributionServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/EntityTestSuite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/orders/DeployOrderTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/orders/NegotiateOrderTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/MapEditorTestSuite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapterTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/ApplicationTestSuite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/UserInterfaceTestSuite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/CommandsTestCases.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/UsersCommandsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/mappers/UsersCommandsMapperTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/service/RequestsServiceTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,12 +75,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in APP-Project">
+  <component name="RunManager">
     <configuration name="All in APP-Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="APP-Project" />
       <option name="PACKAGE_NAME" value="" />

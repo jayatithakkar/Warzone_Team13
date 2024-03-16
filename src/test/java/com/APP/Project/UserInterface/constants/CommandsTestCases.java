@@ -1,8 +1,6 @@
 package com.APP.Project.UserInterface.constants;
 
-import com.APP.Project.UserInterface.layouts.CommandLayout;
 import com.APP.Project.Main;
-import com.APP.Project.UserCoreLogic.common.services.ApplicationExitService;
 
 import com.APP.Project.UserInterface.layouts.PlayerCommandLayout;
 import org.junit.Assert;

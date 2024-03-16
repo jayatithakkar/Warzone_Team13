@@ -7,8 +7,6 @@ import com.APP.Project.UserCoreLogic.map_features.adapters.ShowMapAdapter;
 
 import java.util.List;
 
-import org.apache.maven.plugin.lifecycle.Phase;
-
 /**
  * This abstract class represents the phase where map editing operations can be performed.
  * It extends the Phase class and provides implementations for certain methods specific to map editing.
