@@ -1,28 +1,25 @@
-package  com.APP.Project.UserCoreLogic.map_features;
+package com.APP.Project.UserCoreLogic.map_features;
 
 import com.APP.Project.UserCoreLogic.map_features.adapters.*;
+//import com.warzone.team08.UserCoreLogic.map_features.service.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import com.APP.Project.UserCoreLogic.gamePlay.services.DisplayMapServiceTest;
-import com.APP.Project.UserCoreLogic.map_features.adapters.*;
-
 /**
- * This class represents the test suite for map editing functionalities.
- * It includes tests for editing, loading, displaying maps, validating maps, managing continents,
- * countries, and their neighbors.
+ * This is the test suite for the map editor test cases. It is basically a suite that combines a
+ * sequential run of all the other test cases of different classes it entails.
  *
- * @author Rikin Dipakkumar Chauhan
+ * @author Rupal Kapoor
+ * @version 1.0
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        EditMapAdapterTest.class,
-        LoadMapAdapterTest.class,
-        DisplayMapServiceTest.class,
-        ContinentAdapterTest.class,
-        ValidateMapAdapterTest.class,
-        CountryAdapterTest.class,
-        CountryNeighborAdapterTest.class
+        LoadMapServiceTest.class,
+        ShowMapServiceTest.class,
+        ContinentServiceTest.class,
+        ValidateMapServiceTest.class,
+        CountryServiceTest.class,
+        CountryNeighborServiceTest.class
 })
 public class MapEditorTestSuite {
     // This class remains empty, it is used only as a holder for the above annotations

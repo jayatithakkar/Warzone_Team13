@@ -1,9 +1,7 @@
-package  com.APP.Project.UserCoreLogic.map_features.adapters;
+package com.APP.Project.UserCoreLogic.map_features.adapters;
 
-import  com.APP.Project.UserCoreLogic.exceptions.InvalidMapException;
-import  com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
-import com.APP.Project.UserCoreLogic.map_features.adapters.ValidateMapAdapter;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidMapException;
+import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,29 +13,29 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Test cases for the {@link ValidateMapAdapter} class.
+ * This class entails test cases for the ValidateMapAdapter class which has different types of validation requires for Map.
  *
- * @author Rikin Dipakkumar Chauhan
+ * @author Rupal Kapoor
  */
-public class ValidateMapAdapterTest {
+public class ValidateMapServiceTest {
     private ValidateMapAdapter d_validateMapService;
-    private EditMapAdapter d_editMapAdapter;
+    private EditMapAdapter d_editMapService;
     private URL d_testFilePath;
 
     /**
-     * This method initialize the <code>EditMapAdapter</code> object for fetching file data in Validation.
+     * This test case method initialises the EditMapAdapter class object for fetching file data in Validation.
      */
     @Before
     public void beforeTest() {
-        d_editMapAdapter = new EditMapAdapter();
+        d_editMapService = new EditMapAdapter();
         d_validateMapService = new ValidateMapAdapter();
     }
 
     /**
-     * Map validation - map is a connected graph.
+     * This test case method validates if the map is a connected graph.
      *
-     * @throws URISyntaxException If the provided path had invalid characters.
-     * @throws UserCoreLogicException        If there was an exception while loading the file.
+     * @throws URISyntaxException is thrown in case the provided path had invalid characters.
+     * @throws UserCoreLogicException is thrown in case there was an exception while loading the file.
      */
     @Test(expected = InvalidMapException.class)
     public void testMapIsConnectedGraph() throws UserCoreLogicException, URISyntaxException {
@@ -46,16 +44,16 @@ public class ValidateMapAdapterTest {
 
         assertNotNull(d_testFilePath);
         String l_url = new URI(d_testFilePath.getPath()).getPath();
-        d_editMapAdapter.handleLoadMap(l_url);
+        d_editMapService.handleLoadMap(l_url);
 
         d_validateMapService.execute(null);
     }
 
     /**
-     * Continent validation - continent is a connected sub-graph.
+     * This test case method checks if the continent is a connected sub-graph.
      *
-     * @throws URISyntaxException If the provided path had invalid characters.
-     * @throws UserCoreLogicException        If there was an exception while loading the file.
+     * @throws URISyntaxException is thrown in case the provided path had invalid characters.
+     * @throws UserCoreLogicException is thrown in case there was an exception while loading the file.
      */
     @Test(expected = InvalidMapException.class)
     public void testContinentConnectedSubGraph() throws UserCoreLogicException, URISyntaxException {
@@ -64,16 +62,16 @@ public class ValidateMapAdapterTest {
 
         assertNotNull(d_testFilePath);
         String l_url = new URI(d_testFilePath.getPath()).getPath();
-        d_editMapAdapter.handleLoadMap(l_url);
+        d_editMapService.handleLoadMap(l_url);
 
         d_validateMapService.execute(null);
     }
 
     /**
-     * It checks the ValidateMapService's execute method.
+     * This test case method checks the ValidateMapAdapter's execute method.
      *
-     * @throws URISyntaxException If the provided path had invalid characters.
-     * @throws UserCoreLogicException        If there was an exception while loading the file.
+     * @throws URISyntaxException is thrown in case the provided path had invalid characters.
+     * @throws UserCoreLogicException is thrown in case there was an exception while loading the file.
      */
     @Test
     public void testValidateMapService() throws UserCoreLogicException, URISyntaxException {
@@ -82,9 +80,9 @@ public class ValidateMapAdapterTest {
 
         assertNotNull(d_testFilePath);
         String l_url = new URI(d_testFilePath.getPath()).getPath();
-        d_editMapAdapter.handleLoadMap(l_url);
+        d_editMapService.handleLoadMap(l_url);
 
         String l_actualValue = d_validateMapService.execute(null);
-        assertNotNull(l_actualValue);
+        assertEquals(l_actualValue,"Map validation passed successfully!");
     }
 }
