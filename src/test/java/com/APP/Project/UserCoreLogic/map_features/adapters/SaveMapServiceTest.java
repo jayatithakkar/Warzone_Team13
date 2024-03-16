@@ -34,7 +34,7 @@ public class SaveMapServiceTest {
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
     /**
-     * Runs before running of all the other test cases. It initializes different objects required to perform test.
+     * This method runs before running of all the other test cases. It initializes different objects required to perform test.
      */
     @BeforeClass
     public static void before() {
