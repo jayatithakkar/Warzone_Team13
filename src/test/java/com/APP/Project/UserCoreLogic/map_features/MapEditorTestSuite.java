@@ -1,7 +1,6 @@
 package com.APP.Project.UserCoreLogic.map_features;
 
 import com.APP.Project.UserCoreLogic.map_features.adapters.*;
-//import com.warzone.team08.UserCoreLogic.map_features.service.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
