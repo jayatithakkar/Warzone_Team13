@@ -16,7 +16,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Test cases for the map file to check if save is successful or not.
+ * Test cases for the map file to check if save is successful or not are contained in this class
  *
  * @author Rupal Kapoor
  */
@@ -28,7 +28,7 @@ public class SaveMapServiceTest {
     private String testFile = "testing_save_file.map";
 
     /**
-     * This attribute creates a  temporary folder for the test case.
+     * This attribute creates a temporary folder for the test case.
      */
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
