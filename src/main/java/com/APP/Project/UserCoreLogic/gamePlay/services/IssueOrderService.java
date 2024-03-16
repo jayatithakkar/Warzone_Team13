@@ -14,19 +14,18 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * This service is responsible for requesting players for issuing orders.
+ * The service responsible for requesting players for issuing orders.
  *
- * @author Brijesh Lakkad
+ * @author Rupal Kapoor
  * @version 1.0
  */
 public class IssueOrderService {
     private final LogEntryBuffer d_logEntryBuffer = LogEntryBuffer.getLogger();
 
     /**
-     * Requests all players in round-robin fashion for the issuing order until all the players have placed all their
+     * This method is used to request all players in round-robin fashion for the issuing order until all the players have placed all their
      * reinforcement armies on the map.
-     * <p>
-     * If the player issues an order with reinforcements more than enough they possess, it will request the same player
+     * In case the player issues an order with reinforcements more than enough they possess, it will request the same player
      * again for a valid order.
      */
     public void execute() {

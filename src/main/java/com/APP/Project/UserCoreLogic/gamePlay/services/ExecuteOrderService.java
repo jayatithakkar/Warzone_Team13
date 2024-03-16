@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This service executes the player's order.
+ * The service used to execute the player's order.
  *
- * @author Brijesh Lakkad
+ * @author Rupal Kapoor
  * @version 1.0
  */
 public class ExecuteOrderService {
     private final LogEntryBuffer d_logEntryBuffer = LogEntryBuffer.getLogger();
 
     /**
-     * Gets the order of the player using <code>Player#nextOrder</code> method and executes it using the type of order.
+     * This method gets the order of the player using Player class's next order method and executes it using the type of order.
      */
     public void execute() {
         List<Player> finishedExecutingOrders = new ArrayList<>();
