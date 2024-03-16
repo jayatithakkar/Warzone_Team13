@@ -12,29 +12,29 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class will reinforce the army to respective players at each new turn.
+ * This class is used to reinforce the army to respective players at each new turn.
  *
- * @author Rutwik
+ * @author Rupal Kapoor
  */
 public class ReinforcementService {
     /**
-     * Singleton instance of <code>MapFeatureEngine</code>.
+     * This is the singleton instance of the MapFeatureEngine class.
      */
     public MapFeatureEngine d_mapEditorEngine;
 
     /**
-     * Singleton instance of <code>GamePlayEngine</code>.
+     * This is the singleton instance of GamePlayEngine.
      */
     public GamePlayEngine d_gamePlayEngine;
 
     /**
-     * Map representing continent and its member countries.
+     * This map captures the continent and its member countries.
      */
     public Map<String, List<String>> d_continentCountryList;
 
     /**
-     * This Method will set reinforcement army to each player. It will also check whether a player completely owns a
-     * continent or not. If yes then it will add Continent's control value to the reinforcement army as a part of
+     * This method is used to set reinforcement army to each player. It also checks whether a player completely owns a
+     * continent or not. In case he/she does, then it will add the continent's control value to the reinforcement army as a part of
      * bonus.
      */
     public ReinforcementService() {
@@ -43,11 +43,11 @@ public class ReinforcementService {
     }
 
     /**
-     * This Method calculate the exact amount of army to be reinforced.
+     * Calculates the exact amount of army to be reinforced.
      *
-     * @param p_player         Player's object.
-     * @param p_continentValue It is the control value that has been added if a player owns a whole continent.
-     * @return Method will return the army to be reinforced to the player.
+     * @param p_player This is the player's object.
+     * @param p_continentValue This is the control value that has been added if a player owns a whole continent.
+     * @return This method returns the army to be reinforced to the player.
      */
     private int addReinforcementArmy(Player p_player, int p_continentValue) {
         int l_AssignedCountryCount = p_player.getAssignedCountries().size();
@@ -58,13 +58,13 @@ public class ReinforcementService {
     }
 
     /**
-     * This method will check whether a player owns a whole continent or not. If a player owns then control value of
+     * Checks whether a player owns a whole continent or not. In case the player owns, then control value of
      * respective continent is returned otherwise zero will be returned.
      *
-     * @param p_playerList  Player's Object.
-     * @param p_countryList List of Country of specific continent.
-     * @param p_continent   Continent whose country is selected.
-     * @return Method will return Continent's Control value if player owns whole continent otherwise return zero.
+     * @param p_playerList  This is the Player's object.
+     * @param p_countryList The list of countries beloning to a  specific continent.
+     * @param p_continent   The continent whose country is selected.
+     * @return This method returns the continent's Control value if player owns whole continent otherwise return zero.
      */
     private int checkPlayerOwnsContinent(Player p_playerList, List<String> p_countryList, Continent p_continent) {
         List<String> l_country = new ArrayList<>();
@@ -80,9 +80,9 @@ public class ReinforcementService {
     }
 
     /**
-     * Assigns each player the correct number of reinforcement armies according to the Warzone rules.
+     * This method assigns each player the correct number of reinforcement armies according to the Warzone rules.
      *
-     * @throws EntityNotFoundException Throws if player is not available.
+     * @throws EntityNotFoundException is thrown in case the  player is not available.
      */
     public void execute() throws EntityNotFoundException {
         d_continentCountryList = d_mapEditorEngine.getContinentCountryMap();
