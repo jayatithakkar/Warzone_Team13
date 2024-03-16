@@ -13,23 +13,28 @@ import java.util.stream.Collectors;
  * @author Jayati Thakkar
  * @version 1.0
  */
-
 public class PredefinedUserCommands {
 
+    private static final String D_ARG_PREFIX = "-";
     private String d_headCommand;
 
     private final List<CommandLineArgument> d_commandArgumentList;
 
     private CommandsSpecification d_commandSpecification;
 
+    private int d_numOfValues = 1;
+
     private boolean d_isGameEngineCommand = false;
 
+    private boolean d_isOrderCommand = false;
+
     private boolean d_isGameEngineStartCommand = false;
+
+    private String d_gamePhaseMethodName;
 
     /**
      * It initializes all the members.
      */
-
     public PredefinedUserCommands() {
         // Initialise references
         d_commandArgumentList = new ArrayList<>();
@@ -51,11 +56,20 @@ public class PredefinedUserCommands {
         d_headCommand = p_headCommand;
     }
 
+
+    /**
+     * returns the list of arguments
+     *
+     * @return the list of arguments
+     */
+    public List<CommandLineArgument> getCommandArgumentList() {
+        return d_commandArgumentList;
+    }
+
     /**
      * add elements to the list of commandLineArgument object.
      * @param p_commandArgument An object of the same class
      */
-
     public void pushCommandArgument(CommandLineArgument p_commandArgument) {
         d_commandArgumentList.add(p_commandArgument);
     }
@@ -65,7 +79,7 @@ public class PredefinedUserCommands {
      * @return the list of the keys of the arguments
      */
     public List<String> getArgumentKeys() {
-        return this.d_commandArgumentList.stream().map((CommandLineArgument::getD_argument))
+        return this.d_commandArgumentList.stream().map((CommandLineArgument::getArgumentKey))
                 .collect(Collectors.toList());
     }
 
@@ -78,7 +92,7 @@ public class PredefinedUserCommands {
     public CommandLineArgument matchCommandArgument(String p_argumentKey) {
         // Returns only one element
         return this.d_commandArgumentList.stream().filter((p_p_argumentKey) ->
-                p_argumentKey.equals("-".concat(p_p_argumentKey.getD_argument()))
+                p_argumentKey.equals(PredefinedUserCommands.D_ARG_PREFIX.concat(p_p_argumentKey.getArgumentKey()))
         ).collect(Collectors.toList()).get(0);
     }
 
@@ -89,10 +103,10 @@ public class PredefinedUserCommands {
      * @return it returns true if it martches; false otherwise
      */
     public boolean isKeyOfCommand(String p_argKey) {
-        if (!p_argKey.startsWith("-"))
+        if (!p_argKey.startsWith(PredefinedUserCommands.D_ARG_PREFIX))
             return false;
         return this.getArgumentKeys().stream().anyMatch((p_p_argKey) ->
-                p_argKey.equals("-".concat(p_p_argKey))
+                p_argKey.equals(PredefinedUserCommands.D_ARG_PREFIX.concat(p_p_argKey))
         );
     }
 
@@ -113,6 +127,23 @@ public class PredefinedUserCommands {
     }
 
     /**
+     * it decides the number of values to have with the command
+     * @return total number of values
+     */
+    public int getNumOfValues() {
+        return d_numOfValues;
+    }
+
+    /**
+     * sets the number of values to have with the command
+     *
+     * @param p_numOfValues the number of values to have with the command is set
+     */
+    public void setNumOfValues(int p_numOfValues) {
+        d_numOfValues = p_numOfValues;
+    }
+
+    /**
      * checks if it is a command
      * @return true if is it a command; false otherwise
      */
@@ -126,6 +157,23 @@ public class PredefinedUserCommands {
      */
     public void setGameEngineCommand(boolean p_gameEngineCommand) {
         d_isGameEngineCommand = p_gameEngineCommand;
+    }
+
+    /**
+     * if the command is an order command
+     * @return True if it is an order command; false otherwise
+     */
+    public boolean isOrderCommand() {
+        return d_isOrderCommand;
+    }
+
+    /**
+     * Sets true if the command is an order command.
+     *
+     * @param p_orderCommand the command type.
+     */
+    public void setOrderCommand(boolean p_orderCommand) {
+        d_isOrderCommand = p_orderCommand;
     }
 
     /**
@@ -146,19 +194,33 @@ public class PredefinedUserCommands {
     }
 
     /**
+     * Gets the method name to be called for this user command.
+     *
+     * @return Value of the method name.
+     */
+    public String getGamePhaseMethodName() {
+        return d_gamePhaseMethodName;
+    }
+
+    /**
+     * Sets the method name for the user command.
+     *
+     * @param p_gamePhaseMethodName Value of the method name.
+     */
+    public void setGamePhaseMethodName(String p_gamePhaseMethodName) {
+        d_gamePhaseMethodName = p_gamePhaseMethodName;
+    }
+
+    /**
      * overridden equals method to check if it equal
      * @param l_p_o object that needs to be compared
      * @return true if it is equal; false otherwise
      */
     @Override
     public boolean equals(Object l_p_o) {
-        System.out.println("from euals of predef "+l_p_o);
         if (this == l_p_o) return true;
         if (l_p_o == null || getClass() != l_p_o.getClass()) return false;
-
         PredefinedUserCommands l_that = (PredefinedUserCommands) l_p_o;
-
-        
         return Objects.equals(d_headCommand, l_that.d_headCommand) &&
                 Objects.equals(d_commandArgumentList, l_that.d_commandArgumentList);
     }
