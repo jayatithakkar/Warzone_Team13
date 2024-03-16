@@ -2,7 +2,7 @@ package com.APP.Project.UserCoreLogic.phases;
 
 import com.APP.Project.UserCoreLogic.GameEngine;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.gamePlay.services.ShowMapService;
+import com.APP.Project.UserCoreLogic.gamePlay.services.DisplayMapService;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public abstract class GamePlay extends Phase {
      */
     @Override
     public String showMap(List<String> p_arguments) throws UserCoreLogicException {
-        ShowMapService l_showMapService = new ShowMapService();
+        DisplayMapService l_showMapService = new DisplayMapService();
         return l_showMapService.execute(p_arguments);
     }
 
