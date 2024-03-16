@@ -1,9 +1,8 @@
-package  com.APP.Project.UserCoreLogic.map_features.adapters;
+package com.APP.Project.UserCoreLogic.map_features.adapters;
 
-import  com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import  com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
-import  com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.map_features.adapters.ContinentAdapter;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,15 +10,16 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Test class for {@link ContinentAdapter}.
+ * Tests the adding and removing of continent
  *
- * @author Rikin Dipakkumar Chauhan
+ * @author Raj Kumar Ramesh
  */
-public class ContinentAdapterTest {
+public class ContinentServiceTest {
     private static ContinentAdapter d_ContinentService;
 
     /**
-     * Runs before the test case class runs; Initializes different objects required to perform test.
+     * Runs before the test case class runs.
+     * Initializes different objects required to perform test.
      */
     @BeforeClass
     public static void beforeClass() {
@@ -45,11 +45,11 @@ public class ContinentAdapterTest {
     /**
      * Tests whether the continent is successfully added and removed or not; Passes if continent is removed.
      *
-     * @throws EntityNotFoundException Throws if continent is not available in list.
-     * @throws InvalidInputException   Throws if country value is not number.
+     * @throws EntityNotFoundException Throws this exception if continent is not available in list.
+     * @throws InvalidInputException   Throws this exception if exception when country value is not number.
      */
     @Test(expected = Test.None.class)
-    public void testAddAndRemoveContinent() throws EntityNotFoundException, InvalidInputException {
+    public void testAddAndRemoveContinent() throws EntityNotFoundException, InvalidInputException{
         String l_responseOfAddOp = d_ContinentService.add("Asia", "10");
         assertNotNull(l_responseOfAddOp);
 

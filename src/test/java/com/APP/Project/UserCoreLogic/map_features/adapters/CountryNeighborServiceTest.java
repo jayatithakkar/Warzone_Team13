@@ -1,31 +1,31 @@
-package  com.APP.Project.UserCoreLogic.map_features.adapters;
+package com.APP.Project.UserCoreLogic.map_features.adapters;
 
-import  com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import  com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import  com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.map_features.adapters.CountryNeighborAdapter;
-import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
+import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Test cases for the {@link CountryNeighborAdapter} class.
+ * Tests the adding and removing of neighbours of the country.
  *
- * @author Rikin Dipakkumar Chauhan
+ * @author Raj Kumar Ramesh
  */
-public class CountryNeighborAdapterTest {
+public class CountryNeighborServiceTest {
     private static CountryNeighborAdapter d_CountryNeighbourService;
-    private EditMapAdapter d_editMapAdapter;
+    private EditMapAdapter d_editMapService;
     private URL d_testFilePath;
 
     /**
-     * Runs before the test case class runs; Initializes different objects required to perform test.
+     * Runs before the test case class runs.
+     * Initializes different objects required to perform test.
      */
     @BeforeClass
     public static void beforeClass() {
@@ -35,24 +35,26 @@ public class CountryNeighborAdapterTest {
     /**
      * Re-initializes the continent list before test case run.
      *
-     * @throws UserCoreLogicException Exception generated during execution.
+     * @throws UserCoreLogicException Throws exception generated during execution.
+     * @throws URISyntaxException If error while parsing the string representing the path.
      */
     @Before
-    public void beforeTestCase() throws UserCoreLogicException {
+    public void beforeTestCase() throws UserCoreLogicException, URISyntaxException {
         MapFeatureEngine.getInstance().initialise();
-        d_editMapAdapter = new EditMapAdapter();
+        d_editMapService = new EditMapAdapter();
         d_testFilePath = getClass().getClassLoader().getResource("test_map_files/test_map.map");
-        assert d_testFilePath != null;
-        d_editMapAdapter.handleLoadMap(d_testFilePath.getPath());
+        assertNotNull(d_testFilePath);
+        String l_url = new URI(d_testFilePath.getPath()).getPath();
+        d_editMapService.handleLoadMap(l_url);
     }
 
     /**
-     * Tests whether the country and neighbour country name are valid or not.
+     * Tests if country and neighbours are valid
      *
      * @throws EntityNotFoundException Throws if data tag is absent in map file.
      */
     @Test(expected = EntityNotFoundException.class)
-    public void testWrongCountryValues() throws EntityNotFoundException {
+    public void testWrongCountryValues() throws EntityNotFoundException{
         //If both country name and neighbor country name are invalid(Do not exists in map file).
         d_CountryNeighbourService.add("ABC", "DEF");
 
@@ -70,7 +72,7 @@ public class CountryNeighborAdapterTest {
      * @throws EntityNotFoundException Throws if data tag is absent in map file.
      */
     @Test(expected = Test.None.class)
-    public void testAdd() throws EntityNotFoundException {
+    public void testAdd() throws EntityNotFoundException{
 
         String l_addResponse = d_CountryNeighbourService.add("Mercury-South", "Mercury-West");
         assertNotNull(l_addResponse);
