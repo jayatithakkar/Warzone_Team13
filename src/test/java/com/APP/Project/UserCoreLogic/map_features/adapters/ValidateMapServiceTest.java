@@ -15,8 +15,8 @@ import static org.junit.Assert.assertNotNull;
 /**
  * This class entails test cases for the ValidateMapAdapter class which has different types of validation requires for Map.
  *
- * @autho Rupal Kapoor
-  **/
+ * @author Rupal Kapoor
+ */
 public class ValidateMapServiceTest {
     private ValidateMapAdapter d_validateMapService;
     private EditMapAdapter d_editMapService;
