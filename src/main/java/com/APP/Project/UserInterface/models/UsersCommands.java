@@ -4,7 +4,6 @@ import com.APP.Project.UserInterface.constants.specifications.CommandsSpecificat
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * This class is used to understand and process the command entered by the user
@@ -12,13 +11,12 @@ import java.util.stream.Collectors;
  * @author Jayati Thakkar
  * @version 1.0
  */
-
 public class UsersCommands {
 
     /**
      * the header of the command
      */
-    private String headCommand;
+    private String d_headCommand;
 
     /**
      * a map of the keys and its values for the arguments the user has to enter
@@ -28,7 +26,7 @@ public class UsersCommands {
     /**
      * the list of the command related values
      */
-    private List<String> commandValuesList;
+    private List<String> d_commandValues;
 
     /**
      * an object of the predefined user commands class
@@ -43,7 +41,6 @@ public class UsersCommands {
     /**
      * default constructor
      */
-
     public UsersCommands() {
 
     }
@@ -58,25 +55,23 @@ public class UsersCommands {
         d_predefinedUserCommand = p_predefinedUserCommand;
         // Initialise references
         d_userArguments = new ArrayList<>();
-        commandValuesList = new ArrayList<>();
+        d_commandValues = new ArrayList<>();
     }
-
 
     /**
      * getter for header
      * @return the header of the command
      */
-
     public String getHeadCommand() {
-        return headCommand;
+        return d_headCommand;
     }
 
     /**
      * sets the header of the command into its variable
      * @param p_headCommand a string containing the header of the command
      */
-    public void setHeadCommand(String p_headCommand) {
-        headCommand = p_headCommand;
+    private void setHeadCommand(String p_headCommand) {
+        d_headCommand = p_headCommand;
     }
 
     /**
@@ -88,6 +83,12 @@ public class UsersCommands {
         return d_userArguments;
     }
 
+    /**
+     * it adds the value to the user argument mappings.
+     *
+     * @param argKey argument key value
+     * @param values argument key list values
+     */
     public void pushUserArgument(String argKey, List<String> values) {
         Map<String, List<String>> l_newArgumentKeyValue = new HashMap<>();
         l_newArgumentKeyValue.put(argKey, values);
@@ -98,17 +99,17 @@ public class UsersCommands {
      * getter for the command related values
      * @return the list of string containing the values possible
      */
-    public List<String> getCommandValuesList() {
-        return commandValuesList;
+    public List<String> getCommandValues() {
+        return d_commandValues;
     }
 
     /**
      * setter to set the command related values
      *
-     * @param p_commandValuesList
+     * @param d_commandValues the new value for command
      */
-    public void setCommandValuesList(List<String> p_commandValuesList) {
-        this.commandValuesList = p_commandValuesList;
+    public void setCommandValues(List<String> d_commandValues) {
+        this.d_commandValues = d_commandValues;
     }
 
     /**
@@ -122,14 +123,17 @@ public class UsersCommands {
 
     /**
      * overridden equals method to check if it equal
-     * @param l_p_o object that needs to be compared
+     * @param p_l_o object that needs to be compared
      * @return true if it is equal; false otherwise
      */
     @Override
-    public boolean equals(Object l_p_o) {
-        if (this == l_p_o) return true;
-        if (l_p_o == null || getClass() != l_p_o.getClass()) return false;
-        UsersCommands that = (UsersCommands) l_p_o;
-        return d_isExitCommand == that.d_isExitCommand && headCommand.equals(that.headCommand) && d_userArguments.equals(that.d_userArguments) && d_predefinedUserCommand.equals(that.d_predefinedUserCommand);
+    public boolean equals(Object p_l_o) {
+        if (this == p_l_o) return true;
+        if (p_l_o == null || getClass() != p_l_o.getClass()) return false;
+        UsersCommands l_that = (UsersCommands) p_l_o;
+        return d_isExitCommand == l_that.d_isExitCommand &&
+                Objects.equals(d_headCommand, l_that.d_headCommand) &&
+                d_userArguments.size() == l_that.d_userArguments.size() &&
+                Objects.equals(d_predefinedUserCommand, l_that.d_predefinedUserCommand);
     }
 }
