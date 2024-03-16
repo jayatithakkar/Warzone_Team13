@@ -1,18 +1,46 @@
 package com.APP.Project.UserCoreLogic.constants.enums;
 
 /**
- * This enum lists all the orders which can be issued by the player
+ * Enumerates all the possible types of orders that a player can issue during
+ * the "issue orders" phase of the game.
+ * Each enum value corresponds to a specific command that players can enter
+ * during the {@code GameLoop#ISSUE_ORDER} phase, representing
+ * different strategic actions a player can take, such as moving armies,
+ * deploying reinforcements, or engaging in diplomacy. The enum
+ * facilitates the parsing and execution of these commands by providing a
+ * predefined set of possible orders.
  *
- * @author Sushant Sinha
+ * @author Bhoomiben Bhatt
+ * @version 1.0
  */
 public enum OrderTypes {
     /**
-     * Order of deploying the reinforcements.
+     * If order type is advance.
      */
-    deploy("deploy");
+    advance("advance"),
+    /**
+     * If order type is airlift.
+     */
+    airlift("airlift"),
+    /**
+     * If order type is blockade.
+     */
+    blockade("blockade"),
+    /**
+     * If order type is bomb.
+     */
+    bomb("bomb"),
+    /**
+     * If order type is deploy.
+     */
+    deploy("deploy"),
+    /**
+     * If order type is negotiate.
+     */
+    negotiate("negotiate");
 
     /**
-     * String is the variable needed to set the enum value.
+     * Variable to set enum value.
      */
     public String d_jsonValue;
 
@@ -26,9 +54,13 @@ public enum OrderTypes {
     }
 
     /**
-     * Gets the string value of the enum
+     * Retrieves the string representation of the enum value.
+     * This method allows for the retrieval of the enum's command as a string,
+     * facilitating the use of enum values in
+     * contexts where a string representation is necessary, such as in user
+     * interfaces or when parsing player commands.
      *
-     * @return Value of the enum
+     * @return The string command associated with the order type.
      */
     public String getJsonValue() {
         return d_jsonValue;

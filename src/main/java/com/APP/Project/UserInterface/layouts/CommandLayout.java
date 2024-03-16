@@ -4,10 +4,19 @@ import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 
 import java.util.List;
 
-//Interface to define the method which should be implemented for various command-layout classes. The command-layout are the classes that define the available commands throughout a game state.
-
+/**
+ * Interface that specifies the method or methods that need to be implemented for different command-layout classes. 
+ * The classes that provide the possible commands in a given game state are known as the command-layout.
+ *
+ * @author Raj Kumar Ramesh
+ * @version 1.0
+ */
 public interface CommandLayout {
-
-    // Fetches and returns the list of user commands
-    public List<PredefinedUserCommands> fetchUserCommands();
+    /**
+     * Retrieves the inherited class's user command list. 
+     * The list of user commands generated in the constructor or static block must be included in the inheriting class.
+     *
+     * @return the list of commands
+     */
+    public List<PredefinedUserCommands> getUserCommands();
 }

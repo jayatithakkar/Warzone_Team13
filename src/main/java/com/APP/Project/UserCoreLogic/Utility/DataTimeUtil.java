@@ -3,13 +3,21 @@ package com.APP.Project.UserCoreLogic.Utility;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/*
- * This class file is responsible for displaying current date and time.
+/**
+ * This class provides utility for <code>Date</code> and <code>Time</code>.
+ *
  * @author Bhoomiben Bhatt
+ * @version 1.0
  */
 public class DataTimeUtil {
-    public static String getDateTime() {
-        SimpleDateFormat currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SS");
-        return currentDateTime.format(new Date());
+    /**
+     * This method returns the current date and time in the format "yyyy-MM-dd
+     * HH:mm:ss:SS",
+     *
+     * @return Value of readable time string.
+     */
+    public static String getTime() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SS");
+        return format.format(new Date());
     }
 }

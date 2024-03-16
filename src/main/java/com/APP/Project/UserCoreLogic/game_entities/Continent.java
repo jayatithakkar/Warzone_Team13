@@ -4,61 +4,62 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * This class is for getter and setter methods specific to Continent GameEntities
+ * This class provides the getter-setter methods for different operation on the Continent entity.
  *
  * @author Sushant Sinha
  */
 public class Continent {
     /**
-     * Auto-generated unique ID of the continent.
+     * Generated the id for different continents.
      */
-    private Integer d_uniqueContinentId;
-    private String d_uniqueContinentName;
+    private Integer d_continentId;
+    private String d_continentName;
     private Integer d_continentControlValue;
-    private ArrayList<Country> d_allCountryList;
+    private String d_continentColor;
+    private ArrayList<Country> d_countryList;
 
     /**
-     * Used for generating unique IDs for the each continent. Counter is incremented every time
+     * Needed for tracking the used IDs for the continent.
      */
-    public static int d_counter = 0;
+    public static int d_SerialNumber = 0;
 
     /**
-     * Assigns Continent iD to the continent and creates the initializes the ArrayList.
+     * Assigns the ID to the continent. Creates the countries list.
      */
     public Continent() {
-        d_allCountryList = new ArrayList<>();
-        this.d_uniqueContinentId = ++d_counter;
+        this.d_continentId = ++d_SerialNumber;
+        d_countryList = new ArrayList<>();
     }
 
     /**
-     * Get the unique id of the specific continent using the index of the location
+     * Gets the ID of the continent.
      *
-     * @return Unique value for the continent ID.
+     * @return Value of the continent ID.
      */
-    public Integer getUniqueContinentId() {
-        return d_uniqueContinentId;
+    public Integer getContinentId() {
+        return d_continentId;
     }
 
     /**
-     * Set the value of continent name.
+     * Sets the continent name.
      *
-     * @param p_uniqueContinentName Name of the continent.
+     * @param p_continentName Name of the continent.
      */
-    public void setContinentName(String p_uniqueContinentName) {
-        d_uniqueContinentName = p_uniqueContinentName;
+    public void setContinentName(String p_continentName) {
+        d_continentName = p_continentName;
     }
 
     /**
-     * Get the continent name.
+     * Gets the continent name.
      *
-     * @return (Unique) Continent name.
+     * @return continent name.
      */
     public String getContinentName() {
-        return d_uniqueContinentName;
+        return d_continentName;
     }
 
     /**
-     * Set the continent's control value.
+     * Sets the continent control value.
      *
      * @param p_continentControlValue Value of the continent control.
      */
@@ -67,66 +68,62 @@ public class Continent {
     }
 
     /**
-     * Get the continent control value.
+     * Gets the continent control value.
      *
-     * @return the continent control value.
+     * @return Value of the continent control.
      */
     public int getContinentControlValue() {
         return d_continentControlValue;
     }
 
     /**
-     * Get the list of all the countries present in this Continent.
+     * Gets the list of countries present in this continent.
      *
-     * @return ArrayList of the of countries
+     * @return Value of the list of countries
      */
-    public ArrayList<Country> getAllCountryList() {
-        return d_allCountryList;
+    public ArrayList<Country> getCountryList() {
+        return d_countryList;
     }
 
     /**
-     * Set the country list for this continent.
+     * Sets the list of countries present in this continent.
      *
-     * @param p_allCountryList Value of the list.
+     * @param p_countryList Value of the list.
      */
-    public void setCountryList(ArrayList<Country> p_allCountryList) {
-        d_allCountryList = p_allCountryList;
+    public void setCountryList(ArrayList<Country> p_countryList) {
+        d_countryList = p_countryList;
     }
 
     /**
-     * Add the country to this continent.
+     * Adds a country to the list of countries present in this continent.
      *
-     * @param p_country Value of the country to be added to this continent.
+     * @param p_country Value of the country to be added.
      */
     public void addCountry(Country p_country) {
-        // ArrayList allows duplicates
-        // Set will not have any duplicate elements.
-        d_allCountryList.add(p_country);
+        d_countryList.add(p_country);
     }
 
     /**
-     * Remove country from this continent.
+     * Removes the country from this continent.
      *
-     * @param p_country Value of the country to be removed from this continent.
+     * @param p_country Value of the country to be removed.
      */
     public void removeCountry(Country p_country) {
-        // ArrayList allows duplicates
         // Set will not have any duplicate elements.
-        d_allCountryList.remove(p_country);
+        d_countryList.remove(p_country);
     }
 
     /**
-     * Resets the counter to 0 (zero).
-     * Needed when the engine resets
+     * Resets the serial number to zero. Needed when the map engine is being reset.
      */
-    public static void resetCounter() {
-        d_counter = 0;
+    public static void resetSerialNumber() {
+        d_SerialNumber = 0;
     }
 
     /**
-     * Checking/Verifying that the same continent object is being referred using the continent ID
+     * Checks if both objects are the same using continent ID of the object.
      *
-     * @param l_p_o Value of the second continent to be compared with.
+     * @param l_p_o Value of the second element to be checked with.
      * @return True if the both are same.
      */
     @Override
@@ -134,16 +131,16 @@ public class Continent {
         if (this == l_p_o) return true;
         if (l_p_o == null || getClass() != l_p_o.getClass()) return false;
         Continent l_that = (Continent) l_p_o;
-        return d_uniqueContinentId.equals(l_that.d_uniqueContinentId);
+        return d_continentId.equals(l_that.d_continentId);
     }
 
     /**
-     * Return the hash value of the continent.
+     * Returns the hash value of the continent.
      *
      * @return Hash value of the continent.
      */
     @Override
     public int hashCode() {
-        return Objects.hash(d_uniqueContinentId);
+        return Objects.hash(d_continentId);
     }
 }

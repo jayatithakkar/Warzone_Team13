@@ -1,131 +1,120 @@
 package com.APP.Project.UserCoreLogic.Utility;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.Paths;
 
-import com.APP.Project.UserCoreLogic.exceptions.CoreLogicException;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
-import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
-
-/*
- This class validates if user entered map file is exits or not. 
- If doesn't exits then throw and exception otherwise copy the details of .map file.
-
- @auther Bhoomiben Bhatt
+/**
+ * Provides utility methods for resolving file paths within user-defined data
+ * and log directories.
+ * This class implements a singleton pattern to ensure a single instance manages
+ * path resolutions throughout the application. It automatically creates user
+ * data and log directories if they do not exist, using paths based on the
+ * user's home directory. This utility is designed to centralize the management
+ * of file paths, facilitating easier access and manipulation of files within
+ * these directories.
+ *
+ * @author Bhoomiben Bhatt
+ * @version 1.0
  */
-
 public class FileValidationUtil {
-	private static final String UPLOADED_FILE_EXTENSION = "map";
+	/**
+	 * Singleton instance of the class.
+	 */
+	private static FileValidationUtil d_Instance;
 
-	// Take file extension and return valid .map file extension.
-	public static String getUploadedFileExtension() {
-		return UPLOADED_FILE_EXTENSION;
+	/**
+	 * Represents the path to the user data directory.
+	 */
+	private final Path USER_DATA_DIRECTORY_PATH;
+
+	/**
+	 * Folder from or to save/load user files.
+	 */
+	private final String USER_DATA_DIRECTORY = "";
+
+	/**
+	 * Name of the directory to save log files.
+	 */
+	private final String USER_LOG_DIRECTORY = "War_Zone_Logs";
+
+	/**
+	 * Path to the directory of logs.
+	 */
+	private final Path USER_LOG_DIRECTORY_PATH;
+
+	/**
+	 * Instance can not be created outside the class. (private)
+	 */
+	private FileValidationUtil() {
+		USER_DATA_DIRECTORY_PATH = Paths.get(System.getProperty("user.home"), "Downloads", USER_DATA_DIRECTORY);
+		USER_LOG_DIRECTORY_PATH = Paths.get(System.getProperty("user.home"), "Downloads", USER_LOG_DIRECTORY);
+
+		// Create user directories if it doesn't exist.
+		this.createDirectory(USER_DATA_DIRECTORY_PATH.toString());
+		this.createDirectory(USER_LOG_DIRECTORY_PATH.toString());
 	}
 
-	/*
-	 * Verify that file name is valid or not.
-	 * 
-	 * p_enteredFilePath is path of file where it exists.
-	 * 
-	 * InvalidInputException throws incase file does not exists otherwise throws
-	 * ResourceNotFoundException if is unable to find
+	/**
+	 * Creates the directory.
+	 *
+	 * @param p_filePath Path to the directory.
 	 */
-
-	public static File fetchFile(String p_enteredFilePath) throws ResourceNotFoundException, InvalidInputException {
-		File l_file = new File(p_enteredFilePath);
-		String l_fileName = l_file.getName();
-
-		// throw an exception if user will unable to create a file.
-		try {
-			l_file.createNewFile();
-		} catch (Exception p_e) {
-			throw new ResourceNotFoundException("Sorry! you are not allowed to create a file ");
-		}
-
-		try {
-			if (VerifyIfFileHasRequiredExtensionOrNot(l_fileName)) {
-				return l_file;
-			}
-		} catch (InvalidInputException p_invalidInputException) {
-			throw p_invalidInputException;
-		}
-
-		throw new InvalidInputException("Not a valid File!");
-	}
-
-	/*
-	 * checks if file has valid extension or not
-	 * if file name is inappropriate then InvalidInputException take place
-	 * 
-	 */
-	public static boolean VerifyIfFileHasRequiredExtensionOrNot(String p_fileName) throws InvalidInputException {
-		int l_lastindex = p_fileName.lastIndexOf('.');
-		if (l_lastindex > 0) {
-			char l_formerChar = p_fileName.charAt(l_lastindex - 1);
-			if (l_formerChar != '.') {
-				String l_fileExtension = p_fileName.substring(l_lastindex + 1);
-				if (!l_fileExtension.equalsIgnoreCase(FileValidationUtil.getUploadedFileExtension())) {
-					throw new InvalidInputException("oops! Entered file does not exsits!");
-				}
-				return true;
-			}
-		}
-		throw new InvalidInputException("This file is must be having some valid extension");
-	}
-
-	/*
-	 * create a file if found to be non exist
-	 * 
-	 * p_filePath is path of fle
-	 * 
-	 * return instance of class
-	 * it will return object of new file
-	 * No resources for file existace found then throw ResourceNotFoundExcetion
-	 */
-
-	public static File createFileIfNotExits(String p_filePath) throws ResourceNotFoundException {
+	public void createDirectory(String p_filePath) {
 		File l_file = new File(p_filePath);
-		try {
-			l_file.createNewFile();
-		} catch (Exception p_e) {
-			throw new ResourceNotFoundException("Sorry! No resource found so.. file can not be created.");
+		if (!l_file.exists()) {
+			l_file.mkdir();
 		}
-		return l_file;
 	}
 
-	/*
-	 * It checks if file exits or not
-	 * 
-	 * If file is unable to find and throws ResourceNotFoundException if file is not
-	 * found.
-	 * 
-	 * If file exits then it will return true.
+	/**
+	 * Gets the single instance of the class.
+	 *
+	 * @return Value of the instance.
 	 */
-
-	private static boolean checkIfFileExistsOrNot(File p_fileInstace) throws ResourceNotFoundException {
-		if (!p_fileInstace.exists()) {
-			throw new ResourceNotFoundException("Mentioned file does not exist!!!");
+	public static FileValidationUtil getInstance() {
+		if (d_Instance == null) {
+			d_Instance = new FileValidationUtil();
 		}
-		return true;
+		return d_Instance;
 	}
 
-	/*
-	 * Copies the file from source to destination or we can say overwrites the
-	 * destination file.
-	 * 
-	 * p_fileCopyFrom is source path
-	 * p_fileCopyTo_destination destination path to the file
+	/**
+	 * Gets the string value of the user data directory path.
+	 *
+	 * @return Value of the path.
 	 */
-	public static void copy(Path p_fileCopyFrom, Path p_fileCopyTo_destination) {
-		try {
-			if (!(new File(p_fileCopyTo_destination.toUri().getPath()).exists())) {
-				Files.copy(p_fileCopyFrom, p_fileCopyTo_destination, StandardCopyOption.REPLACE_EXISTING);
-			}
-		} catch (Exception l_skip) {
-			// Ignore the exception while the file is being copied
-		}
+	public static Path getUserDataDirectoryPath() {
+		return FileValidationUtil.getInstance().USER_DATA_DIRECTORY_PATH;
 	}
 
+	/**
+	 * Gets the string value of the log directory.
+	 *
+	 * @return Value of the path.
+	 */
+	public static Path getLogDirectoryPath() {
+		return FileValidationUtil.getInstance().USER_LOG_DIRECTORY_PATH;
+	}
+
+	/**
+	 * Uses the user data directory path to resolve absolute the path to the file.
+	 *
+	 * @param p_filePath Name of the file.
+	 * @return Value of the absolute path to the file.
+	 */
+	public static String resolveFilePath(String p_filePath) {
+		return Paths.get(getUserDataDirectoryPath().toString(), p_filePath).toString();
+	}
+
+	/**
+	 * Uses the user data directory and log folder paths to resolve absolute the
+	 * path to the file.
+	 *
+	 * @param p_filePath Name of the file.
+	 * @return Value of the absolute path to the file.
+	 */
+	public static String resolveLogPath(String p_filePath) {
+		return Paths.get(getLogDirectoryPath().toString(), p_filePath).toString();
+	}
 }
