@@ -11,7 +11,7 @@ package com.APP.Project.UserCoreLogic.constants.enums;
  * information.
  *
  * @author Bhoomiben Bhatt
- * @version 2.0
+ * @version 1.0
  */
 public enum MapModelTypes {
     /**

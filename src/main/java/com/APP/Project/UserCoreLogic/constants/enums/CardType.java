@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @see Card An interface that these card types might implement or interact
  *      with.
- * @version 2.0
+ * @version 1.0
  * @author Bhoomiben Bhatt
  */
 public enum CardType {

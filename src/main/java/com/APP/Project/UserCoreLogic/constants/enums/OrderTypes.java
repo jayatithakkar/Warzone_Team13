@@ -11,7 +11,7 @@ package com.APP.Project.UserCoreLogic.constants.enums;
  * predefined set of possible orders.
  *
  * @author Bhoomiben Bhatt
- * @version 2.0
+ * @version 1.0
  */
 public enum OrderTypes {
     /**
