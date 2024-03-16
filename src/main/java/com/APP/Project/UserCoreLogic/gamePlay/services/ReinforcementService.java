@@ -1,74 +1,77 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
-import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
+import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class will reinforce the army to respective players at each new turn.
+ *
+ * @author Rutwik
+ */
 public class ReinforcementService {
-
     /**
-     * Map to maintain key continent and containing countries.
+     * Singleton instance of <code>MapFeatureEngine</code>.
      */
-    public Map<String, List<String>> d_allContinentCountryList;
-
-    public MapFeatureEngine d_mapEngine;
+    public MapFeatureEngine d_mapEditorEngine;
 
     /**
-     * Default constructor to initialise values
+     * Singleton instance of <code>GamePlayEngine</code>.
+     */
+    public GamePlayEngine d_gamePlayEngine;
+
+    /**
+     * Map representing continent and its member countries.
+     */
+    public Map<String, List<String>> d_continentCountryList;
+
+    /**
+     * This Method will set reinforcement army to each player. It will also check whether a player completely owns a
+     * continent or not. If yes then it will add Continent's control value to the reinforcement army as a part of
+     * bonus.
      */
     public ReinforcementService() {
-        d_mapEngine = MapFeatureEngine.getInstance();
+        d_mapEditorEngine = MapFeatureEngine.getInstance();
+        d_gamePlayEngine = GamePlayEngine.getInstance();
     }
 
     /**
-     * This method assigns each player the correct number of reinforcement armies
-     * in accordance with Warzone rules.
+     * This Method calculate the exact amount of army to be reinforced.
      *
-     * @throws EntityNotFoundException is thrown if player is not available.
+     * @param p_player         Player's object.
+     * @param p_continentValue It is the control value that has been added if a player owns a whole continent.
+     * @return Method will return the army to be reinforced to the player.
      */
-    public void execute() throws EntityNotFoundException {
-        d_allContinentCountryList = d_mapEngine.getContinentCountryMap();
+    private int addReinforcementArmy(Player p_player, int p_continentValue) {
+        int l_AssignedCountryCount = p_player.getAssignedCountries().size();
+        int l_reinforcementArmy = Math.max(3, (int) Math.ceil(l_AssignedCountryCount / 3));
 
-        for (Player l_gamePlayer : GameEngine.getInstance().getPlayerList()) {
-            // this captures the continent count value
-            int l_count = 0;
-            for (Continent l_continent : d_mapEngine.getContinentList()) {
-
-                List<String> l_allCountriesList = new ArrayList<>(d_allContinentCountryList.get(l_continent.getContinentName()));
-
-                int l_returnContinentValue = checkPlayerOwnsContinent(l_gamePlayer, l_allCountriesList, l_continent);
-
-                l_count = l_count + l_returnContinentValue;
-            }
-
-            int l_returnReinforcementArmy = addArmyReinforcement(l_gamePlayer, l_count);
-            l_gamePlayer.setReinforcementCount(l_returnReinforcementArmy);
-        }
+        l_reinforcementArmy = l_reinforcementArmy + p_continentValue;
+        return l_reinforcementArmy;
     }
 
     /**
      * This method will check whether a player owns a whole continent or not. If a player owns then control value of
      * respective continent is returned otherwise zero will be returned.
      *
-     * @param d_allPlayerList  captures all the Players
-     * @param p_allCountriesList captures the list of Country of specific continent.
-     * @param p_continent   the continent to which the country belongs.
-     * @return this method returns the Continent's control value in case the player owns
-     * entire continent else returns zero.
+     * @param p_playerList  Player's Object.
+     * @param p_countryList List of Country of specific continent.
+     * @param p_continent   Continent whose country is selected.
+     * @return Method will return Continent's Control value if player owns whole continent otherwise return zero.
      */
-    private int checkPlayerOwnsContinent(Player d_allPlayerList, List<String> p_allCountriesList, Continent p_continent) {
+    private int checkPlayerOwnsContinent(Player p_playerList, List<String> p_countryList, Continent p_continent) {
         List<String> l_country = new ArrayList<>();
-        for (Country l_continentCountry : d_allPlayerList.getAssignedCountries()) {
-            l_country.add(l_continentCountry.getUniqueCountryName());
+        for (Country l_country1 : p_playerList.getAssignedCountries()) {
+            l_country.add(l_country1.getCountryName());
         }
-        boolean l_checkCountry = l_country.containsAll(p_allCountriesList);
+        boolean l_checkCountry = l_country.containsAll(p_countryList);
         if (l_checkCountry) {
             return p_continent.getContinentControlValue();
         } else {
@@ -77,19 +80,26 @@ public class ReinforcementService {
     }
 
     /**
-     * This method calculates the exact amount of army to be reinforced.
+     * Assigns each player the correct number of reinforcement armies according to the Warzone rules.
      *
-     * @param p_continentValue the control value that has been added if a player owns a whole continent.
-     * @param p_gamePlayer this is the player object
-     * @return this method returns the army to be reinforced to the playe
+     * @throws EntityNotFoundException Throws if player is not available.
      */
-    private int addArmyReinforcement(Player p_gamePlayer, int p_continentValue) {
-        int l_playerAssignedCountryCount = p_gamePlayer.getAssignedCountries().size();
-        int l_armyReinforcement = Math.max(3, (int) Math.ceil(l_playerAssignedCountryCount / 3));
+    public void execute() throws EntityNotFoundException {
+        d_continentCountryList = d_mapEditorEngine.getContinentCountryMap();
 
-        l_armyReinforcement = l_armyReinforcement + p_continentValue;
-        return l_armyReinforcement;
+        for (Player l_player : d_gamePlayEngine.getPlayerList()) {
+            int l_continentValue = 0;
+            for (Continent l_continent : d_mapEditorEngine.getContinentList()) {
+
+                List<String> l_countryList = new ArrayList<>(d_continentCountryList.get(l_continent.getContinentName()));
+                //Method Call: Here Control Value is assessed.
+                int l_returnContinentValue = checkPlayerOwnsContinent(l_player, l_countryList, l_continent);
+
+                l_continentValue = l_continentValue + l_returnContinentValue;
+            }
+            // Method Call: This will add reinforcement Army to the player at each turn.
+            int l_returnReinforcementArmy = addReinforcementArmy(l_player, l_continentValue);
+            l_player.setReinforcementCount(l_returnReinforcementArmy);
+        }
     }
-
-
 }

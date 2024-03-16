@@ -3,7 +3,7 @@ package com.APP.Project.UserCoreLogic;
 import com.APP.Project.InterfaceCoreMiddleware;
 import com.APP.Project.UserCoreLogic.exceptions.ExceptionsHandlingClass;
 import com.APP.Project.UserInterface.constants.states.GamingStateInfo;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
 import java.util.concurrent.ExecutorService;
@@ -93,8 +93,8 @@ public class UserCoreLogic {
      *
      * @return Value of the map editor engine.
      */
-    public static GameEngine GAME_PLAY_ENGINE() {
-        return GameEngine.getInstance();
+    public static GamePlayEngine GAME_PLAY_ENGINE() {
+        return GamePlayEngine.getInstance();
     }
 
     /**

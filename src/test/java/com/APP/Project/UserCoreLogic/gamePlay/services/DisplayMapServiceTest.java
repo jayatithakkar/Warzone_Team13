@@ -1,15 +1,11 @@
 package  com.APP.Project.UserCoreLogic.gamePlay.services;
 
-import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
-import com.APP.Project.UserCoreLogic.gamePlay.services.DisplayMapService;
-import com.APP.Project.UserCoreLogic.gamePlay.services.ManageGamePlayerService;
-import com.APP.Project.UserCoreLogic.map_features.adapters.ShowMapAdapter;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.jakewharton.fliptables.FlipTable;
 import  com.APP.Project.Main;
 import  com.APP.Project.UserCoreLogic.UserCoreLogic;
 import  com.APP.Project.UserCoreLogic.game_entities.Player;
 import  com.APP.Project.UserCoreLogic.exceptions.*;
-import  com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import  com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -72,7 +68,7 @@ public class DisplayMapServiceTest {
         l_playerService.add("User_2");
 
         l_distributeCountriesService.countryDistribution();
-        d_playerList = GameEngine.getInstance().getPlayerList();
+        d_playerList = GamePlayEngine.getInstance().getPlayerList();
     }
 
     /**

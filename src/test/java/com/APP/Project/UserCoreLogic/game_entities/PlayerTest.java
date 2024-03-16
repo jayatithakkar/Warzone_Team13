@@ -1,10 +1,10 @@
 package com.APP.Project.UserCoreLogic.game_entities;
 
 import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserInterface.UserInterfaceClass;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.exceptions.*;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
 import org.junit.Before;
@@ -71,8 +71,8 @@ public class PlayerTest {
         l_player2.setAssignedCountries(l_assignedCountries);
         l_player2.setReinforcementCount(10);
 
-        GameEngine.getInstance().addPlayer(l_player1);
-        GameEngine.getInstance().addPlayer(l_player2);
+        GamePlayEngine.getInstance().addPlayer(l_player1);
+        GamePlayEngine.getInstance().addPlayer(l_player2);
     }
 
     /**
@@ -89,7 +89,7 @@ public class PlayerTest {
         String l_orderInput = "deploy Mercury-South 5";
 
         d_userInterfaceClass.setIn(new ByteArrayInputStream(l_orderInput.getBytes()));
-        GameEngine.getInstance().getPlayerList().get(0).issueOrder();
+        GamePlayEngine.getInstance().getPlayerList().get(0).issueOrder();
     }
 
     /**
@@ -107,7 +107,7 @@ public class PlayerTest {
         d_userInterfaceClass.setIn(new ByteArrayInputStream(d_outOfResourcesOrderInput.getBytes()));
 
         // Below will throw <code>ReinforcementOutOfBoundException</code> exception.
-        GameEngine.getInstance().getPlayerList().get(0).issueOrder();
+        GamePlayEngine.getInstance().getPlayerList().get(0).issueOrder();
     }
 }
 

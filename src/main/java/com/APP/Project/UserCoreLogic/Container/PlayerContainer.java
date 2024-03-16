@@ -2,7 +2,7 @@ package com.APP.Project.UserCoreLogic.Container;
 
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +22,7 @@ public class PlayerContainer {
          * if searching player not found then it will thrown a searching entity not
          * found exception.
          */
-        List<Player> l_filteredPlayerList = GameEngine.getInstance().getPlayerList().stream()
+        List<Player> l_filteredPlayerList = GamePlayEngine.getInstance().getPlayerList().stream()
                 .filter(p_player -> p_player.getName().equals(p_playerName)).collect(Collectors.toList());
         if (l_filteredPlayerList.size() > 0)
             return l_filteredPlayerList.get(0);
@@ -36,7 +36,7 @@ public class PlayerContainer {
      * returns false if player isn't exists already. otherwise true.
      */
     public boolean existByPlayerName(String p_playerName) {
-        return GameEngine.getInstance().getPlayerList().stream()
+        return GamePlayEngine.getInstance().getPlayerList().stream()
                 .filter(p_player -> p_player.getName().equals(p_playerName)).count() == 1;
     }
 }

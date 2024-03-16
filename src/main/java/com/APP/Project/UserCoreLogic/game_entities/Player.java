@@ -27,7 +27,7 @@ public class Player {
      */
     private final List<Order> d_ordersList;
     /**
-     * Stores the list of orders executed by the GameEngine.
+     * Stores the list of orders executed by the GamePlayEngine.
      */
     private final List<Order> d_executedOrdersList;
     private List<Country> d_assignedCountries;

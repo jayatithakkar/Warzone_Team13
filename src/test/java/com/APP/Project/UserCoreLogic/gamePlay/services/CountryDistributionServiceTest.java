@@ -2,12 +2,11 @@ package  com.APP.Project.UserCoreLogic.gamePlay.services;
 
 import  com.APP.Project.Main;
 import  com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import  com.APP.Project.UserCoreLogic.game_entities.Player;
 import  com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import  com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import  com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import  com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
-import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -27,7 +26,7 @@ public class CountryDistributionServiceTest {
     private static Main d_Main;
     private static URL d_TestFilePath;
     private CountryDistributionService d_distributeCountriesService;
-    private static GameEngine d_GamePlayEngine;
+    private static GamePlayEngine d_GamePlayEngine;
 
     /**
      * Runs before the test case class runs; Initializes different objects required to perform test.
@@ -36,7 +35,7 @@ public class CountryDistributionServiceTest {
     public static void createPlayersList() {
         d_Main = new Main();
         d_Main.handleApplicationStartup();
-        d_GamePlayEngine = GameEngine.getInstance();
+        d_GamePlayEngine = GamePlayEngine.getInstance();
 
         d_TestFilePath = CountryDistributionServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
     }
