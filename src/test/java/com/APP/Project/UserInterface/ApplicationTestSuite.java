@@ -1,11 +1,4 @@
 package com.APP.Project;
-
-/**
- * Central test suite for running all test cases of the application.
- *
- * @author Bhoomiben Bhatt
- */
-
 import com.APP.Project.UserInterface.UserInterfaceTestSuite;
 import com.APP.Project.UserCoreLogic.UserCoreLogicTestSuite;
 import org.junit.runner.RunWith;
