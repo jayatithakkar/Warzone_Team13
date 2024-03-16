@@ -4,41 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3dffd24b-74d8-459f-b0b3-429db9002dca" name="Changes" comment="Main.java is almost ready. Currently working on user interface">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-02-16,_1_45 p_m__[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-02-16__1_45p_m___Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/FileValidationUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/Utility/FileValidationUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/common/services/ApplicationExitService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/phases/GamePlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/phases/GamePlay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/phases/MapEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/phases/MapEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/constants/specifications/ArgumentsSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserInterface/constants/specifications/ArgumentsSpecification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/UserCoreLogicTestSuite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/CountryDistributionServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/ReinforcementServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/EntityTestSuite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/orders/DeployOrderTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/orders/NegotiateOrderTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/MapEditorTestSuite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ContinentServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryNeighborServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/CountryServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/EditMapAdapterTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/LoadMapServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/SaveMapServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ShowMapServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/map_features/adapters/ValidateMapServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/ApplicationTestSuite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/UserInterfaceTestSuite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/CommandsTestCases.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/UsersCommandsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/mappers/UsersCommandsMapperTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/service/RequestsServiceTest.java" beforeDir="false" />
-    </list>
+    <list default="true" id="3dffd24b-74d8-459f-b0b3-429db9002dca" name="Changes" comment="Main.java is almost ready. Currently working on user interface" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
