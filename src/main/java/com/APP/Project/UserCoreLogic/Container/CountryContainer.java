@@ -20,7 +20,7 @@ public class CountryContainer {
      * It's recommended to format the input name properly to ensure accurate
      * matching.
      *
-     * @param countryName The name of the country to search for. This parameter
+     * @param p_countryName The name of the country to search for. This parameter
      *                    should not be null.
      * @return A List containing the matched countries. The list is empty if no
      *         countries match the provided name.
@@ -33,7 +33,7 @@ public class CountryContainer {
     /**
      * Retrieves the first country that matches the specified country name
      *
-     * @param countryName The name of the country to search for. This parameter
+     * @param p_countryName The name of the country to search for. This parameter
      *                    should not be null.
      * @return The first Country object that matches the given country name.
      * @throws EntityNotFoundException If no country with the given name is found.
@@ -52,7 +52,7 @@ public class CountryContainer {
      * Otherwise, this method returns null, indicating that no country with the
      * specified ID could be found.
      *
-     * @param countryId The unique identifier of the country to search for. This
+     * @param p_countryId The unique identifier of the country to search for. This
      *                  parameter should not be null.
      * @return The Country object with the specified ID, or null if no such country
      *         is found.
@@ -77,7 +77,7 @@ public class CountryContainer {
      * neighbor of country B, then country B is
      * also considered a neighbor of country A.
      *
-     * @param country The country for which to find neighbors. This parameter should
+     * @param p_country The country for which to find neighbors. This parameter should
      *                not be null.
      * @return A List of countries that are neighbors of the specified country. The
      *         list is empty if the country has
@@ -107,7 +107,7 @@ public class CountryContainer {
      * @throws IllegalStateException If the provided country is null, indicating an
      *                               inappropriate use of the method.
      */
-    public List<Country> findCountryNeighborsAndNotOwned(Country p_country) throws IllegalStateException {
+    public List<Country> findCountryNeighborsAndNotOwned(Country country) throws IllegalStateException {
         return p_country.getNeighbourCountries().stream().filter((p_l_country) -> p_l_country.getOwnedBy() == null)
                 .collect(Collectors.toList());
     }
