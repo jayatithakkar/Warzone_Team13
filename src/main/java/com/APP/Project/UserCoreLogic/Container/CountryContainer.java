@@ -100,14 +100,14 @@ public class CountryContainer {
      * countries for expansion or diplomatic relations that are not currently under
      * the control of another entity.
      *
-     * @param country The country whose neighbors are to be evaluated. This
+     * @param p_country The country whose neighbors are to be evaluated. This
      *                parameter should not be null.
      * @return A List of Country objects representing the neighboring countries that
      *         are not owned.
      * @throws IllegalStateException If the provided country is null, indicating an
      *                               inappropriate use of the method.
      */
-    public List<Country> findCountryNeighborsAndNotOwned(Country country) throws IllegalStateException {
+    public List<Country> findCountryNeighborsAndNotOwned(Country p_country) throws IllegalStateException {
         return p_country.getNeighbourCountries().stream().filter((p_l_country) -> p_l_country.getOwnedBy() == null)
                 .collect(Collectors.toList());
     }

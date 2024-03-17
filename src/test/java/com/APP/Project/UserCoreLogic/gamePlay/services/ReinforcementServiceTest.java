@@ -25,7 +25,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Rikin Dipakkumar Chauhan
  */
 public class ReinforcementServiceTest {
-    private static MapFeatureEngine d_MapeditorEngine;
+    private static MapFeatureEngine d_MapEditorEngine;
     private static EditMapAdapter d_EditMapService;
     private static URL d_TestFile;
     private static CountryDistributionService d_DistributeCountriesService;
@@ -39,7 +39,7 @@ public class ReinforcementServiceTest {
     @BeforeClass
     public static void beforeClass() {
         d_GamePlayEngine = GamePlayEngine.getInstance();
-        d_MapeditorEngine = MapFeatureEngine.getInstance();
+        d_MapEditorEngine = MapFeatureEngine.getInstance();
         d_TestFile = ReinforcementServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
     }
 
@@ -57,8 +57,8 @@ public class ReinforcementServiceTest {
     @Before
     public void before() throws InvalidInputException, AbsentTagException, InvalidMapException, ResourceNotFoundException, EntityNotFoundException, URISyntaxException {
         d_GamePlayEngine.initialise();
-        d_MapeditorEngine.initialise();
-        d_MapeditorEngine.getCountryList();
+        d_MapEditorEngine.initialise();
+        d_MapEditorEngine.getCountryList();
         d_AssignReinforcementService = new ReinforcementService();
 
         Player l_player1 = new Player();
@@ -100,5 +100,3 @@ public class ReinforcementServiceTest {
         assertEquals(13, l_reinforcementArmies1);
     }
 }
-
-
