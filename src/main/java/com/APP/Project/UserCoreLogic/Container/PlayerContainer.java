@@ -22,7 +22,7 @@ public class PlayerContainer {
      * thrown, indicating
      * the absence of a player with the specified name.
      *
-     * @param playerName The name of the player to search for. This parameter should
+     * @param p_playerName The name of the player to search for. This parameter should
      *                   not be null.
      * @return The Player object matching the specified name.
      * @throws EntityNotFoundException If no player with the given name can be
@@ -47,7 +47,7 @@ public class PlayerContainer {
      * @return true if at least one player with the specified name exists; false
      *         otherwise.
      */
-    public boolean existByPlayerName(String p_playerName) {
+    public boolean existByPlayerName(String playerName) {
         return GamePlayEngine.getInstance().getPlayerList().stream()
                 .filter(p_player -> p_player.getName().equals(p_playerName)).count() == 1;
     }
