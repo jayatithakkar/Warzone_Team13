@@ -42,12 +42,12 @@ public class PlayerContainer {
      * player has a name
      * that exactly matches the provided name.
      *
-     * @param playerName The name of the player to search for. This parameter should
+     * @param p_playerName The name of the player to search for. This parameter should
      *                   not be null.
      * @return true if at least one player with the specified name exists; false
      *         otherwise.
      */
-    public boolean existByPlayerName(String playerName) {
+    public boolean existByPlayerName(String p_playerName) {
         return GamePlayEngine.getInstance().getPlayerList().stream()
                 .filter(p_player -> p_player.getName().equals(p_playerName)).count() == 1;
     }
