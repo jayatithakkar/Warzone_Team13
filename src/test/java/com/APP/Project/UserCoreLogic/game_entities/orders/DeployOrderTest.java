@@ -6,7 +6,7 @@ import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.*;
 import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
-import com.APP.Project.UserCoreLogic.gamePlay.services.DistributeCountriesService;
+import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
 import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -30,7 +30,7 @@ public class DeployOrderTest {
     private static Main d_Application;
     private static URL d_TestFilePath;
     private static GamePlayEngine d_GamePlayEngine;
-    private DistributeCountriesService d_distributeCountriesService;
+    private CountryDistributionService d_distributeCountriesService;
     private List<Player> d_playerList;
     private Player d_player1;
     private Player d_player2;
@@ -77,7 +77,7 @@ public class DeployOrderTest {
         d_GamePlayEngine.addPlayer(l_player1);
         d_GamePlayEngine.addPlayer(l_player2);
         d_playerList = d_GamePlayEngine.getPlayerList();
-        d_distributeCountriesService = new DistributeCountriesService();
+        d_distributeCountriesService = new CountryDistributionService();
         // Distributes countries between players.
         d_distributeCountriesService.distributeCountries();
 

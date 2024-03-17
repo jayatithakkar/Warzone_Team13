@@ -2,12 +2,11 @@ package  com.APP.Project.UserCoreLogic.gamePlay;
 
 import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionServiceTest;
 import  com.APP.Project.UserCoreLogic.gamePlay.services.ReinforcementServiceTest;
-import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionServiceTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import com.APP.Project.UserCoreLogic.gamePlay.services.DisplayMapServiceTest;
+import com.APP.Project.UserCoreLogic.gamePlay.services.ShowMapServiceTest;
 
 /**
  * Test suite for the game play functionality.
@@ -18,7 +17,7 @@ import com.APP.Project.UserCoreLogic.gamePlay.services.DisplayMapServiceTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        ReinforcementServiceTest.class, DisplayMapServiceTest.class, CountryDistributionServiceTest.class
+        ReinforcementServiceTest.class, ShowMapServiceTest.class, CountryDistributionServiceTest.class
 })
 public class GamePlayTestSuite {
     // This class remains empty, it is used only as a holder for the above annotations

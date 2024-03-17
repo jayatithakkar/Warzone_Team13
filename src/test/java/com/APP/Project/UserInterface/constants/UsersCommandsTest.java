@@ -1,60 +1,49 @@
 package com.APP.Project.UserInterface.constants;
 
 import com.APP.Project.Main;
-
 import com.APP.Project.UserInterface.layouts.PlayerCommandLayout;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
- * Tests the functionality of user commands within the application.
- * This class ensures that commands are properly recognized and processed,
- * focusing on the validity of command arguments.
- * 
- * @author Bhoomiben bhatt
+ * This class contains unit tests for validating user commands.
+ *
+ * @author Bhoomiben Bhatt
+ * @version 1.0
  */
 public class UsersCommandsTest {
-    String d_headCommand;
-    String d_argumentKey;
-    String d_wrongArgumentKey;
+    
+    String d_headOfCommand;
+    
+    String d_argKey;
+    
+    String d_wrongArgKey;
 
     /**
-     * Initializes a new instance of the {@link UsersCommandsTest} class.
-     * This constructor is used to set up any required resources or initial states
-     * before the tests are run.
+     * Sets up the necessary data before each test case.
      */
-    public UsersCommandsTest() {
-
-    }
-
-    /**
-     * Sets up the environment before each test method is executed.
-     * Initializes command names and arguments to be used in test methods.
-     */
-
     @Before
-    public void Before() {
-        this.d_headCommand = "editcontinent";
-        this.d_argumentKey = "-add";
-        this.d_wrongArgumentKey = "-delete";
-        Main l_app = new Main();
-        l_app.handleApplicationStartup();
-
+    public void before() {
+        d_headOfCommand = "editcontinent";
+        d_argKey = "-add";
+        d_wrongArgKey = "-delete";
+        Main l_application = new Main();
+        l_application.handleApplicationStartup();
     }
 
     /**
-     * Verifies if the correct argument is recognized as part of the command.
-     * Asserts that a valid argument is correctly identified.
-     * Also checks if an invalid argument is rightly not recognized by the command.
+     * Tests if the provided key matches the command.
      */
     @Test
     public void testIsKeyOfCommand() {
-        boolean editContentKeyExists = PlayerCommandLayout.getUserCommand(this.d_headCommand)
-                .isKeyOfCommand(this.d_argumentKey);
-        boolean editContentKeyDoesnotExists = PlayerCommandLayout.getUserCommand(this.d_headCommand)
-                .isKeyOfCommand(this.d_wrongArgumentKey);
-        Assert.assertTrue(editContentKeyExists);
-        Assert.assertFalse(editContentKeyDoesnotExists);
+        boolean isKeyOfEditContent = PlayerCommandLayout.matchAndGetUserCommand(d_headOfCommand).isKeyOfCommand(this.d_argKey);
+
+        boolean isNotKeyOfEditContent = PlayerCommandLayout.matchAndGetUserCommand(d_headOfCommand).isKeyOfCommand(this.d_wrongArgKey);
+
+        assertTrue(isKeyOfEditContent);
+        assertFalse(isNotKeyOfEditContent);
     }
 }
