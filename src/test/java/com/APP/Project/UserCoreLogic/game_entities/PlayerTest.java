@@ -85,5 +85,24 @@ public class PlayerTest {
         GamePlayEngine.getInstance().addPlayer(l_player1);
         GamePlayEngine.getInstance().addPlayer(l_player2);
     }
+
+    
+    /**
+     * Tests the player issue order functionality. An order is tested against the user input and it will be stored in
+     * the player's order list.
+     *
+     * @throws UserCoreLogicException          Throws if any exception while processing the issue order request.
+     * @throws ExecutionException   Throws if error occurs in execution.
+     * @throws InterruptedException Throws if interruption occurs during normal execution.
+     */
+    @Test
+    public void testIssueOrder() throws UserCoreLogicException, ExecutionException, InterruptedException {
+        // User input text.
+        String l_orderInput = "deploy Mercury-South 5";
+
+        d_commandLineInterface.setIn(new ByteArrayInputStream(l_orderInput.getBytes()));
+        GamePlayEngine.getInstance().getPlayerList().get(0).issueOrder();
+    }
+    
 }
 
