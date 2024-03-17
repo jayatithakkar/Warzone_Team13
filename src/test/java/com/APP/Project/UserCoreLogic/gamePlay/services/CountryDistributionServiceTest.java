@@ -2,8 +2,8 @@ package  com.APP.Project.UserCoreLogic.gamePlay.services;
 
 import  com.APP.Project.Main;
 import  com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
-import  com.APP.Project.UserCoreLogic.game_entities.Player;
 import  com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import  com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import  com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
@@ -12,6 +12,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
@@ -20,6 +23,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * This class contains test cases for the CountryDistributionService class.
  *
+ * @author Jayati Thakkar
  * @author Rikin Dipakkumar Chauhan
  */
 public class CountryDistributionServiceTest {
@@ -32,11 +36,12 @@ public class CountryDistributionServiceTest {
      * Runs before the test case class runs; Initializes different objects required to perform test.
      */
     @BeforeClass
-    public static void createPlayersList() {
+    public static void createPlayersList() throws IOException, URISyntaxException {
         d_Main = new Main();
         d_Main.handleApplicationStartup();
         d_GamePlayEngine = GamePlayEngine.getInstance();
 
+        d_Main.restoreMapFiles();
         d_TestFilePath = CountryDistributionServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
     }
 
@@ -46,14 +51,16 @@ public class CountryDistributionServiceTest {
      * @throws UserCoreLogicException Exception generated during execution.
      */
     @Before
-    public void before() throws UserCoreLogicException {
+    public void before() throws UserCoreLogicException, URISyntaxException{
         // (Re)initialise the UserCoreLogic.
         UserCoreLogic.getInstance().initialise();
 
+
         // Loads the map
         EditMapAdapter l_editMapService = new EditMapAdapter();
-        assert d_TestFilePath != null;
-        l_editMapService.handleLoadMap(d_TestFilePath.getPath());
+        assertNotNull(d_TestFilePath);
+        String l_url = new URI(d_TestFilePath.getPath()).getPath();
+        l_editMapService.handleLoadMap(l_url);
 
         Player l_player1 = new Player();
         Player l_player2 = new Player();
@@ -74,7 +81,7 @@ public class CountryDistributionServiceTest {
      */
     @Test(expected = Test.None.class)
     public void testNumberOfPlayer() throws InvalidInputException {
-        d_distributeCountriesService.countryDistribution();
+        d_distributeCountriesService.distributeCountries();
     }
 
     /**
@@ -84,7 +91,7 @@ public class CountryDistributionServiceTest {
      */
     @Test(expected = Test.None.class)
     public void testPlayerCountryCount() throws InvalidInputException {
-        d_distributeCountriesService.countryDistribution();
+        d_distributeCountriesService.distributeCountries();
         assertEquals(5, d_GamePlayEngine.getPlayerList().get(0).getAssignedCountryCount());
     }
 
@@ -95,7 +102,7 @@ public class CountryDistributionServiceTest {
      */
     @Test(expected = Test.None.class)
     public void testAssignedCountriesCount() throws InvalidInputException {
-        String l_response = d_distributeCountriesService.countryDistribution();
+        String l_response = d_distributeCountriesService.distributeCountries();
         assertNotNull(l_response);
 
         int l_size = d_GamePlayEngine.getPlayerList().get(0).getAssignedCountries().size();
