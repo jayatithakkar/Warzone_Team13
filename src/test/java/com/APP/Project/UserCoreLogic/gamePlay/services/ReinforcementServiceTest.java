@@ -5,11 +5,14 @@ import  com.APP.Project.UserCoreLogic.game_entities.Player;
 import  com.APP.Project.UserCoreLogic.exceptions.*;
 import  com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import  com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
@@ -18,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * This file contains the ReinforcementServiceTest class which tests the functionality
  * of the ReinforcementService class.
+ * @author Jayati Thakkar
  * @author Rikin Dipakkumar Chauhan
  */
 public class ReinforcementServiceTest {
@@ -51,10 +55,10 @@ public class ReinforcementServiceTest {
      * @throws IOException IOException
      */
     @Before
-    public void before() throws InvalidInputException, AbsentTagException, InvalidMapException, ResourceNotFoundException, EntityNotFoundException, IOException {
+    public void before() throws InvalidInputException, AbsentTagException, InvalidMapException, ResourceNotFoundException, EntityNotFoundException, URISyntaxException {
         d_GamePlayEngine.initialise();
         d_MapEditorEngine.initialise();
-        d_MapEditorEngine.getAllCountryList();
+        d_MapEditorEngine.getCountryList();
         d_AssignReinforcementService = new ReinforcementService();
 
         Player l_player1 = new Player();
@@ -64,9 +68,11 @@ public class ReinforcementServiceTest {
         d_GamePlayEngine.addPlayer(l_player2);
 
         d_EditMapService = new EditMapAdapter();
-        d_EditMapService.handleLoadMap(d_TestFile.getPath());
+        assertNotNull(d_TestFile);
+        String l_url = new URI(d_TestFile.getPath()).getPath();
+        d_EditMapService.handleLoadMap(l_url);
         d_DistributeCountriesService = new CountryDistributionService();
-        d_DistributeCountriesService.countryDistribution();
+        d_DistributeCountriesService.distributeCountries();
     }
 
     /**
@@ -94,3 +100,4 @@ public class ReinforcementServiceTest {
         assertEquals(13, l_reinforcementArmies1);
     }
 }
+

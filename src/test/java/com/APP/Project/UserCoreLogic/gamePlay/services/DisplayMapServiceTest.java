@@ -1,12 +1,11 @@
 package  com.APP.Project.UserCoreLogic.gamePlay.services;
 
 import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
-import com.jakewharton.fliptables.FlipTable;
-import  com.APP.Project.Main;
-import  com.APP.Project.UserCoreLogic.UserCoreLogic;
 import  com.APP.Project.UserCoreLogic.game_entities.Player;
 import  com.APP.Project.UserCoreLogic.exceptions.*;
+import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import  com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,22 +20,25 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * This file contains test cases for the DisplayMapService class.
+ * @author Jayati Thakkar
  * @author Rikin Dipakkumar Chauhan
  */
 public class DisplayMapServiceTest {
-    private DisplayMapService d_showMapService;
-    private List<Player> d_playerList;
-    private static URL d_TestFilePath;
+    private static MapFeatureEngine d_MapEditorEngine;
+    private static EditMapAdapter d_EditMapService;
+    private static URL d_TestFile;
+    private static CountryDistributionService d_DistributeCountriesService;
+    private static ReinforcementService d_AssignReinforcementService;
+    private static GamePlayEngine d_GamePlayEngine;
 
     /**
      * Setting up the context by loading the map file before testing the class methods.
      */
     @BeforeClass
     public static void beforeClass() {
-        Main l_application = new Main();
-        l_application.handleApplicationStartup();
 
-        d_TestFilePath = DisplayMapServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
+        d_GamePlayEngine = GamePlayEngine.getInstance();
+        d_TestFile = ReinforcementServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
     }
 
     /**
@@ -54,33 +56,47 @@ public class DisplayMapServiceTest {
     @Before
     public void before() throws InvalidInputException, EntityNotFoundException, URISyntaxException, InvalidMapException, ResourceNotFoundException, AbsentTagException {
         // (Re)initialise the UserCoreLogic.
-        UserCoreLogic.getInstance().initialise();
+        d_GamePlayEngine.initialise();
+        d_MapEditorEngine.initialise();
+        d_MapEditorEngine.getCountryList();
+        d_AssignReinforcementService = new ReinforcementService();
 
-        EditMapAdapter l_editMapService = new EditMapAdapter();
-        d_showMapService = new DisplayMapService();
-        assertNotNull(d_TestFilePath);
-        String l_url = new URI(d_TestFilePath.getPath()).getPath();
-        l_editMapService.handleLoadMap(l_url);
+        Player l_player1 = new Player();
+        Player l_player2 = new Player();
 
-        CountryDistributionService l_distributeCountriesService = new CountryDistributionService();
-        ManageGamePlayerService l_playerService = new ManageGamePlayerService();
-        l_playerService.add("User_1");
-        l_playerService.add("User_2");
+        d_GamePlayEngine.addPlayer(l_player1);
+        d_GamePlayEngine.addPlayer(l_player2);
 
-        l_distributeCountriesService.countryDistribution();
-        d_playerList = GamePlayEngine.getInstance().getPlayerList();
+        d_EditMapService = new EditMapAdapter();
+        assertNotNull(d_TestFile);
+        String l_url = new URI(d_TestFile.getPath()).getPath();
+        d_EditMapService.handleLoadMap(l_url);
+        d_DistributeCountriesService = new CountryDistributionService();
+        d_DistributeCountriesService.distributeCountries();
     }
 
     /**
-     * It tests the showPlayerContent method which returns the String of player information
+     * It tests the if the assign country list is empty or not
+     */
+    @Test(expected = Test.None.class)
+    public void testAssignCountry() {
+        for (Player l_player : GamePlayEngine.getInstance().getPlayerList()) {
+            assertNotNull(l_player.getAssignedCountries());
+        }
+    }
+
+    /**
+     * if will check if the reinforcement is calculated properly.
+     *
+     * @throws EntityNotFoundException if while searching, the entity is not found
      */
     @Test
-    public void testShowPlayerContent() {
-        String[] l_header1 = {"USER_1", "Mercury-South", "Mercury-East", "Mercury-West", "Mercury-North", "Venus-South"};
-        String[] l_playerContent1 = {"Army Count", "0", "0", "0", "0", "0"};
+    public void testingCalculatedReinforcedArmyValue() throws EntityNotFoundException {
+        d_AssignReinforcementService.execute();
+        int l_reinforcementArmies = GamePlayEngine.getInstance().getPlayerList().get(0).getReinforcementCount();
+        assertEquals(9, l_reinforcementArmies);
 
-        String l_PlayerExpectedData = FlipTable.of(l_header1, new String[][]{l_playerContent1});
-        String l_playerActualData = d_showMapService.displayContentForPlayer(d_playerList.get(0));
-        assertEquals(l_PlayerExpectedData, l_playerActualData);
+        int l_reinforcementArmies1 = GamePlayEngine.getInstance().getPlayerList().get(1).getReinforcementCount();
+        assertEquals(13, l_reinforcementArmies1);
     }
 }
