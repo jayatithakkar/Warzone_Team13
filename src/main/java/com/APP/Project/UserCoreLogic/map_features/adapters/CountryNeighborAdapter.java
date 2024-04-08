@@ -1,9 +1,10 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
+import com.APP.Project.UserCoreLogic.map_features.MapEditorEngine;
 import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class CountryNeighborAdapter {
     
-    private final MapFeatureEngine d_mapEditorEngine;
+    private final MapEditorEngine d_mapEditorEngine;
     private final CountryContainer d_countryRepository;
     private final LogEntryBuffer d_logEntryBuffer;
 
@@ -25,7 +26,7 @@ public class CountryNeighborAdapter {
      * Constructs a CountryNeighborAdapter object with necessary dependencies.
      */
     public CountryNeighborAdapter() {
-        d_mapEditorEngine = MapFeatureEngine.getInstance();
+        d_mapEditorEngine = UserCoreLogic.getGameEngine().getMapEditorEngine();;
         d_countryRepository = new CountryContainer();
         d_logEntryBuffer = LogEntryBuffer.getLogger();
     }
@@ -42,7 +43,7 @@ public class CountryNeighborAdapter {
         Country l_country = d_countryRepository.findFirstByCountryName(p_countryName);
         Country l_neighborCountry = d_countryRepository.findFirstByCountryName(p_neighborCountryName);
         if (!d_mapEditorEngine.getLoadingMap()) {
-            d_logEntryBuffer.dataChanged("editneighbor", "\n---EDITNEIGHBOR---\n" + p_neighborCountryName + " is set as neighbor of " + p_countryName + "\n");
+            d_logEntryBuffer.dataChanged("editneighbor", p_neighborCountryName + " is set as neighbor of " + p_countryName);
         }
         return this.add(l_country, l_neighborCountry);
     }
@@ -72,7 +73,7 @@ public class CountryNeighborAdapter {
         Country l_neighborCountry = d_countryRepository.findFirstByCountryName(p_neighborCountryName);
 
         if (!d_mapEditorEngine.getLoadingMap()) {
-            d_logEntryBuffer.dataChanged("editneighbor", "\n---EDITNEIGHBOR---\n" + p_neighborCountryName + " is removed as a neighbor of " + p_countryName + "\n");
+            d_logEntryBuffer.dataChanged("editneighbor", p_neighborCountryName + " is removed as a neighbor of " + p_countryName);
         }
         return this.remove(l_country, l_neighborCountry);
     }

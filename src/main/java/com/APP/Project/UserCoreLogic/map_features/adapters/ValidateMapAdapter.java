@@ -1,12 +1,13 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
 import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidMapException;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
+import com.APP.Project.UserCoreLogic.map_features.MapEditorEngine;
 import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 
 import java.util.ArrayList;
@@ -14,18 +15,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-
 /**
  * This class represents a ValidateMapAdapter which implements StandaloneCommand.
  * It provides methods to validate various aspects of a map including continent connectivity,
  * overall map connectivity, and control values of continents.
  * 
  * @author Rikin Dipakkumar Chauhan
- * @version 1.0
+ * @version 3.0
  */
 public class ValidateMapAdapter implements StandaloneCommand {
-    
-    private final MapFeatureEngine d_mapEditorEngine;
+    /**
+     * Engine to store and retrieve map data.
+     */
+    private final MapEditorEngine d_mapEditorEngine;
 
     private final LogEntryBuffer d_logEntryBuffer;
 
@@ -33,7 +35,7 @@ public class ValidateMapAdapter implements StandaloneCommand {
      * Constructs a ValidateMapAdapter object.
      */
     public ValidateMapAdapter() {
-        d_mapEditorEngine = MapFeatureEngine.getInstance();
+        d_mapEditorEngine = UserCoreLogic.getGameEngine().getMapEditorEngine();
         d_logEntryBuffer = LogEntryBuffer.getLogger();
     }
 
@@ -55,10 +57,12 @@ public class ValidateMapAdapter implements StandaloneCommand {
 
             Map<String, List<String>> l_continentCountryMap = d_mapEditorEngine.getContinentCountryMap();
             for (Map.Entry<String, List<String>> entry : l_continentCountryMap.entrySet()) {
+                
                 l_continentName = entry.getKey();
                 l_countriesIntoContinent = entry.getValue();
                 int l_otherContinentNeighbour = 0;
 
+                
                 for (String l_countryNameCompare : l_countriesIntoContinent) {
                     try {
                         l_foundCountry = l_countryRepository.findFirstByCountryName(l_countryNameCompare);
@@ -85,6 +89,7 @@ public class ValidateMapAdapter implements StandaloneCommand {
                     }
                 }
             }
+            
             if (l_compareTotalContinent == l_totalContinent) {
                 l_isInvalid = true;
             }
@@ -128,6 +133,7 @@ public class ValidateMapAdapter implements StandaloneCommand {
                     }
                 }
             }
+            
             int compareCounter = 0;
             for (Country l_compareCountry : l_countryList) {
                 for (Country l_compare2 : l_visitedCountry) {
@@ -146,7 +152,7 @@ public class ValidateMapAdapter implements StandaloneCommand {
         return l_isValid;
     }
 
-     /**
+    /**
      * Validates the control value of continents.
      * 
      * @param p_continentList The list of continents to validate.
@@ -175,41 +181,47 @@ public class ValidateMapAdapter implements StandaloneCommand {
     @Override
     public String execute(List<String> p_commandValues) throws InvalidMapException, EntityNotFoundException {
         String l_logResponse = "\n---VALIDATEMAP---\n";
+        
         if (d_mapEditorEngine.getContinentList().size() > 0) {
+            
             if (validationControlValue(d_mapEditorEngine.getContinentList())) {
+                
                 if (d_mapEditorEngine.getCountryList().size() > 1) {
+                    
                     if (d_mapEditorEngine.getCountryList().size() >= d_mapEditorEngine.getContinentList().size()) {
+                        
                         if (isContinentConnectedSubgraph()) {
+                            
                             if (isMapConnectedGraph()) {
-                                d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "Map validation passed successfully!\n");
+                                d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "Map validation passed successfully!");
                                 return "Map validation passed successfully!";
                             } else {
-                                d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "map must be a connected graph!\n");
+                                d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "map must be a connected graph!");
                                 throw new InvalidMapException("map must be a connected graph!");
                             }
                         } else {
-                            d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "Continent must be a connected sub-graph!\n");
+                            d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "Continent must be a connected sub-graph!");
                             throw new InvalidMapException("Continent must be a connected sub-graph!");
                         }
                     } else {
-                        d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "Total continents must be lesser or equal to the countries!\n");
+                        d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "Total continents must be lesser or equal to the countries!");
                         throw new InvalidMapException("Total continents must be lesser or equal to the countries!");
                     }
                 } else {
-                    d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "At least one country required!\n");
+                    d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "At least one country required!");
                     throw new InvalidMapException("At least one country required!");
                 }
             } else {
-                d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "ControlValue is not valid!\n");
+                d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "ControlValue is not valid!");
                 throw new InvalidMapException("ControlValue is not valid!");
             }
         } else {
-            d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "At least one continent required!\n");
+            d_logEntryBuffer.dataChanged("validatemap", l_logResponse + "At least one continent required!");
             throw new InvalidMapException("At least one continent required!");
         }
     }
 
-     /**
+    /**
      * Executes the command to validate the map with a specific head command.
      * 
      * @param p_commandValues The command values.
@@ -219,11 +231,17 @@ public class ValidateMapAdapter implements StandaloneCommand {
      * @throws EntityNotFoundException if entity not found.
      */
     public String execute(List<String> p_commandValues, String p_headCommand) throws InvalidMapException, EntityNotFoundException {
+    
         if (d_mapEditorEngine.getContinentList().size() > 0) {
+            
             if (validationControlValue(d_mapEditorEngine.getContinentList())) {
+                
                 if (d_mapEditorEngine.getCountryList().size() > 1) {
+                    
                     if (d_mapEditorEngine.getCountryList().size() >= d_mapEditorEngine.getContinentList().size()) {
+                        
                         if (isContinentConnectedSubgraph()) {
+                            
                             if (isMapConnectedGraph()) {
                                 return "Map validation passed successfully!";
                             } else {
