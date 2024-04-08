@@ -3,7 +3,7 @@ package com.APP.Project.UserCoreLogic.phases;
 import com.APP.Project.UserCoreLogic.GameEngine;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
-import com.APP.Project.UserCoreLogic.gamePlay.services.ManageGamePlayerService;
+import com.APP.Project.UserCoreLogic.gamePlay.services.PlayerService;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class PlaySetup extends GamePlay {
      * @throws UserCoreLogicException If an error occurs while setting up players.
      */
     public String setPlayers(String serviceType, List<String> p_arguments) throws UserCoreLogicException {
-        return this.invokeMethod(new ManageGamePlayerService(), serviceType, p_arguments);
+        return this.invokeMethod(new PlayerService(), serviceType, p_arguments);
     }
 
     /**
@@ -71,7 +71,7 @@ public class PlaySetup extends GamePlay {
         invalidCommand();
     }
 
-     /**
+    /**
      * Placeholder method for issuing orders.
      *
      * @throws UserCoreLogicException If an invalid command is issued.
