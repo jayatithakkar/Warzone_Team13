@@ -20,9 +20,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * This test class tests the game_play's ShowMapService class functions
+ * This class represents the unit test for the ShowMapService class.
+ * It tests various functionalities related to displaying player content on the map.
  *
- * @author MILESH
+ * @author Rupal Kapoor
  */
 public class DisplayMapServiceTest {
     private DisplayMapService d_showMapService;
@@ -30,7 +31,9 @@ public class DisplayMapServiceTest {
     private static URL d_TestFilePath;
 
     /**
-     * Setting up the context by loading the map file before testing the class methods.
+     * This method executes once before all test methods in the class.
+     * It initializes necessary components for testing.
+     *
      */
     @BeforeClass
     public static void beforeClass() {
@@ -41,7 +44,7 @@ public class DisplayMapServiceTest {
     }
 
     /**
-     * Executes before each test method.
+     * This method executes before each test method.
      * It sets up the environment required for individual test cases.
      *
      * @throws InvalidInputException      If the input is invalid.
@@ -72,7 +75,7 @@ public class DisplayMapServiceTest {
     }
 
     /**
-     * Tests the functionality to display player content on the map.
+     * This method is used to test the functionality to display player content on the map.
      */
     @Test
     public void testShowPlayerContent() {
