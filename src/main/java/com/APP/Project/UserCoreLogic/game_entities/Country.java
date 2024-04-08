@@ -1,17 +1,24 @@
 package com.APP.Project.UserCoreLogic.game_entities;
 
+import com.APP.Project.UserCoreLogic.constants.interfaces.JSONable;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * This class provides the getter and setter methods for the Country entity
+ * This class has the setter and getters for the Country entity
  *
  * @author Sushant Sinha
  */
-public class Country {
+public class Country implements JSONable {
     /**
-     * Generate ID of the country.
+     * Used to keep the track of unique IDs for the continent.
+     */
+    public static int d_SerialNumber = 0;
+    /**
+     * Auto-generated ID of the country.
      */
     private final Integer COUNTRY_ID;
     private String d_countryName;
@@ -19,14 +26,11 @@ public class Country {
     private List<Country> d_neighbourCountries;
     private Player d_ownedBy;
     private int d_numberOfArmies;
+    private String d_xCoordinate;
+    private String d_yCoordinate;
 
     /**
-     * Needed for tracking the used IDs for the Country.
-     */
-    public static int d_SerialNumber = 0;
-
-    /**
-     * Assigns country id to the country and creates a list of neighbouring countries.
+     * Assigns unique country id to the country and creates the list for neighbouring countries.
      */
     public Country() {
         this.COUNTRY_ID = ++d_SerialNumber;
@@ -34,13 +38,31 @@ public class Country {
     }
 
     /**
-     * Assigns country id to the country and creates a list of neighbouring countries.
+     * Assigns country id to the country and creates the neighbour countries list.
      *
-     * @param p_countryId Country id.
+     * @param p_countryId country id.
      */
     public Country(int p_countryId) {
         this.COUNTRY_ID = p_countryId;
         d_neighbourCountries = new ArrayList<>();
+    }
+
+    /**
+     * Assigns the country name to and creates the neighbouring countries list.
+     *
+     * @param p_countryName Country name.
+     */
+    public Country(String p_countryName) {
+        this.COUNTRY_ID = ++d_SerialNumber;
+        d_neighbourCountries = new ArrayList<>();
+        d_countryName = p_countryName;
+    }
+
+    /**
+     * Resets the serial number to zero. Used when the entire map engine is being reset.
+     */
+    public static void resetSerialNumber() {
+        d_SerialNumber = 0;
     }
 
     /**
@@ -52,18 +74,8 @@ public class Country {
         return COUNTRY_ID;
     }
 
-
     /**
-     * Sets the name for the country.
-     *
-     * @param p_countryName Value of the country name.
-     */
-    public void setCountryName(String p_countryName) {
-        d_countryName = p_countryName;
-    }
-
-    /**
-     * Gets the name of this country.
+     * Getter for the country name.
      *
      * @return this name of the country.
      */
@@ -72,17 +84,16 @@ public class Country {
     }
 
     /**
-     * Sets the continent inside which this country is.
+     * Setter for the country name.
      *
-     * @param p_continent Represents the value of continent.
+     * @param p_countryName Value of the country name.
      */
-    public void setContinent(Continent p_continent) {
-        d_continent = p_continent;
+    public void setCountryName(String p_countryName) {
+        d_countryName = p_countryName;
     }
 
-
     /**
-     * Gets the continent inside which this is country is.
+     * Getter for the continent inside which this country belongs.
      *
      * @return continent of this country.
      */
@@ -91,21 +102,30 @@ public class Country {
     }
 
     /**
-     * Sets the list of the neighboring countries.
+     * Setter for the continent inside which this country belongs.
      *
-     * @param p_neighbourCountries List of neighboring countries.
+     * @param p_continent Represents the value of continent.
      */
-    public void setNeighbourCountries(List<Country> p_neighbourCountries) {
-        d_neighbourCountries = p_neighbourCountries;
+    public void setContinent(Continent p_continent) {
+        d_continent = p_continent;
     }
 
     /**
-     * Gets the list of neighboring countries.
+     * Getter for the list of neighboring countries.
      *
      * @return Value of neighboring countries list.
      */
     public List<Country> getNeighbourCountries() {
         return d_neighbourCountries;
+    }
+
+    /**
+     * Setter for the list of neighboring countries.
+     *
+     * @param p_neighbourCountries List of neighboring countries.
+     */
+    public void setNeighbourCountries(List<Country> p_neighbourCountries) {
+        d_neighbourCountries = p_neighbourCountries;
     }
 
     /**
@@ -127,14 +147,7 @@ public class Country {
     }
 
     /**
-     * Resets the serial number to zero. Needed when the map engine is being reset.
-     */
-    public static void resetSerialNumber() {
-        d_SerialNumber = 0;
-    }
-
-    /**
-     * Getter method to determine who owns this country.
+     * Getter method to determine country owner.
      *
      * @return country owner object.
      */
@@ -170,6 +183,42 @@ public class Country {
     }
 
     /**
+     * Returns the X coordinate of the Country.
+     *
+     * @return X coordinate.
+     */
+    public String getXCoordinate() {
+        return d_xCoordinate;
+    }
+
+    /**
+     * Sets the X coordinate of the Country.
+     *
+     * @param p_xCoordinate X coordinate.
+     */
+    public void setXCoordinate(String p_xCoordinate) {
+        this.d_xCoordinate = p_xCoordinate;
+    }
+
+    /**
+     * Returns the Y coordinate of the Country.
+     *
+     * @return Y coordinate.
+     */
+    public String getYCoordinate() {
+        return d_yCoordinate;
+    }
+
+    /**
+     * Sets the Y coordinate of the Country.
+     *
+     * @param p_yCoordinate Y coordinate.
+     */
+    public void setYCoordinate(String p_yCoordinate) {
+        this.d_yCoordinate = p_yCoordinate;
+    }
+
+    /**
      * Checks if both objects are the same using both the country and continent of the object.
      *
      * @param p_l_o Value of the second element to be checked with.
@@ -192,5 +241,32 @@ public class Country {
     @Override
     public int hashCode() {
         return Objects.hash(COUNTRY_ID, d_continent);
+    }
+
+    /**
+     * Creates <code>JSONObject</code> using the runtime information stored in data members of this class.
+     *
+     * @return Created <code>JSONObject</code>.
+     */
+    @Override
+    public JSONObject toJSON() {
+        JSONObject l_countryJSON = new JSONObject();
+        l_countryJSON.put("name", d_countryName);
+        l_countryJSON.put("numberOfArmies", d_numberOfArmies);
+        return l_countryJSON;
+    }
+
+    /**
+     * Creates an instance of this class and assigns the data members of the concrete class using the values inside
+     * <code>JSONObject</code>.
+     *
+     * @param p_jsonObject <code>JSONObject</code> holding the runtime information.
+     * @return Created instance of this class using the provided JSON data.
+     */
+    public static Country fromJSON(JSONObject p_jsonObject) {
+        Country l_country = new Country();
+        l_country.setCountryName(p_jsonObject.getString("name"));
+        l_country.setNumberOfArmies(p_jsonObject.getInt("numberOfArmies"));
+        return l_country;
     }
 }
