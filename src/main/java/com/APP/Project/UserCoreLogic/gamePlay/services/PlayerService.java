@@ -1,11 +1,13 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
+import com.APP.Project.UserCoreLogic.Container.PlayerContainer;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
-import com.APP.Project.UserCoreLogic.Container.PlayerContainer;
 
 /**
  * This class deals with managing the gameplayer user command to add and/or remove game player from the game
@@ -13,7 +15,7 @@ import com.APP.Project.UserCoreLogic.Container.PlayerContainer;
  * @author Rupal Kapoor
  * @version 1.0
  */
-public class ManageGamePlayerService {
+public class PlayerService {
 
     /**
      * The game play engine to store and retrieve map data.
@@ -30,8 +32,8 @@ public class ManageGamePlayerService {
     /**
      * Default constructor to instantiate objects.
      */
-    public ManageGamePlayerService() {
-        d_gamePlayEngine = GamePlayEngine.getInstance();
+    public PlayerService() {
+        d_gamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
         d_playerRepository = new PlayerContainer();
         d_logEntryBuffer = LogEntryBuffer.getLogger();
     }
@@ -40,19 +42,27 @@ public class ManageGamePlayerService {
      * This method is used to add the player to the list stored at Game Play engine.
      *
      * @param p_playerName the value of the player's name.
+     * @param p_strategyType the value of strategy of the player
      * @return the value of response of the request.
      * @throws InvalidInputException is thrown in case of processing the player creation.
      */
-    public String add(String p_playerName) throws InvalidInputException {
+    public String add(String p_playerName, String p_strategyType) throws InvalidInputException {
         if (!d_playerRepository.existByPlayerName(p_playerName)) {
             try {
-                Player l_player = new Player();
-                l_player.setName(p_playerName);
+                StrategyType l_strategyType;
+                try {
+                    l_strategyType = StrategyType.valueOf(p_strategyType.toUpperCase());
+                } catch (IllegalArgumentException p_e) {
+                    throw new InvalidInputException("Invalid strategy type!");
+                }
+                Player l_player = new Player(p_playerName, l_strategyType);
                 d_gamePlayEngine.addPlayer(l_player);
-                d_logEntryBuffer.dataChanged("gameplayer", "\n---GAMEPLAYER---\n" + p_playerName + " player added!\n");
+                // Logging
+                d_logEntryBuffer.dataChanged("gameplayer", p_playerName + " player added with strategy type: "+p_strategyType);
+
                 return String.format("%s player added!", p_playerName);
             } catch (Exception e) {
-                throw new InvalidInputException("Player name is not valid");
+                throw new InvalidInputException("Invalid player arguments!");
             }
         } else {
             throw new InvalidInputException("Player name already exists....Please provide different name.");
@@ -71,7 +81,9 @@ public class ManageGamePlayerService {
         // Filters the continent list using the continent name
         Player l_player = d_playerRepository.findByPlayerName(p_playerName);
         d_gamePlayEngine.removePlayer(l_player);
-        d_logEntryBuffer.dataChanged("gameplayer", "\n---GAMEPLAYER---\n" + p_playerName + " player removed!\n");
+        // Logging
+        d_logEntryBuffer.dataChanged("gameplayer", p_playerName + " player removed!");
+
         return String.format("%s player removed!", p_playerName);
     }
 }

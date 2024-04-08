@@ -1,11 +1,11 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
-import com.APP.Project.UserCoreLogic.GameEngine;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidArgumentException;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidArgumentException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidCommandException;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidOrderException;
 import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
 
@@ -28,9 +28,9 @@ public class IssueOrderService {
      * In case the player issues an order with reinforcements more than enough they possess, it will request the same player
      * again for a valid order.
      */
-    public void execute() {
+    public void execute() throws InvalidOrderException {
         List<Player> finishedIssuingOrders = new ArrayList<>();
-        GamePlayEngine l_gamePlayEngine = GameEngine.GAME_PLAY_ENGINE();
+        GamePlayEngine l_gamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
         l_gamePlayEngine.setCurrentPlayerTurn(l_gamePlayEngine.getCurrentPlayerForIssuePhase());
 
         while (finishedIssuingOrders.size() != l_gamePlayEngine.getPlayerList().size()) {
@@ -45,16 +45,19 @@ public class IssueOrderService {
             do {
                 try {
                     // Request player to issue the order.
-                    if (l_currentPlayer.issueOrder()) {
+                    l_currentPlayer.issueOrder();
+                    if (l_currentPlayer.isDone()) {
                         // Player won't be asked again for issuing orders for this phase.
                         finishedIssuingOrders.add(l_currentPlayer);
                     }
                     l_invalidPreviousOrder = false;
                 } catch (EntityNotFoundException | InvalidCommandException | InvalidArgumentException p_exception) {
                     l_invalidPreviousOrder = true;
-                    // Show UserCoreLogicException error to the user.
-                    d_logEntryBuffer.dataChanged("Issue order", p_exception.getMessage());
+                    // Show VMException error to the user.
                     UserCoreLogic.getInstance().stderr(p_exception.getMessage());
+
+                    // Logging
+                    d_logEntryBuffer.dataChanged("issue_order_error", p_exception.getMessage());
                 } catch (InterruptedException | ExecutionException p_e) {
                     // If interruption occurred while issuing the order.
                     l_invalidPreviousOrder = true;

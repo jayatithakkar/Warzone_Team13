@@ -21,71 +21,70 @@ import java.util.stream.Collectors;
 /**
  * Manages players and their orders runtime information; Responsible for executing orders in round-robin fashion.
  *
- * @author Brijesh Lakkad
- * @author MILESH
+ * @author Rupal Kapoor
  * @version 1.0
  */
 public class GamePlayEngine implements Engine, JSONable {
     /**
-     * Players of the game.
+     * This is a list of the players of the game.
      */
     private List<Player> d_playerList;
 
     /**
-     * Current turn of the player for issuing the order.
+     * Denotes the current turn of the player for issuing the order.
      */
     private int d_currentPlayerTurn = 0;
 
     /**
-     * Keeps the track of the first player who was selected by the engine while <code>GAME_LOOP#ISSUE_ORDER</code>
+     * This attribute enables to keeps the track of the first player that was selected by the engine while the game loop issue order
      * state.
      */
     private int d_currentPlayerForIssuePhase = 0;
 
     /**
-     * Keeps the track of the first player who was selected by the engine while <code>GAME_LOOP#EXECUTE_ORDER</code>
-     * state.
+     * This attribute helps to keep the track of the first player selected by the engine while game loop executes the order state.
      */
     private int d_currentPlayerForExecutionPhase = 0;
 
     /**
-     * Thread created by <code>GamePlayEngine</code>. This thread should be responsive to interruption.
+     * This is the thread created by the GamePlayEngine. It is responsive to interruption.
      */
     private Thread d_LoopThread;
 
     /**
-     * Main game loop.
+     * This represents the main game loop.
      */
     private GameLoop d_gameLoop = new GameLoop(this);
 
     /**
-     * Keeps track of the execution-index; it helps to decide order execution and expiration phase.
+     * This metric keeps track of the execution-index, i.e. it helps to decide order of execution and expiration phase.
      */
     private static int d_currentExecutionIndex = 0;
 
     /**
-     * List of the future orders which are supposed to be executed later in the future iterations.
+     * This captures the list of the future orders which are supposed to be executed later in the iterations.
      */
     private final List<Order> d_futurePhaseOrders = new ArrayList<>();
 
     /**
-     * Result of the game. It will be null until the game is over.
+     * This attribute captures the result of the game.
+     * It is set to null until the game is over.
      */
     private GameResult d_gameResult;
 
     private final static PlayerContainer d_PLAYER_REPOSITORY = new PlayerContainer();
 
     /**
-     * Instance can not be created outside the class.
+     * This is to privatize the instance creation of this class
      */
     public GamePlayEngine() {
         this.initialise();
     }
 
     /**
-     * Parameterised constructor to set the execution-index using offset.
+     * This sets the execution-index using offset by using the below prameterised constructor to .
      *
-     * @param p_offset Offset to be set for the execution-index.
+     * @param p_offset This represents the offset value to be set for the execution index.
      */
     public GamePlayEngine(int p_offset) {
         this.initialise();
@@ -101,45 +100,45 @@ public class GamePlayEngine implements Engine, JSONable {
     }
 
     /**
-     * Adds the player to the list.
+     * This method add the player to the list.
      *
-     * @param p_player Player to be added.
+     * @param p_player This denotes the player to be added.
      */
     public void addPlayer(Player p_player) {
         d_playerList.add(p_player);
     }
 
     /**
-     * Removes the player from the list.
+     * This method removes the player from the list.
      *
-     * @param p_player Player to be removed.
+     * @param p_player This denotes the player to be removed.
      */
     public void removePlayer(Player p_player) {
         d_playerList.remove(p_player);
     }
 
     /**
-     * Gets the players of the game.
+     * This method gets the players of the game.
      *
-     * @return Value of the player list.
+     * @return the value of the list of players.
      */
     public List<Player> getPlayerList() {
         return d_playerList;
     }
 
     /**
-     * Sets the players of the game.
+     * This method is used to set the players of the game.
      *
-     * @param p_playerList Value of the player list.
+     * @param p_playerList the value returned is the player list.
      */
     public void setPlayerList(List<Player> p_playerList) {
         d_playerList = p_playerList;
     }
 
     /**
-     * Get the player who's turn for issuing the order.
+     * This method gets the player who has the turn for issuing the order.
      *
-     * @return Value of the player which will issue the order.
+     * @return Player object of the player which will issue the order.
      */
     public Player getCurrentPlayer() {
         Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
@@ -152,25 +151,25 @@ public class GamePlayEngine implements Engine, JSONable {
     }
 
     /**
-     * Gets the index of current player.
+     * This method gets the index of current player
      *
-     * @return Value of index of current player.
+     * @return The value of index of current player
      */
     public int getCurrentPlayerTurn() {
         return d_currentPlayerTurn;
     }
 
     /**
-     * Sets the index of current player.
+     * This method sets the index of current player.
      *
-     * @param p_currentPlayerTurn Value of index of current player.
+     * @param p_currentPlayerTurn This is the value of index of current player.
      */
     public void setCurrentPlayerTurn(int p_currentPlayerTurn) {
         d_currentPlayerTurn = p_currentPlayerTurn;
     }
 
     /**
-     * Gets the previously-stored player index whose turn is to issue an order.
+     * This method gets the previously stored player index who has the turn to issue an order.
      *
      * @return Value of the index.
      */
@@ -179,46 +178,46 @@ public class GamePlayEngine implements Engine, JSONable {
     }
 
     /**
-     * Sets the player index whose turn is going to issue an order in the next iteration.
+     * This method sets the index of the player that is going to issue an order in the next iteration.
      *
-     * @param p_currentPlayerForIssuePhase Value of the index to be set.
+     * @param p_currentPlayerForIssuePhase The value of the index to be set
      */
     public void setCurrentPlayerForIssuePhase(int p_currentPlayerForIssuePhase) {
         d_currentPlayerForIssuePhase = p_currentPlayerForIssuePhase;
     }
 
     /**
-     * Gets the previously-stored player index to get an order of the player for execution.
+     * This method gets the previously stored player index to get an order of the player for the execution
      *
-     * @return Value of the index.
+     * @return The value of the index.
      */
     public int getCurrentPlayerForExecutionPhase() {
         return d_currentPlayerForExecutionPhase;
     }
 
     /**
-     * Sets the player index whose order is going to be executed first in the next iteration.
+     * This method sets the index of the player for which the order is going to be executed first in the next iteration.
      *
-     * @param p_currentPlayerForExecutionPhase Value of the index to be set.
+     * @param p_currentPlayerForExecutionPhase The value of the index to be set.
      */
     public void setCurrentPlayerForExecutionPhase(int p_currentPlayerForExecutionPhase) {
         d_currentPlayerForExecutionPhase = p_currentPlayerForExecutionPhase;
     }
 
     /**
-     * Gets the current execution index. This index helps to keep track of orders; some of those should be executed and
-     * others of those should be expired during this loop iteration.
+     * This method gets the current execution index. This index helps to keep track of orders, some of which should be executed and
+     * others should be expired during this loop iteration.
      *
-     * @return Value of the index.
+     * @return The integer value of the index.
      */
     public static int getCurrentExecutionIndex() {
         return d_currentExecutionIndex;
     }
 
     /**
-     * Gets the list of future orders which should be executed during this phase.
+     * This method gets the list of future orders which should be executed during this phase.
      *
-     * @return Value of the list of orders.
+     * @return The value of the list of orders.
      */
     public List<Order> getCurrentFutureOrders() {
         return d_futurePhaseOrders.stream().filter(p_futureOrder ->
@@ -227,9 +226,9 @@ public class GamePlayEngine implements Engine, JSONable {
     }
 
     /**
-     * Gets the list of future orders which are going to be expired after this loop iteration.
+     * This method gets the list of future orders which are going to be expired after current loop iteration.
      *
-     * @return Value of the list of orders.
+     * @return The value of the list of orders.
      */
     public List<Order> getExpiredFutureOrders() {
         return d_futurePhaseOrders.stream().filter(p_futureOrder ->
@@ -238,33 +237,33 @@ public class GamePlayEngine implements Engine, JSONable {
     }
 
     /**
-     * Adds the order to be executed in future iteration.
+     * This method adds the order to be executed in future iteration.
      *
-     * @param p_futureOrder Value of the order to be added.
+     * @param p_futureOrder The value of the order to be added.
      */
     public void addFutureOrder(Order p_futureOrder) {
         this.d_futurePhaseOrders.add(p_futureOrder);
     }
 
     /**
-     * Removes the order. This method is onlt being called if the order has been expired.
+     * This method is used to remove the order. It is called if the order has been expired.
      *
-     * @param p_futureOrder Value of the order to be added.
+     * @param p_futureOrder The value of the order to be added.
      */
     public void removeFutureOrder(Order p_futureOrder) {
         this.d_futurePhaseOrders.remove(p_futureOrder);
     }
 
     /**
-     * Increments the current-execution-index.
+     * This method is responsible for incrementing the current execution index.
      */
     public static void incrementEngineIndex() {
         d_currentExecutionIndex++;
     }
 
     /**
-     * Starts the thread to iterate through various <code>GameLoopState</code> states. Channels the exception to
-     * <code>stderr</code> method.
+     * This method starts the thread to iterate through various game loop states. Channels the exception to
+     * stderr method.
      */
     public void startGameLoop() {
         UserCoreLogic.getInstance().stdout("GAME_ENGINE_STARTED");
@@ -281,19 +280,19 @@ public class GamePlayEngine implements Engine, JSONable {
     }
 
     /**
-     * Returns thread representing the game loop.
+     * This method is responsible for returning the  thread representing the game loop.
      *
-     * @return Thread.
+     * @return Thread The thread representing game loop
      */
     public Thread getLoopThread() {
         return d_LoopThread;
     }
 
     /**
-     * This game round will be over only when any player has won the game. If the game mode is tournament, then
+     * This method checks if the game round will be over only when any player has won the game. If the game mode is tournament, then
      * additional condition for the game to be over is to exceed the turns of the round.
      *
-     * @return True if the game is over; false otherwise.
+     * @return The value True is returned if the game is over, else false is returned.
      */
     public boolean checkIfGameIsOver() {
         if (UserCoreLogic.getGameEngine().isTournamentModeOn() && d_currentExecutionIndex > TournamentEngine.getInstance().getMaxNumberOfTurns()) {
@@ -310,25 +309,25 @@ public class GamePlayEngine implements Engine, JSONable {
     }
 
     /**
-     * Gets the result of the game.
+     * This method fetches the result of the game.
      *
-     * @return Value of the game result.
+     * @return The value of the game result to be returned.
      */
     public GameResult getGameResult() {
         return d_gameResult;
     }
 
     /**
-     * Sets the result of the game.
+     * This method is used to set the result of the game.
      *
-     * @param p_gameResult Value of the game result.
+     * @param p_gameResult The value of result of the game is returned
      */
     public void setGameResult(GameResult p_gameResult) {
         d_gameResult = p_gameResult;
     }
 
     /**
-     * {@inheritDoc} Shuts the <code>GamePlayEngine</code>.
+     * This method is responsible for shutting the game
      */
     public void shutdown() {
         if (d_gameLoop.isAlive()) {
@@ -364,12 +363,12 @@ public class GamePlayEngine implements Engine, JSONable {
     }
 
     /**
-     * Assigns the data members of the concrete class using the values inside <code>JSONObject</code>.
+     * This method is used to assign the data members of the concrete class using the values inside the JSONObject
      *
-     * @param p_jsonObject <code>JSONObject</code> holding the runtime information.
-     * @param p_gameEngine Instance of target <code>GamePlayEngine</code>.
-     * @return Created instance of this class using the provided JSON data.
-     * @throws InvalidGameException If the information from JSONObject cannot be used because it is corrupted or missing
+     * @param p_jsonObject This represents the JSONObject holding runtime information.
+     * @param p_gameEngine This is the instance of target GamePlayEngine.
+     * @return This returns the created instance of this class using the JSON data that is provided.
+     * @throws InvalidGameException It is throwns in case the information from JSONObject cannot be used due to being corrupted or missing
      *                              the values.
      */
     public static GamePlayEngine fromJSON(JSONObject p_jsonObject, com.APP.Project.UserCoreLogic.GameEngine p_gameEngine) throws
