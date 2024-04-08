@@ -1,12 +1,11 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
-import com.APP.Project.UserCoreLogic.UserCoreLogic;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
-import com.APP.Project.UserCoreLogic.map_features.MapEditorEngine;
 import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
+import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ReinforcementService {
     /**
      * This is the singleton instance of the MapFeatureEngine class.
      */
-    public MapEditorEngine d_mapEditorEngine;
+    public MapFeatureEngine d_mapEditorEngine;
 
     /**
      * This is the singleton instance of GamePlayEngine.
@@ -34,13 +33,13 @@ public class ReinforcementService {
     public Map<String, List<String>> d_continentCountryList;
 
     /**
-     * This constructor is used to set reinforcement army to each player. It also checks whether a player completely owns a
+     * This method is used to set reinforcement army to each player. It also checks whether a player completely owns a
      * continent or not. In case he/she does, then it will add the continent's control value to the reinforcement army as a part of
      * bonus.
      */
     public ReinforcementService() {
-        d_mapEditorEngine = UserCoreLogic.getGameEngine().getMapEditorEngine();
-        d_gamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
+        d_mapEditorEngine = MapFeatureEngine.getInstance();
+        d_gamePlayEngine = GamePlayEngine.getInstance();
     }
 
     /**
@@ -75,8 +74,9 @@ public class ReinforcementService {
         boolean l_checkCountry = l_country.containsAll(p_countryList);
         if (l_checkCountry) {
             return p_continent.getContinentControlValue();
+        } else {
+            return 0;
         }
-        return 0;
     }
 
     /**
@@ -92,7 +92,7 @@ public class ReinforcementService {
             for (Continent l_continent : d_mapEditorEngine.getContinentList()) {
 
                 List<String> l_countryList = new ArrayList<>(d_continentCountryList.get(l_continent.getContinentName()));
-                // Method Call: Here Control Value is assessed.
+                //Method Call: Here Control Value is assessed.
                 int l_returnContinentValue = checkPlayerOwnsContinent(l_player, l_countryList, l_continent);
 
                 l_continentValue = l_continentValue + l_returnContinentValue;
