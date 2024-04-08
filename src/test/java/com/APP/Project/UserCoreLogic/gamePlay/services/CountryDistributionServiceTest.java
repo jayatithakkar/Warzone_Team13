@@ -5,7 +5,7 @@ import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import org.junit.Before;
@@ -21,19 +21,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * This class tests various operations performed during distribution of countries among players.
+ * This class represents the unit test for the ShowMapService class.
+ * It tests various functionalities related to displaying player content on the map.
  *
- * @author CHARIT
- * @author Brijesh Lakkad
+ * @author Rupal Kapoor
+ * @version 1.0
  */
 public class CountryDistributionServiceTest {
     private static Main d_Application;
     private static URL d_TestFilePath;
     private CountryDistributionService d_distributeCountriesService;
-    private static GameEngine d_GamePlayEngine;
+    private static GamePlayEngine d_GamePlayEngine;
 
     /**
-     * Runs before the test case class runs; Initializes different objects required to perform test.
+     * This method runs before the test case class runs.
+     * It additionally initializes different objects required to perform test.
      *
      * @throws IOException        If exception while coping the predefined files.
      * @throws URISyntaxException If the path to parent directory of the files doesn't exist.
@@ -52,10 +54,10 @@ public class CountryDistributionServiceTest {
     }
 
     /**
-     * Setting up the required objects before performing test.
+     * This method is used for setting up the required objects before performing test.
      *
-     * @throws UserCoreLogicException        Exception generated during execution.
-     * @throws URISyntaxException If error while parsing the string representing the path.
+     * @throws UserCoreLogicException is thrown when exception is generated during execution.
+     * @throws URISyntaxException is thrown in case the error while parsing the string representing the path.
      */
     @Before
     public void before() throws UserCoreLogicException, URISyntaxException {
@@ -76,9 +78,9 @@ public class CountryDistributionServiceTest {
     }
 
     /**
-     * Tests whether the player list is empty or not. Passes if list contains players objects, otherwise fails.
+     * This method tests whether the player list is empty or not. Passes if list contains players objects, otherwise fails.
      *
-     * @throws InvalidInputException Throws if invalid player count.
+     * @throws InvalidInputException This exception is thrown if invalid player count.
      */
     @Test(expected = Test.None.class)
     public void testNumberOfPlayer() throws InvalidInputException {
@@ -86,9 +88,9 @@ public class CountryDistributionServiceTest {
     }
 
     /**
-     * Tests whether the count of countries required to be assigned to the player is correct or not.
+     * This method tests whether the count of countries required to be assigned to the player is correct or not.
      *
-     * @throws InvalidInputException Throws if player objects list is empty.
+     * @throws InvalidInputException This exception is thrown if player objects list is empty.
      */
     @Test(expected = Test.None.class)
     public void testPlayerCountryCount() throws InvalidInputException {
@@ -97,7 +99,7 @@ public class CountryDistributionServiceTest {
     }
 
     /**
-     * Test whether the countries are correctly assigned or not.
+     * This method tests whether the countries are correctly assigned or not.
      *
      * @throws InvalidInputException Throws if player objects list is empty.
      */

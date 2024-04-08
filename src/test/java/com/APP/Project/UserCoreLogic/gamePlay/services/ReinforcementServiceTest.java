@@ -4,7 +4,7 @@ import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
 import com.APP.Project.UserCoreLogic.exceptions.*;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.map_features.MapEditorEngine;
 import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
@@ -20,9 +20,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * This Class will test the reinforced army as in the reinforced army is set correctly or not.
+ * This file contains the ReinforcementServiceTest class which tests the functionality
+ * of the ReinforcementService class.
  *
- * @author Rutwik
+ * @author Rupal Kapoor
  */
 public class ReinforcementServiceTest {
     private static Main d_Application = new Main();
@@ -31,7 +32,7 @@ public class ReinforcementServiceTest {
     private static URL d_TestFile;
     private static CountryDistributionService d_DistributeCountriesService;
     private static ReinforcementService d_AssignReinforcementService;
-    private static GameEngine d_GamePlayEngine;
+    private static GamePlayEngine d_GamePlayEngine;
 
 
     /**

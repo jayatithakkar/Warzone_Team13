@@ -7,9 +7,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * Test suite for <code>GAME_PLAY</code> test cases.
+ * Test suite for the game play functionality.
+ * This suite includes tests for reinforcement service, country distribution service, and display map service.
  *
- * @author CHARIT
+ * @author Rupal Kapoor
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
