@@ -1,20 +1,19 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
-import com.APP.Project.UserCoreLogic.GameEngine;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.interfaces.Order;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.CardNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidOrderException;
 import com.APP.Project.UserCoreLogic.exceptions.OrderOutOfBoundException;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The service used to execute the player's order.
+ * The service is used to execute the player's order.
  *
  * @author Rupal Kapoor
  * @version 1.0
@@ -29,22 +28,26 @@ public class ExecuteOrderService {
         List<Player> finishedExecutingOrders = new ArrayList<>();
 
         UserCoreLogic.getInstance().stdout("Execution of orders started!");
-        GamePlayEngine l_gamePlayEngine = GameEngine.GAME_PLAY_ENGINE();
+        d_logEntryBuffer.dataChanged("execution_order", "Execution of orders started!");
+
+        GamePlayEngine l_gamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
         l_gamePlayEngine.setCurrentPlayerTurn(l_gamePlayEngine.getCurrentPlayerForExecutionPhase());
 
         // Iterate over and execute the orders which were supposed to be executed in this phase.
-        GamePlayEngine.getInstance().getCurrentFutureOrders().forEach(l_futureOrder -> {
+        UserCoreLogic.getGameEngine().getGamePlayEngine().getCurrentFutureOrders().forEach(l_futureOrder -> {
             try {
                 l_futureOrder.execute();
+                UserCoreLogic.getInstance().stdout(String.format("Executing %s's order", l_futureOrder.getOwner().getName()));
+                UserCoreLogic.getInstance().stdout(String.format("Executed %s", l_futureOrder.toString()));
             } catch (InvalidOrderException | CardNotFoundException p_e) {
                 UserCoreLogic.getInstance().stderr(p_e.getMessage());
             }
         });
 
         // Expire orders which had been executed and are not valid anymore.
-        GamePlayEngine.getInstance().getExpiredFutureOrders().forEach(l_futureOrder -> {
+        UserCoreLogic.getGameEngine().getGamePlayEngine().getExpiredFutureOrders().forEach(l_futureOrder -> {
             l_futureOrder.expire();
-            GamePlayEngine.getInstance().removeFutureOrder(l_futureOrder);
+            UserCoreLogic.getGameEngine().getGamePlayEngine().removeFutureOrder(l_futureOrder);
         });
 
         while (finishedExecutingOrders.size() != l_gamePlayEngine.getPlayerList().size()) {
@@ -54,16 +57,15 @@ public class ExecuteOrderService {
                 l_currentPlayer = l_gamePlayEngine.getCurrentPlayer();
             } while (finishedExecutingOrders.contains(l_currentPlayer));
 
-            UserCoreLogic.getInstance().stdout(String.format("\nExecuting %s's order", l_currentPlayer.getName()));
+            UserCoreLogic.getInstance().stdout(String.format("Executing %s's order", l_currentPlayer.getName()));
             try {
                 // Get the next order
                 Order l_currentOrder = l_currentPlayer.nextOrder();
                 // If order supposed to be executed in the next phase.
                 if (l_currentOrder.getExecutionIndex() == GamePlayEngine.getCurrentExecutionIndex()) {
                     l_currentOrder.execute();
+                    UserCoreLogic.getInstance().stdout(String.format("\nExecuted %s", l_currentOrder.toString()));
                 }
-
-                UserCoreLogic.getInstance().stdout(String.format("\nExecuted %s", l_currentOrder.toString()));
 
                 // If the current player does not have any orders left.
                 if (!l_currentPlayer.hasOrders()) {
@@ -71,9 +73,11 @@ public class ExecuteOrderService {
                 }
             } catch (CardNotFoundException |
                      InvalidOrderException p_e) {
-                d_logEntryBuffer.dataChanged("Execute order", p_e.getMessage());
+                // Logging
+                d_logEntryBuffer.dataChanged("execute_order_error", String.format("%s: %s", l_currentPlayer.getName(), p_e.getMessage()));
                 UserCoreLogic.getInstance().stderr(p_e.getMessage());
             } catch (OrderOutOfBoundException p_e) {
+                d_logEntryBuffer.dataChanged("execute_order_warning", p_e.getMessage());
                 finishedExecutingOrders.add(l_currentPlayer);
             }
         }

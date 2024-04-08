@@ -66,7 +66,7 @@ public class ShowMapServiceTest {
         l_editMapService.handleLoadMap(l_url);
 
         CountryDistributionService l_distributeCountriesService = new CountryDistributionService();
-        ManageGamePlayerService l_playerService = new ManageGamePlayerService();
+        PlayerService l_playerService = new PlayerService();
         l_playerService.add("User_1");
         l_playerService.add("User_2");
 
