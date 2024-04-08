@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dffd24b-74d8-459f-b0b3-429db9002dca" name="Changes" comment="Main.java is almost ready. Currently working on user interface">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/ShowMapServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/GamePlayTestSuite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/gamePlay/services/DisplayMapServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/PlayerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/orders/DeployOrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/orders/DeployOrderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/orders/NegotiateOrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserCoreLogic/game_entities/orders/NegotiateOrderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/UsersCommandsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/constants/UsersCommandsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/common/services/AssignRandomCardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/common/services/CardService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +53,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.APP.Project.UserCoreLogic.common.services" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.com.APP.Project in APP-Project">
