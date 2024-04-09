@@ -1,23 +1,24 @@
 package com.APP.Project.UserCoreLogic.game_entities.orders;
 
+import com.APP.Project.UserCoreLogic.constants.enums.OrderTypes;
+import com.APP.Project.UserCoreLogic.constants.interfaces.Order;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidArgumentException;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidGameException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidOrderException;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
 import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 import com.jakewharton.fliptables.FlipTable;
-import com.APP.Project.UserCoreLogic.constants.enums.OrderTypes;
-import com.APP.Project.UserCoreLogic.constants.interfaces.Order;
+import org.json.JSONObject;
 
 /**
- * This order represents the deploy order.
+ * This class implements the deploy order.
  *
  * @author Sushant Sinha
  */
 public class DeployOrder extends Order {
-    private final Player d_owner;
     private final Country d_targetCountry;
     private final int d_numOfArmies;
     private final LogEntryBuffer d_logEntryBuffer = LogEntryBuffer.getLogger();
@@ -28,7 +29,7 @@ public class DeployOrder extends Order {
     private final CountryContainer d_countryRepository = new CountryContainer();
 
     /**
-     * Default parameterised constructor.
+     * Parameterised constructors.
      *
      * @param p_targetCountry Name of target country.
      * @param p_numOfArmies   Number of reinforcements to be deployed.
@@ -38,18 +39,18 @@ public class DeployOrder extends Order {
      */
     public DeployOrder(String p_targetCountry, String p_numOfArmies, Player p_owner)
             throws EntityNotFoundException, InvalidArgumentException {
+        super(p_owner);
         // Get the target country from repository.
         d_targetCountry = d_countryRepository.findFirstByCountryName(p_targetCountry);
         try {
             d_numOfArmies = Integer.parseInt(p_numOfArmies);
             // Checks if the number of moved armies is less than zero.
             if (d_numOfArmies < 0) {
-                throw new InvalidArgumentException("Specified number of armies can not be negative.");
+                throw new InvalidArgumentException("Number of armies can not be negative.");
             }
         } catch (NumberFormatException p_e) {
-            throw new InvalidArgumentException(" Specified number of reinforcements is not a number.");
+            throw new InvalidArgumentException("Number of reinforcements is not a number.");
         }
-        d_owner = p_owner;
     }
 
     /**
@@ -60,16 +61,18 @@ public class DeployOrder extends Order {
      */
     public void execute() throws InvalidOrderException {
         StringBuilder l_logResponse = new StringBuilder();
-        l_logResponse.append("\n" + "Executing " + d_owner.getName() + " Order:" + "\n");
-        if (this.d_owner.getAssignedCountries().contains(d_targetCountry)) {
-            int l_remainingReinforcementCount = d_owner.getRemainingReinforcementCount() - d_numOfArmies;
+        l_logResponse.append("\n" + "Executing " + this.getOwner().getName() + " Order:" + "\n");
+        if (this.getOwner().getAssignedCountries().contains(d_targetCountry)) {
+            int l_remainingReinforcementCount = this.getOwner().getRemainingReinforcementCount() - d_numOfArmies;
             if (l_remainingReinforcementCount < 0) {
                 throw new InvalidOrderException("You don't have enough reinforcements.");
             }
-            d_owner.setRemainingReinforcementCount(l_remainingReinforcementCount);
+            this.getOwner().setRemainingReinforcementCount(l_remainingReinforcementCount);
             d_targetCountry.setNumberOfArmies(this.d_targetCountry.getNumberOfArmies() + this.d_numOfArmies);
-            d_owner.addExecutedOrder(this);
-            l_logResponse.append("Deploying " + d_numOfArmies + " armies in the " + d_targetCountry.getCountryName() + "\n");
+            this.getOwner().addExecutedOrder(this);
+
+            // Logging
+            l_logResponse.append("Deploying " + d_numOfArmies + " armies in " + d_targetCountry.getCountryName() + "\n");
             String[] l_header = {"COUNTRY", "ARMY COUNT"};
             String[][] l_changeContent = {
                     {d_targetCountry.getCountryName(), String.valueOf(d_numOfArmies)}
@@ -77,7 +80,7 @@ public class DeployOrder extends Order {
             l_logResponse.append("\n Order Effect\n" + FlipTable.of(l_header, l_changeContent));
             d_logEntryBuffer.dataChanged("deploy", l_logResponse.toString());
         } else {
-            throw new InvalidOrderException("Reinforcements can only be deployed in your assigned countries");
+            throw new InvalidOrderException("You can deploy the reinforcements only in your assigned countries");
         }
     }
 
@@ -106,5 +109,37 @@ public class DeployOrder extends Order {
     @Override
     public String toString() {
         return String.format("%s %s %s", getType().getJsonValue(), d_targetCountry.getCountryName(), d_numOfArmies);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public JSONObject toJSON() {
+        JSONObject l_order = new JSONObject();
+        l_order.put("target", d_targetCountry.getCountryName());
+        l_order.put("numOfArmies", d_numOfArmies);
+        l_order.put("type", getType().name());
+        return l_order;
+    }
+
+    /**
+     * Creates an instance of this class and assigns the data members of the concrete class using the values inside
+     * <code>JSONObject</code>.
+     *
+     * @param p_jsonObject <code>JSONObject</code> holding the runtime information.
+     * @param p_player     Player who had issued this order.
+     * @return Created instance of this class using the provided JSON data.
+     * @throws InvalidGameException If the information from JSONObject cannot be used because it is corrupted or missing
+     *                              the values.
+     */
+    public static DeployOrder fromJSON(JSONObject p_jsonObject, Player p_player) throws InvalidGameException {
+        try {
+            return new DeployOrder(p_jsonObject.getString("target"),
+                    String.valueOf(p_jsonObject.getInt("numOfArmies")),
+                    p_player);
+        } catch (EntityNotFoundException | InvalidArgumentException p_vmException) {
+            throw new InvalidGameException();
+        }
     }
 }

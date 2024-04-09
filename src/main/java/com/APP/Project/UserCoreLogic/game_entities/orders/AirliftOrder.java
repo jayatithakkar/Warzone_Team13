@@ -1,18 +1,16 @@
 package com.APP.Project.UserCoreLogic.game_entities.orders;
 
-import com.APP.Project.UserCoreLogic.game_entities.Country;
-import com.APP.Project.UserCoreLogic.game_entities.Player;
-import com.APP.Project.UserCoreLogic.exceptions.CardNotFoundException;
-import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidArgumentException;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidOrderException;
-import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
-import com.APP.Project.UserCoreLogic.Container.CountryContainer;
-import com.jakewharton.fliptables.FlipTable;
 import com.APP.Project.UserCoreLogic.constants.enums.CardType;
 import com.APP.Project.UserCoreLogic.constants.enums.OrderTypes;
 import com.APP.Project.UserCoreLogic.constants.interfaces.Card;
 import com.APP.Project.UserCoreLogic.constants.interfaces.Order;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Player;
+import com.APP.Project.UserCoreLogic.exceptions.*;
+import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
+import com.jakewharton.fliptables.FlipTable;
+import org.json.JSONObject;
 
 /**
  * This class implements the operations required to be performed when the Airlift card is used.
@@ -23,17 +21,16 @@ public class AirliftOrder extends Order {
     private final Country d_sourceCountry;
     private final Country d_targetCountry;
     private final int d_numOfArmies;
-    private Player d_owner;
 
     /**
      * To find the country using its data members.
      */
-    private final CountryContainer d_countryRepository = new CountryContainer();
+    private final static CountryContainer d_countryRepository = new CountryContainer();
 
     private final LogEntryBuffer d_logEntryBuffer = LogEntryBuffer.getLogger();
 
     /**
-     * sets the source and target country id along with number of armies to be airlifted and player object.
+     * Sets the source and the target country id along with number of armies to be airlifted and player object.
      *
      * @param p_sourceCountry source country id from which armies will be airlifted
      * @param p_targetCountry target country id where armies will be moved.
@@ -44,22 +41,22 @@ public class AirliftOrder extends Order {
      */
     public AirliftOrder(String p_sourceCountry, String p_targetCountry, String p_numOfArmies, Player p_owner)
             throws EntityNotFoundException, InvalidArgumentException {
+        super(p_owner);
         d_sourceCountry = d_countryRepository.findFirstByCountryName(p_sourceCountry);
         d_targetCountry = d_countryRepository.findFirstByCountryName(p_targetCountry);
         try {
             d_numOfArmies = Integer.parseInt(p_numOfArmies);
             // Checks if the number of moved armies is less than zero.
             if (d_numOfArmies < 0) {
-                throw new InvalidArgumentException("Number of armies can not be negative!");
+                throw new InvalidArgumentException("Number of armies can not be negative.");
             }
         } catch (NumberFormatException p_e) {
             throw new InvalidArgumentException("Number of reinforcements is not a number!");
         }
-        d_owner = p_owner;
     }
 
     /**
-     * Performs the airlift operation by transferring armies.
+     * Performs the actual airlift operation by transferring armies.
      *
      * @throws InvalidOrderException If the order can not be performed due to an invalid country, an invalid number of
      *                               armies, or other invalid input.
@@ -68,16 +65,16 @@ public class AirliftOrder extends Order {
     @Override
     public void execute() throws InvalidOrderException, CardNotFoundException {
         StringBuilder l_logResponse = new StringBuilder();
-        l_logResponse.append("\n" + "Executing " + d_owner.getName() + " Order:" + "\n");
+        l_logResponse.append("\n" + "Executing " + this.getOwner().getName() + " Order:" + "\n");
         // Verify that all the conditions has been fulfilled for the airlift command.
         Card l_requiredCard;
-        if (d_sourceCountry.getOwnedBy() == d_owner && d_targetCountry.getOwnedBy() == d_owner) {
-            l_requiredCard = d_owner.getCard(CardType.AIRLIFT);
+        if (d_sourceCountry.getOwnedBy().equals(this.getOwner()) && d_targetCountry.getOwnedBy().equals(this.getOwner())) {
+            l_requiredCard = this.getOwner().getCard(CardType.AIRLIFT);
             if (d_sourceCountry.getNumberOfArmies() < d_numOfArmies) {
                 throw new InvalidOrderException("Source country not have entered amount of armies for airlift!");
             }
         } else {
-            throw new InvalidOrderException("Source and Target country has to be owned by you!");
+            throw new InvalidOrderException("You have to select source and target country both from your owned countries!");
         }
 
         int l_sourceCountryArmies = d_sourceCountry.getNumberOfArmies();
@@ -86,8 +83,10 @@ public class AirliftOrder extends Order {
         l_targetCountryArmies += d_numOfArmies;
         d_sourceCountry.setNumberOfArmies(l_sourceCountryArmies);
         d_targetCountry.setNumberOfArmies(l_targetCountryArmies);
-        d_owner.removeCard(l_requiredCard);
-        l_logResponse.append(d_owner.getName() + " used the Airlift card to move " + d_numOfArmies + " armies from " + d_sourceCountry.getCountryName() + " to " + d_targetCountry.getCountryName() + "\n");
+        this.getOwner().removeCard(l_requiredCard);
+
+        // Logging
+        l_logResponse.append(this.getOwner().getName() + " used the Airlift card to move " + d_numOfArmies + " armies from " + d_sourceCountry.getCountryName() + " to " + d_targetCountry.getCountryName() + "\n");
         String[] l_header = {"COUNTRY", "ARMY COUNT"};
         String[][] l_changeContent = {
                 {d_sourceCountry.getCountryName(), String.valueOf(l_sourceCountryArmies)},
@@ -123,5 +122,39 @@ public class AirliftOrder extends Order {
     @Override
     public String toString() {
         return String.format("%s %s %s %s", getType().getJsonValue(), d_sourceCountry.getCountryName(), d_targetCountry.getCountryName(), d_numOfArmies);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public JSONObject toJSON() {
+        JSONObject l_order = new JSONObject();
+        l_order.put("source", d_sourceCountry.getCountryName());
+        l_order.put("target", d_targetCountry.getCountryName());
+        l_order.put("numOfArmies", d_numOfArmies);
+        l_order.put("type", getType().name());
+        return l_order;
+    }
+
+    /**
+     * Creates an instance of this class and assigns the data members of the concrete class using the values inside
+     * <code>JSONObject</code>.
+     *
+     * @param p_jsonObject <code>JSONObject</code> holding the runtime information.
+     * @param p_player     Player who had issued this order.
+     * @return Created instance of this class using the provided JSON data.
+     * @throws InvalidGameException If the information from JSONObject cannot be used because it is corrupted or missing
+     *                              the values.
+     */
+    public static AirliftOrder fromJSON(JSONObject p_jsonObject, Player p_player) throws InvalidGameException {
+        try {
+            return new AirliftOrder(p_jsonObject.getString("source"),
+                    p_jsonObject.getString("target"),
+                    String.valueOf(p_jsonObject.getInt("numOfArmies")),
+                    p_player);
+        } catch (EntityNotFoundException | InvalidArgumentException p_entityNotFoundException) {
+            throw new InvalidGameException();
+        }
     }
 }
