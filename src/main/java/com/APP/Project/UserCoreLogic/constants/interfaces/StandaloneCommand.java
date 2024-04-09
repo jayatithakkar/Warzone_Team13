@@ -5,45 +5,20 @@ import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import java.util.List;
 
 /**
- * Defines the structure for commands executed directly with values instead of
- * key-value pairs.
- * <p>
- * Commands implementing this interface are intended to perform operations based
- * solely on a list of values,
- * which can vary in number. These types of commands are especially useful for
- * actions that do not require
- * complex parameters or where the parameters do not naturally map to key-value
- * pairs. Implementations
- * should handle both the case of receiving multiple values and no values at
- * all, ensuring robustness and
- * flexibility in command execution.
- * </p>
+ * Defines an interface for commands without argument keys, allowing for zero or more values.
+ * Implement this interface for commands that operate without specific keyed arguments.
  *
  * @author Bhoomiben Bhatt
- * @version 2.0
+ * @version 1.0
  */
 public interface StandaloneCommand {
-     /**
-      * Executes the command using the provided list of string values as input.
-      * <p>
-      * This method should encapsulate the logic necessary for performing the
-      * command's function based on
-      * the provided input values. Implementers must ensure that the command can
-      * handle varying numbers of
-      * input values gracefully, including the scenario where no values are provided.
-      * The method returns a
-      * string intended for user feedback, indicating the outcome of the command
-      * execution.
-      * </p>
-      *
-      * @param p_commandValues A list of string values provided as input to the
-      *                        command. This list can be empty but not null.
-      * @return A string representing the result of the command execution, intended
-      *         for display to the user.
-      * @throws UserCoreLogicException If an error occurs during command execution,
-      *                                such as invalid input or
-      *                                other conditions that prevent the command from
-      *                                completing successfully.
-      */
-     String execute(List<String> p_commandValues) throws UserCoreLogicException;
+    /**
+     * Executes the command from the UserInterface with provided arguments, which may be empty. This method processes commands
+     * that don't require keyed arguments but might have values.
+     *
+     * @param p_commandValues The list of argument values provided during command execution.
+     * @return A string to be displayed to the user as command output.
+     * @throws UserCoreLogicException Throws the base class If invalid input is provided or an IOException occurs.
+     */
+    String execute(List<String> p_commandValues) throws UserCoreLogicException;
 }
