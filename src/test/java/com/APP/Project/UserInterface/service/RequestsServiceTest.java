@@ -1,7 +1,7 @@
 package com.APP.Project.UserInterface.service;
 
 import com.APP.Project.Main;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserInterface.layouts.PlayerCommandLayout;
 import com.APP.Project.UserInterface.models.UsersCommands;
 import com.APP.Project.UserInterface.service.RequestsService;
@@ -55,8 +55,10 @@ public class RequestsServiceTest {
         Main l_application = new Main();
         l_application.handleApplicationStartup();
 
-        MapFeatureEngine.getInstance().initialise();
-        GameEngine.getInstance().setGamePhase(new PostLoad(GameEngine.getInstance()));
+        GameEngine l_gameEngine = UserCoreLogic.getGameEngine();
+
+        l_gameEngine.initialise();
+        l_gameEngine.setGamePhase(new PostLoad(l_gameEngine));
     }
 
     /**
@@ -67,8 +69,7 @@ public class RequestsServiceTest {
      */
     @Test(expected = Test.None.class /* no exception expected */)
     public void testTakeAction() {
-        // If the method call completes without any raised exception, then the call was
-        // successful
+        // If the method call completes without any raised exception, then the call was successful
         RequestsService l_requestService = new RequestsService();
         l_requestService.takeAction(d_userCommand);
     }
