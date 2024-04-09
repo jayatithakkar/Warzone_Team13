@@ -1,6 +1,7 @@
 package com.APP.Project.UserInterface.models;
 
-import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
+import com.APP.Project.UserInterface.constants.specifications.ArgumentSpecification;
+import com.APP.Project.UserInterface.constants.specifications.CommandSpecification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +21,15 @@ public class PredefinedUserCommands {
 
     private final List<CommandLineArgument> d_commandArgumentList;
 
-    private CommandsSpecification d_commandSpecification;
+    private CommandSpecification d_commandSpecification;
 
     private int d_numOfValues = 1;
+
+    private ArgumentSpecification d_commandKeySpecification = ArgumentSpecification.MIN;
 
     private boolean d_isGameEngineCommand = false;
 
     private boolean d_isOrderCommand = false;
-
-    private boolean d_isGameEngineStartCommand = false;
 
     private String d_gamePhaseMethodName;
 
@@ -114,7 +115,7 @@ public class PredefinedUserCommands {
      * setter
      * @param p_commandSpecification CommandSpecification object
      */
-    public void setCommandSpecification(CommandsSpecification p_commandSpecification) {
+    public void setCommandSpecification(CommandSpecification p_commandSpecification) {
         this.d_commandSpecification = p_commandSpecification;
     }
 
@@ -122,7 +123,7 @@ public class PredefinedUserCommands {
      * getter
      * @return returns the CommandSpecification object
      */
-    public CommandsSpecification getCommandSpecification() {
+    public CommandSpecification getCommandSpecification() {
         return d_commandSpecification;
     }
 
@@ -130,7 +131,7 @@ public class PredefinedUserCommands {
      * it decides the number of values to have with the command
      * @return total number of values
      */
-    public int getNumOfValues() {
+    public int getNumOfKeysOrValues() {
         return d_numOfValues;
     }
 
@@ -177,23 +178,6 @@ public class PredefinedUserCommands {
     }
 
     /**
-     * user input command to start the game
-     *
-     * @return true if it is a start command; false otherwise
-     */
-    public boolean isGameEngineStartCommand() {
-        return d_isGameEngineStartCommand;
-    }
-
-    /**
-     * it sets the start command for the game engine
-     * @param p_gameEngineStartCommand true if the game is supposed to start; false otherwise
-     */
-    public void setGameEngineStartCommand(boolean p_gameEngineStartCommand) {
-        d_isGameEngineStartCommand = p_gameEngineStartCommand;
-    }
-
-    /**
      * Gets the method name to be called for this user command.
      *
      * @return Value of the method name.
@@ -203,7 +187,7 @@ public class PredefinedUserCommands {
     }
 
     /**
-     * Sets the method name for the user command.
+     * Sets the method name to be called for this user command.
      *
      * @param p_gamePhaseMethodName Value of the method name.
      */
@@ -223,6 +207,24 @@ public class PredefinedUserCommands {
         PredefinedUserCommands l_that = (PredefinedUserCommands) l_p_o;
         return Objects.equals(d_headCommand, l_that.d_headCommand) &&
                 Objects.equals(d_commandArgumentList, l_that.d_commandArgumentList);
+    }
+
+    /**
+     * Sets the specification for the number of required keys for <code>CommandSpecification#NEED_KEYS</code> command.
+     *
+     * @param d_commandKeySpecification Specification for <code>CommandSpecification#NEED_KEYS</code> command.
+     */
+    public void setCommandKeySpecification(ArgumentSpecification d_commandKeySpecification) {
+        this.d_commandKeySpecification = d_commandKeySpecification;
+    }
+
+    /**
+     * Gets the specification for the number of required keys for <code>CommandSpecification#NEED_KEYS</code> command.
+     *
+     * @return Specification for <code>CommandSpecification#NEED_KEYS</code> command.
+     */
+    public ArgumentSpecification getCommandKeySpecification() {
+        return d_commandKeySpecification;
     }
 
 
