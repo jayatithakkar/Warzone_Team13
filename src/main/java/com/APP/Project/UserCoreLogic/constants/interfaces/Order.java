@@ -1,101 +1,90 @@
 package com.APP.Project.UserCoreLogic.constants.interfaces;
 
 import com.APP.Project.UserCoreLogic.constants.enums.OrderTypes;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.CardNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidOrderException;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 
 /**
- * This interface provides the methods to be implemented by different orders.
+ * Defines the contract for different types of orders to implement, specifying methods that must be provided.
  *
  * @author Bhoomiben Bhatt
- * @version 2.0
+ * @version 1.0
  */
-public abstract class Order {
+public abstract class Order implements JSONable {
     /**
-     * The execution index indicating when this order is supposed to be executed
-     * within the game loop.
+     * Specifies the execution sequence in the game play where this order should be executed.
      */
     private final int d_executionIndex;
     /**
-     * The index at which this order is considered expired and its effects can be
-     * reversed or nullified.
-     * It is initialized to -1 to indicate that by default, orders do not expire
-     * immediately after execution.
+     * Indicates the expiration timing for this order.
      */
     private int d_expiryIndex = -1;
+    private final Player d_owner;
 
     /**
-     * Constructs an Order and determines its execution and expiry indices based on
-     * the order type.
-     * <p>
-     * For orders of type 'negotiate', special handling is applied to set the
-     * execution and expiry indices
-     * to ensure they are processed in a timely manner and their effects are
-     * short-lived.
-     * </p>
+     * Initializes a new instance of the class with the specified player as the issuer of the order.
+     *
+     * @param p_player The player issuing this order.
      */
-    public Order() {
+    public Order(Player p_player) {
+        d_owner = p_player;
         if (this.getType() == OrderTypes.negotiate) {
-            d_executionIndex = GamePlayEngine.getCurrentExecutionIndex() + 1;
+            d_executionIndex = GameEngine.getCurrentExecutionIndex() + 1;
             d_expiryIndex = d_executionIndex + 1;
-            GamePlayEngine.getInstance().addFutureOrder(this);
+            UserCoreLogic.getGameEngine().getGamePlayEngine().addFutureOrder(this);
         } else {
-            d_executionIndex = GamePlayEngine.getCurrentExecutionIndex();
+            d_executionIndex = GameEngine.getCurrentExecutionIndex();
         }
     }
 
     /**
-     * Executes the order logic during the {@code GameLoopState#EXECUTE_ORDER}
-     * phase.
-     * <p>
-     * This method should contain the core logic for order execution, including any
-     * game state modifications
-     * and validations. Implementations must handle possible exceptions related to
-     * invalid order parameters
-     * or conditions.
-     * </p>
+     * Carries out the order in the <code>GameLoopState#EXECUTE_ORDER</code> phase of the game loop.
      *
-     * @throws InvalidOrderException If the order cannot be executed due to invalid
-     *                               conditions.
-     * @throws CardNotFoundException If required cards for the order are not found.
+     * @throws InvalidOrderException If the order cannot be executed due to issues like an invalid country, incorrect army count,
+     *  *                               or other invalid inputs.
+     * @throws CardNotFoundException If the required card is not found in the player's card list.
      */
     public abstract void execute() throws InvalidOrderException, CardNotFoundException;
 
     /**
-     * Returns the type of the order as defined by the {@link OrderTypes} enum.
+     * Retrieves the order's type.
      *
-     * @return The specific {@link OrderTypes} value representing this order's type.
+     * @return The type of this order.
      */
     public abstract OrderTypes getType();
 
     /**
-     * Retrieves the execution index for this order.
+     * Retrieves the player who issued the order.
      *
-     * @return The index indicating when this order is scheduled for execution.
+     * @return The player who owns this order.
+     */
+    public Player getOwner() {
+        return d_owner;
+    }
+
+    /**
+     * Retrieves the execution sequence number for this order.
+     *
+     * @return The execution index of this order.
      */
     public int getExecutionIndex() {
         return d_executionIndex;
     }
 
     /**
-     * Retrieves the expiration index for this order.
+     * Retrieves the index at which this order is set to expire.
      *
-     * @return The index after which this order's effects are considered expired, or
-     *         -1 if the order does not expire.
+     * @return The expiration index of this order.
      */
     public int getExpiryIndex() {
         return d_expiryIndex;
     }
 
     /**
-     * Reverses the effect of this order or marks it as expired if it has previously
-     * been executed.
-     * <p>
-     * This method is intended to be overridden by subclasses to implement logic for
-     * undoing or nullifying
-     * the effects of an order, typically used for orders with temporary effects.
-     * </p>
+     * Reverses the order's effects or sets the associated card to expired, undoing previous execution.
      */
     abstract public void expire();
 }

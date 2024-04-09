@@ -11,10 +11,9 @@ import java.util.Date;
  */
 public class DataTimeUtil {
     /**
-     * This method returns the current date and time in the format "yyyy-MM-dd
-     * HH:mm:ss:SS",
+     * Retrives the current date and time of Virtual Machine.
      *
-     * @return Value of readable time string.
+     * @return A string representation of the current VM date and time.
      */
     public static String getTime() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SS");
