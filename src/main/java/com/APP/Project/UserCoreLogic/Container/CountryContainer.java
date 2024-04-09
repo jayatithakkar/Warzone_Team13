@@ -1,64 +1,61 @@
 package com.APP.Project.UserCoreLogic.Container;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class is responsible for searching country in different way like by it's
- * name, id and neighbour
+ * This class searches the Country entity from the runtime engine.
  *
  * @author Bhoomiben Bhatt
  * @version 1.0
  */
 public class CountryContainer {
     /**
-     * Retrieves a list of countries that exactly match the specified country name.
-     * It's recommended to format the input name properly to ensure accurate
-     * matching.
+     * Searches for countries based on their names. This method retrieves a list of
+     * countries that match the provided name,
+     * accommodating instances where multiple countries may share similar or
+     * identical names or when partial matches are considered.
      *
-     * @param countryName The name of the country to search for. This parameter
-     *                    should not be null.
-     * @return A List containing the matched countries. The list is empty if no
-     *         countries match the provided name.
+     * @param p_countryName The name of the country to search for.
+     * @return A list of countries that match the given name.
      */
     public List<Country> findByCountryName(String p_countryName) {
-        return MapFeatureEngine.getInstance().getCountryList().stream()
+        return UserCoreLogic.getGameEngine().getMapEditorEngine().getCountryList().stream()
                 .filter(p_country -> p_country.getCountryName().equals(p_countryName)).collect(Collectors.toList());
     }
 
     /**
-     * Retrieves the first country that matches the specified country name
+     * Searches for a specific country by its name, returning the first matching
+     * result. This method is designed for
+     * scenarios where an exact or closest match to the country name is required
+     * from a dataset
      *
-     * @param countryName The name of the country to search for. This parameter
-     *                    should not be null.
-     * @return The first Country object that matches the given country name.
-     * @throws EntityNotFoundException If no country with the given name is found.
+     * @param p_countryName The name of the country to be searched.
+     * @return The first country that matches the given name.
+     * @throws EntityNotFoundException Throws If no country with the specified name
+     *                                 can be found.
+     *
      */
     public Country findFirstByCountryName(String p_countryName) throws EntityNotFoundException {
         List<Country> l_countryList = this.findByCountryName(p_countryName);
         if (l_countryList.size() > 0)
             return l_countryList.get(0);
+
         throw new EntityNotFoundException(String.format("'%s' country not found", p_countryName));
     }
 
     /**
-     * Finds and returns a country by its unique ID.
-     * This method searches for a country with the specified ID. If a country with
-     * the given ID is found, it is returned.
-     * Otherwise, this method returns null, indicating that no country with the
-     * specified ID could be found.
+     * Retrieves a country based on its unique identifier.
      *
-     * @param countryId The unique identifier of the country to search for. This
-     *                  parameter should not be null.
-     * @return The Country object with the specified ID, or null if no such country
-     *         is found.
+     * @param p_countryId The unique identifier (ID) of the country to find.
+     * @return The country corresponding to the specified ID.
      */
     public Country findByCountryId(Integer p_countryId) {
-        List<Country> l_countries = MapFeatureEngine.getInstance().getCountryList().stream()
+        List<Country> l_countries = UserCoreLogic.getGameEngine().getMapEditorEngine().getCountryList().stream()
                 .filter(p_country -> p_country.getCountryId().equals(p_countryId)).collect(Collectors.toList());
         if (!l_countries.isEmpty()) {
             return l_countries.get(0);
@@ -68,44 +65,25 @@ public class CountryContainer {
     }
 
     /**
-     * Finds all countries that are neighbors of the specified country.
-     * This method searches through the list of available countries, identifying
-     * those that have the specified country
-     * as a neighbor. The specified country itself is not included in the results.
-     * This method assumes that the
-     * relationship of being neighbors is mutual; that is, if country A is a
-     * neighbor of country B, then country B is
-     * also considered a neighbor of country A.
+     * Identifies countries that share a border with the specified country.
      *
-     * @param country The country for which to find neighbors. This parameter should
-     *                not be null.
-     * @return A List of countries that are neighbors of the specified country. The
-     *         list is empty if the country has
-     *         no neighbors or if the specified country is not found.
+     * @param p_country The country for which neighboring countries are sought.
+     * @return A list of countries that border the specified country.
      */
     public List<Country> findByNeighbourOfCountries(Country p_country) {
-        return MapFeatureEngine.getInstance().getCountryList().stream()
+        return UserCoreLogic.getGameEngine().getMapEditorEngine().getCountryList().stream()
                 .filter(p_l_country -> !p_l_country.equals(p_country)
                         && p_l_country.getNeighbourCountries().contains(p_country))
                 .collect(Collectors.toList());
     }
 
     /**
-     * Retrieves a list of neighboring countries of the specified country that are
-     * not owned by any entity.
-     * This method filters through the neighboring countries of the provided country
-     * and selects those which are
-     * currently not owned (i.e., their 'ownedBy' attribute is null). It is useful
-     * for identifying potential
-     * countries for expansion or diplomatic relations that are not currently under
-     * the control of another entity.
+     * searches the neighboring country of the given country.
      *
-     * @param country The country whose neighbors are to be evaluated. This
-     *                parameter should not be null.
-     * @return A List of Country objects representing the neighboring countries that
-     *         are not owned.
-     * @throws IllegalStateException If the provided country is null, indicating an
-     *                               inappropriate use of the method.
+     * @param p_country The country object whose neighbors are to be found.
+     * @return A list of country objects representing the neighbors of the given
+     *         country.
+     * @throws IllegalStateException Throws if returns an empty list.
      */
     public List<Country> findCountryNeighborsAndNotOwned(Country p_country) throws IllegalStateException {
         return p_country.getNeighbourCountries().stream().filter((p_l_country) -> p_l_country.getOwnedBy() == null)
