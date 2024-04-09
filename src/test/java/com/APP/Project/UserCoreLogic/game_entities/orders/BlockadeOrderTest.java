@@ -1,15 +1,16 @@
 package com.APP.Project.UserCoreLogic.game_entities.orders;
 
-import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
+import com.APP.Project.UserCoreLogic.exceptions.*;
+import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
+import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.game_entities.cards.BlockadeCard;
 import com.APP.Project.UserCoreLogic.game_entities.cards.BombCard;
-import com.APP.Project.UserCoreLogic.exceptions.*;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
-import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,57 +24,52 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * This class represents the test cases for the BlockadeOrder class,
- * which is responsible for executing blockade operations in the game.
- * It includes tests for various scenarios such as successful blockade operation
- * with a blockade card, blockade operation without a blockade card, invalid
- * blockade operations, and successful card removal after blockade operation.
+ * This class is for testing various operations performed during the execution of the blockade command.
  *
- * @author Rikin Dipakkumar Chauhan
- * @version 1.0
+ * @author Sushant Sinha
  */
 public class BlockadeOrderTest {
     private static Main d_Application;
     private static URL d_TestFilePath;
-    private static GamePlayEngine d_GamePlayEngine;
+    private static GameEngine d_GamePlayEngine;
     private CountryDistributionService d_distributeCountriesService;
     private List<Player> d_playerList;
 
     /**
-     * Initializes necessary objects before running test cases.
+     * Runs before the test case class runs; Initializes different objects required to perform test.
      */
     @BeforeClass
     public static void beforeClass() {
         d_Application = new Main();
         d_Application.handleApplicationStartup();
-        d_GamePlayEngine = GamePlayEngine.getInstance();
+        // (Re)initialise the VM.
+        UserCoreLogic.getInstance().initialise();
+
+        d_GamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
         d_TestFilePath = BlockadeOrderTest.class.getClassLoader().getResource("test_map_files/test_map.map");
     }
 
     /**
-     * Sets up the environment before each test case execution.
+     * Setting up the required objects before performing test.
      *
-     * @throws AbsentTagException        If required tags are not found.
-     * @throws InvalidMapException       If the map is invalid.
-     * @throws ResourceNotFoundException If a required resource is not found.
-     * @throws InvalidInputException     If the input is invalid.
-     * @throws EntityNotFoundException  If an entity is not found.
-     * @throws URISyntaxException       If there is a syntax error in URI creation.
+     * @throws AbsentTagException        Throws if any tag is missing in the map file.
+     * @throws InvalidMapException       Throws if map file is invalid.
+     * @throws ResourceNotFoundException Throws if the file not found.
+     * @throws InvalidInputException     Throws if user input is invalid.
+     * @throws EntityNotFoundException   Throws if entity not found.
+     * @throws URISyntaxException        Throws if URI syntax problem.
      */
     @Before
     public void before() throws AbsentTagException, InvalidMapException, ResourceNotFoundException, InvalidInputException, EntityNotFoundException, URISyntaxException {
-        UserCoreLogic.getInstance().initialise();
-
-        EditMapAdapter l_editMapService = new EditMapAdapter();
+        d_GamePlayEngine.initialise();
+        // Loads the map
+        EditMapService l_editMapService = new EditMapService();
         assertNotNull(d_TestFilePath);
         String l_url = new URI(d_TestFilePath.getPath()).getPath();
         l_editMapService.handleLoadMap(l_url);
 
-        Player l_player1 = new Player();
-        Player l_player2 = new Player();
-
-        l_player1.setName("User_1");
-        l_player2.setName("User_2");
+        Player l_player1 = new Player("User_1", StrategyType.HUMAN);
+        Player l_player2 = new Player("User_2", StrategyType.HUMAN);
 
         d_GamePlayEngine.addPlayer(l_player1);
         d_GamePlayEngine.addPlayer(l_player2);
@@ -83,15 +79,15 @@ public class BlockadeOrderTest {
     }
 
     /**
-     * Tests the blockade operation with a blockade card.
+     * For testing: the blockade operation for the player having blockade card.
      *
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws InvalidOrderException   If the order is invalid.
-     * @throws CardNotFoundException   If the card is not found.
+     * @throws EntityNotFoundException Throws if entity not found.
+     * @throws InvalidOrderException   Throws if exception while executing the order.
+     * @throws CardNotFoundException   Card doesn't found in the player's card list.
      */
     @Test(expected = Test.None.class)
     public void testBlockadeOperationWithBlockadeCard()
-            throws EntityNotFoundException, InvalidOrderException, CardNotFoundException{
+            throws EntityNotFoundException, InvalidOrderException, CardNotFoundException {
         Player l_player1 = d_playerList.get(0);
         List<Country> l_player1AssignCountries = l_player1.getAssignedCountries();
         l_player1.addCard(new BlockadeCard());
@@ -104,15 +100,16 @@ public class BlockadeOrderTest {
     }
 
     /**
-     * Tests the blockade operation without a blockade card.
+     * For testing: the blockade operation for the player not having blockade card.
      *
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws InvalidOrderException   If the order is invalid.
-     * @throws CardNotFoundException   If the card is not found.
+     * @throws EntityNotFoundException Throws if entity not found.
+     * @throws InvalidOrderException   Throws if exception while executing the order.
+     * @throws CardNotFoundException   Card doesn't found in the player's card list.
      */
+
     @Test(expected = CardNotFoundException.class)
     public void testBlockadeOperationWithOutBlockadeCard()
-            throws EntityNotFoundException, InvalidOrderException, CardNotFoundException{
+            throws EntityNotFoundException, InvalidOrderException, CardNotFoundException {
         Player l_player1 = d_playerList.get(0);
         List<Country> l_player1AssignCountries = l_player1.getAssignedCountries();
         l_player1.addCard(new BombCard());
@@ -125,15 +122,15 @@ public class BlockadeOrderTest {
     }
 
     /**
-     * Tests the blockade operation on a country owned by another player.
+     * For testing: the blockade operation when player performs blockade operation on other player's country country.
      *
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws InvalidOrderException   If the order is invalid.
-     * @throws CardNotFoundException   If the card is not found.
+     * @throws EntityNotFoundException Throws if entity not found.
+     * @throws InvalidOrderException   Throws if exception while executing the order.
+     * @throws CardNotFoundException   Card doesn't found in the player's card list.
      */
     @Test(expected = InvalidOrderException.class)
     public void testBlockadeOperationOnOtherPlayerOwnedCountry()
-            throws EntityNotFoundException, InvalidOrderException, CardNotFoundException{
+            throws EntityNotFoundException, InvalidOrderException, CardNotFoundException {
         Player l_player1 = d_playerList.get(0);
         Player l_player2 = d_playerList.get(1);
         List<Country> l_player2AssignCountries = l_player2.getAssignedCountries();
@@ -143,21 +140,23 @@ public class BlockadeOrderTest {
     }
 
     /**
-     * Tests successful removal of card after blockade operation.
+     * For testing: whether the first execution has removed the card from the list of cards available to player.
      *
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws InvalidOrderException   If the order is invalid.
-     * @throws CardNotFoundException   If the card is not found.
+     * @throws EntityNotFoundException Throws if entity not found.
+     * @throws InvalidOrderException   Throws if exception while executing the order.
+     * @throws CardNotFoundException   Card doesn't found in the player's card list.
      */
     @Test(expected = CardNotFoundException.class)
     public void testCardSuccessfullyRemoved() throws
-            EntityNotFoundException, InvalidOrderException, CardNotFoundException{
+            EntityNotFoundException, InvalidOrderException, CardNotFoundException {
         Player l_player1 = d_playerList.get(0);
         List<Country> l_player1AssignCountries = l_player1.getAssignedCountries();
         l_player1.addCard(new BlockadeCard());
         BlockadeOrder l_blockadeOrder = new BlockadeOrder(l_player1AssignCountries.get(0).getCountryName(), l_player1);
         l_blockadeOrder.execute();
 
+        //Now during second execution player will not have a blockade card as we have assigned only one blockade card manually.
+        //So it will raise InvalidCommandException.
         l_blockadeOrder.execute();
     }
 }

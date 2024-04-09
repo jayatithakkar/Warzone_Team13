@@ -1,15 +1,16 @@
 package com.APP.Project.UserCoreLogic.game_entities.orders;
 
-import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
-import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
+import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
+import com.APP.Project.UserCoreLogic.exceptions.*;
+import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
+import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.game_entities.cards.AirliftCard;
 import com.APP.Project.UserCoreLogic.game_entities.cards.BombCard;
-import com.APP.Project.UserCoreLogic.exceptions.*;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
-import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
+import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,54 +24,51 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * This class represents the test cases for the AirliftOrder class, which is responsible for executing
- * an airlift order in the game.
+ * This class is for testing various operations performed during the execution of the airlift command.
  *
- * @author Rikin Dipakkumar Chauhan
- * @version 1.0
+ * @author Sushant Sinha
  */
 public class AirliftOrderTest {
     private static Main d_Application;
     private static URL d_TestFilePath;
-    private static GamePlayEngine d_GamePlayEngine;
+    private static GameEngine d_GamePlayEngine;
     private CountryDistributionService d_distributeCountriesService;
     private List<Player> d_playerList;
 
     /**
-     * Initializes necessary components for the test class.
+     * Runs before the test case class runs; Initializes different objects required to perform test.
      */
     @BeforeClass
     public static void createPlayersList() {
         d_Application = new Main();
         d_Application.handleApplicationStartup();
-        d_GamePlayEngine = GamePlayEngine.getInstance();
+        UserCoreLogic.getInstance().initialise();
+
+        d_GamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
         d_TestFilePath = BombOrderTest.class.getClassLoader().getResource("map_files/solar.map");
     }
 
     /**
-     * Sets up the environment for each test case.
+     * Setting up the required objects before performing test.
      *
-     * @throws AbsentTagException       If a tag is absent.
-     * @throws InvalidMapException      If the map is invalid.
-     * @throws ResourceNotFoundException If a resource is not found.
-     * @throws InvalidInputException    If the input is invalid.
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws URISyntaxException       If there is a syntax error in the URI.
+     * @throws AbsentTagException        Throws if any tag is missing in the map file.
+     * @throws InvalidMapException       Throws if the map is invalid.
+     * @throws ResourceNotFoundException Throws if resource is not available
+     * @throws InvalidInputException     Throws if user input is invalid.
+     * @throws EntityNotFoundException   Throws if entity not found.
+     * @throws URISyntaxException        Throws if URI syntax problem.
      */
     @Before
     public void setup() throws AbsentTagException, InvalidMapException, ResourceNotFoundException, InvalidInputException, EntityNotFoundException, URISyntaxException {
-        UserCoreLogic.getInstance().initialise();
-
-        EditMapAdapter l_editMapService = new EditMapAdapter();
+        d_GamePlayEngine.initialise();
+        // Loads the map
+        EditMapService l_editMapService = new EditMapService();
         assertNotNull(d_TestFilePath);
         String l_url = new URI(d_TestFilePath.getPath()).getPath();
         l_editMapService.handleLoadMap(l_url);
 
-        Player l_player1 = new Player();
-        Player l_player2 = new Player();
-
-        l_player1.setName("User_1");
-        l_player2.setName("User_2");
+        Player l_player1 = new Player("User_1", StrategyType.HUMAN);
+        Player l_player2 = new Player("User_2", StrategyType.HUMAN);
 
         d_GamePlayEngine.addPlayer(l_player1);
         d_GamePlayEngine.addPlayer(l_player2);
@@ -80,16 +78,16 @@ public class AirliftOrderTest {
     }
 
     /**
-     * Tests the execution of the AirliftOrder.
+     * checks that execute method working properly.
      *
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws InvalidArgumentException If an argument is invalid.
-     * @throws InvalidOrderException   If the order is invalid.
-     * @throws CardNotFoundException   If a card is not found.
+     * @throws EntityNotFoundException  Throws if entity not found.
+     * @throws InvalidArgumentException Throws if the input is invalid.
+     * @throws InvalidOrderException    Throws if exception while executing the order.
+     * @throws CardNotFoundException    Card doesn't found in the player's card list.
      */
     @Test
     public void testExecute()
-            throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException{
+            throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException {
         Player l_player = d_playerList.get(0);
         List<Country> l_playerAssignCountries = l_player.getAssignedCountries();
         l_playerAssignCountries.get(0).setNumberOfArmies(7);
@@ -103,16 +101,17 @@ public class AirliftOrderTest {
     }
 
     /**
-     * Tests the case when the player does not have the required card.
+     * checks that player has airlift card.
      *
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws InvalidArgumentException If an argument is invalid.
-     * @throws InvalidOrderException   If the order is invalid.
-     * @throws CardNotFoundException   If a card is not found.
+     * @throws EntityNotFoundException  Throws if entity not found.
+     * @throws InvalidArgumentException Throws if the input is invalid.
+     * @throws InvalidOrderException    Throws if exception while executing the order.
+     * @throws CardNotFoundException    Card doesn't found in the player's card list.
      */
+    //not have airlift card
     @Test(expected = CardNotFoundException.class)
     public void testPlayerHasCard()
-            throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException{
+            throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException {
         Player l_player = d_playerList.get(0);
         List<Country> l_playerAssignCountries = l_player.getAssignedCountries();
         l_playerAssignCountries.get(0).setNumberOfArmies(7);
@@ -125,16 +124,17 @@ public class AirliftOrderTest {
     }
 
     /**
-     * Tests the case when the player tries to airlift to another player's country.
+     * checks that player will not airlift armies in others country.
      *
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws InvalidArgumentException If an argument is invalid.
-     * @throws InvalidOrderException   If the order is invalid.
-     * @throws CardNotFoundException   If a card is not found.
+     * @throws EntityNotFoundException  Throws if entity not found.
+     * @throws InvalidArgumentException Throws if the input is invalid.
+     * @throws InvalidOrderException    Throws if exception while executing the order.
+     * @throws CardNotFoundException    Card doesn't found in the player's card list.
      */
+    //try to transfer into other's country
     @Test(expected = InvalidOrderException.class)
     public void testPlayerNotAirliftInOthersCountry()
-            throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException{
+            throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException {
         Player l_player = d_playerList.get(0);
         Player l_player2 = d_playerList.get(1);
         List<Country> l_playerAssignCountries = l_player.getAssignedCountries();
@@ -146,16 +146,16 @@ public class AirliftOrderTest {
     }
 
     /**
-     * Tests the case when the player enters invalid number of armies for airlift.
+     * method test that source country has entered number of armies for airlifted.
      *
-     * @throws EntityNotFoundException If an entity is not found.
-     * @throws InvalidArgumentException If an argument is invalid.
-     * @throws InvalidOrderException   If the order is invalid.
-     * @throws CardNotFoundException   If a card is not found.
+     * @throws EntityNotFoundException  Throws if entity not found.
+     * @throws InvalidArgumentException Throws if the input is invalid.
+     * @throws InvalidOrderException    Throws if exception while executing the order.
+     * @throws CardNotFoundException    Card doesn't found in the player's card list.
      */
     @Test(expected = InvalidOrderException.class)
     public void testPlayerHasEnteredArmies()
-            throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException{
+            throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException {
         Player l_player = d_playerList.get(0);
         List<Country> l_playerAssignCountries = l_player.getAssignedCountries();
         l_playerAssignCountries.get(0).setNumberOfArmies(7);
