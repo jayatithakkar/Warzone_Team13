@@ -1,6 +1,6 @@
 package com.APP.Project.UserInterface.models;
 
-import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
+import com.APP.Project.UserInterface.constants.specifications.CommandSpecification;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;

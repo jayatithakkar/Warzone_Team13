@@ -1,6 +1,6 @@
 package com.APP.Project.UserInterface.models;
 
-import com.APP.Project.UserInterface.constants.specifications.ArgumentsSpecification;
+import com.APP.Project.UserInterface.constants.specifications.ArgumentSpecification;
 
 import java.util.Objects;
 
@@ -14,7 +14,7 @@ public class CommandLineArgument {
 
     private String d_argumentKey;
     private int d_numOfValues;
-    private ArgumentsSpecification d_specification;
+    private ArgumentSpecification d_specification;
 
     /**
      *
@@ -25,7 +25,7 @@ public class CommandLineArgument {
      * @param p_numOfValues
      * @param p_specification
      */
-    public CommandLineArgument(String p_argumentKey, int p_numOfValues, ArgumentsSpecification p_specification) {
+    public CommandLineArgument(String p_argumentKey, int p_numOfValues, ArgumentSpecification p_specification) {
         d_argumentKey = p_argumentKey;
         d_numOfValues = p_numOfValues;
         d_specification = p_specification;
@@ -52,11 +52,11 @@ public class CommandLineArgument {
         d_numOfValues = p_numOfValues;
     }
 
-    public ArgumentsSpecification getSpecification() {
+    public ArgumentSpecification getSpecification() {
         return d_specification;
     }
 
-    public void setSpecification(ArgumentsSpecification p_specification) {
+    public void setSpecification(ArgumentSpecification p_specification) {
         d_specification = p_specification;
     }
 

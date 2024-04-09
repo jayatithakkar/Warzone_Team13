@@ -1,11 +1,11 @@
 package com.APP.Project.UserInterface.mappers;
 
-import com.APP.Project.UserInterface.constants.specifications.ArgumentsSpecification;
+import com.APP.Project.UserInterface.constants.specifications.ArgumentSpecification;
 import com.APP.Project.UserInterface.layouts.PlayerCommandLayout;
 import com.APP.Project.UserInterface.models.CommandLineArgument;
 import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 import com.APP.Project.UserInterface.models.UsersCommands;
-import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
+import com.APP.Project.UserInterface.constants.specifications.CommandSpecification;
 import com.APP.Project.UserInterface.exceptions.InvalidArgumentException;
 import com.APP.Project.UserInterface.exceptions.InvalidCommandException;
 
@@ -58,10 +58,6 @@ public class UserCommandsMapper {
                 return l_parsedUserCommand;
             } else if (validateIfCommandCanRunAlone(l_predefinedUserCommand, l_argumentBody.size())) {
                 // Throws an exception if the command can run alone and the user has provided with some random text
-            } else {
-                // Throws an exception if the command does not have any argument
-                // Need to be checked again after extracting the argument and validating it.
-                validateIfCommandDoesNeedArgument(l_predefinedUserCommand, l_argumentBody.size());
             }
 
             // If the command can accept arguments and user have provided the arguments
@@ -104,22 +100,22 @@ public class UserCommandsMapper {
                     List<String> l_values = l_argumentBody.subList(l_indexOfCurrentKey + 1, l_indexOfNextKey);
 
                     // Checks if the user has entered the correct number of values for the argument
-                    if (l_commandArgument.getSpecification() == ArgumentsSpecification.EQUAL &&
+                    if (l_commandArgument.getSpecification() == ArgumentSpecification.EQUAL &&
                             l_commandArgument.getNumOfValues() == l_values.size()) {
                         l_parsedUserCommand.pushUserArgument(l_commandArgument.getArgumentKey(), l_values);
                         continue;
-                    } else if (l_commandArgument.getSpecification() == ArgumentsSpecification.MAX &&
+                    } else if (l_commandArgument.getSpecification() == ArgumentSpecification.MAX &&
                             l_commandArgument.getNumOfValues() >= l_values.size()) {
                         l_parsedUserCommand.pushUserArgument(l_commandArgument.getArgumentKey(), l_values);
                         continue;
-                    } else if (l_commandArgument.getSpecification() == ArgumentsSpecification.MIN &&
+                    } else if (l_commandArgument.getSpecification() == ArgumentSpecification.MIN &&
                             l_commandArgument.getNumOfValues() <= l_values.size()) {
                         l_parsedUserCommand.pushUserArgument(l_commandArgument.getArgumentKey(), l_values);
                         continue;
                     }
 
                     // Throw if the user has not provided the correct number of values
-                    if (l_commandArgument.getSpecification() != ArgumentsSpecification.MAX &&
+                    if (l_commandArgument.getSpecification() != ArgumentSpecification.MAX &&
                             l_commandArgument.getNumOfValues() >= l_values.size()
                     ) {
                         throw new InvalidArgumentException("Required argument values not provided!");
@@ -144,7 +140,7 @@ public class UserCommandsMapper {
      * @return True if the command can run alone; false otherwise
      */
     private boolean validateIfCommandCanRunAlone(PredefinedUserCommands p_predefinedUserCommand, int p_numOfKeys) {
-        if (p_predefinedUserCommand.getCommandSpecification() == CommandsSpecification.CAN_RUN_ALONE) {
+        if (p_predefinedUserCommand.getCommandSpecification() == CommandSpecification.CAN_RUN_ALONE) {
             // Means the user has entered the not-needful text after the command
             if (p_numOfKeys > 0)
                 throw new InvalidArgumentException("Unrecognized argument!");
@@ -162,11 +158,11 @@ public class UserCommandsMapper {
      * @return True if the command can run alone; false otherwise.
      */
     private boolean validateIfCommandDoesNeedValue(PredefinedUserCommands p_predefinedUserCommand, int p_numOfKeys) {
-        if (p_predefinedUserCommand.getCommandSpecification() == CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE) {
+        if (p_predefinedUserCommand.getCommandSpecification() == CommandSpecification.CAN_RUN_ALONE_WITH_VALUE) {
             // Means the user has not provided the value required with the command
             if (p_numOfKeys == 0)
                 throw new InvalidArgumentException("Value not provided!");
-            if (p_numOfKeys != p_predefinedUserCommand.getNumOfValues()) {
+            if (p_numOfKeys != p_predefinedUserCommand.getNumOfKeysOrValues()) {
                 throw new InvalidArgumentException("Required values are missing!");
             }
             return true;
@@ -182,10 +178,20 @@ public class UserCommandsMapper {
      * @return True if the entered command has at least one argument; false otherwise
      */
     private boolean validateIfCommandDoesNeedArgument(PredefinedUserCommands p_predefinedUserCommand, int p_numOfKeys) {
-        if (p_predefinedUserCommand.getCommandSpecification() == CommandsSpecification.AT_LEAST_ONE) {
+        if (p_predefinedUserCommand.getCommandSpecification() == CommandSpecification.NEEDS_KEYS) {
             // Means the user has not provided any required argument keys
             if (p_numOfKeys == 0)
                 throw new InvalidArgumentException("Command requires at least one argument to run!");
+            if (p_predefinedUserCommand.getCommandKeySpecification() == ArgumentSpecification.EQUAL
+                    && p_numOfKeys != p_predefinedUserCommand.getNumOfKeysOrValues()) {
+                throw new InvalidArgumentException("Required values are missing!");
+            } else if (p_predefinedUserCommand.getCommandKeySpecification() == ArgumentSpecification.MIN
+                    && p_numOfKeys < p_predefinedUserCommand.getNumOfKeysOrValues()) {
+                throw new InvalidArgumentException("Required values are missing!");
+            } else if (p_predefinedUserCommand.getCommandKeySpecification() == ArgumentSpecification.MAX
+                    && p_numOfKeys > p_predefinedUserCommand.getNumOfKeysOrValues()) {
+                throw new InvalidArgumentException("Unrecognised argument values!");
+            }
             return true;
         }
         return false;
