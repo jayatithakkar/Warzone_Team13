@@ -1,15 +1,15 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
-import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
+import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
+import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
-import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
-import com.APP.Project.UserCoreLogic.Container.CountryContainer;
+import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,11 @@ public class CountryDistributionService implements StandaloneCommand {
     private final LogEntryBuffer d_logEntryBuffer;
 
     /**
-     * Default constructor to instantiate objects.
+     * Constructor for instantiating required objects.
      */
     public CountryDistributionService() {
-        d_countryList = MapFeatureEngine.getInstance().getCountryList();
-        d_gamePlayEngine = GamePlayEngine.getInstance();
+        d_countryList = UserCoreLogic.getGameEngine().getMapEditorEngine().getCountryList();
+        d_gamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
         d_logEntryBuffer = LogEntryBuffer.getLogger();
     }
 
@@ -139,9 +139,10 @@ public class CountryDistributionService implements StandaloneCommand {
     public String execute(List<String> p_commandValues) throws UserCoreLogicException, IllegalStateException {
         // Check if players have been added.
         // What if only one player is available?
-        if (!GamePlayEngine.getInstance().getPlayerList().isEmpty()) {
+        if (!d_gamePlayEngine.getPlayerList().isEmpty()) {
             String l_response = distributeCountries();
-            d_logEntryBuffer.dataChanged("assigncountries", "\n---ASSIGNCOUNTRIES---\n" + l_response + "\n" + this.getPlayerCountries() + "\n*******GAME LOOP BEGINS*******\n");
+            // Logging
+            d_logEntryBuffer.dataChanged("assigncountries", l_response + "\n" + this.getPlayerCountries());
             return l_response;
         } else {
             throw new EntityNotFoundException("Please, add players to show game status!");

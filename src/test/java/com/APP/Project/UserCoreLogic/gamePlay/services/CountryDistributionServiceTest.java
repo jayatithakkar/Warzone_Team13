@@ -1,13 +1,13 @@
-package  com.APP.Project.UserCoreLogic.gamePlay.services;
+package com.APP.Project.UserCoreLogic.gamePlay.services;
 
-import  com.APP.Project.Main;
-import  com.APP.Project.UserCoreLogic.UserCoreLogic;
-import com.APP.Project.UserCoreLogic.game_entities.Player;
+import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
-import  com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
-import  com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import  com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
-
+import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
+import com.APP.Project.UserCoreLogic.game_entities.Player;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,52 +21,55 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * This class contains test cases for the CountryDistributionService class.
+ * This class represents the unit test for the ShowMapService class.
+ * It tests various functionalities related to displaying player content on the map.
  *
- * @author Jayati Thakkar
- * @author Rikin Dipakkumar Chauhan
+ * @author Rupal Kapoor
+ * @version 1.0
  */
 public class CountryDistributionServiceTest {
-    private static Main d_Main;
+    private static Main d_Application;
     private static URL d_TestFilePath;
     private CountryDistributionService d_distributeCountriesService;
     private static GamePlayEngine d_GamePlayEngine;
 
     /**
-     * Runs before the test case class runs; Initializes different objects required to perform test.
+     * This method runs before the test case class runs.
+     * It additionally initializes different objects required to perform test.
+     *
+     * @throws IOException        If exception while coping the predefined files.
+     * @throws URISyntaxException If the path to parent directory of the files doesn't exist.
      */
     @BeforeClass
     public static void createPlayersList() throws IOException, URISyntaxException {
-        d_Main = new Main();
-        d_Main.handleApplicationStartup();
-        d_GamePlayEngine = GamePlayEngine.getInstance();
+        d_Application = new Main();
+        d_Application.handleApplicationStartup();
 
-        d_Main.restoreMapFiles();
+        // (Re)initialise the VM.
+        UserCoreLogic.getInstance().initialise();
+        d_GamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
+
+        d_Application.restoreMapFiles();
         d_TestFilePath = CountryDistributionServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
     }
 
     /**
-     * Setting up the required objects before performing test.
+     * This method is used for setting up the required objects before performing test.
      *
-     * @throws UserCoreLogicException Exception generated during execution.
+     * @throws UserCoreLogicException is thrown when exception is generated during execution.
+     * @throws URISyntaxException is thrown in case the error while parsing the string representing the path.
      */
     @Before
-    public void before() throws UserCoreLogicException, URISyntaxException{
-        // (Re)initialise the UserCoreLogic.
-        UserCoreLogic.getInstance().initialise();
-
-
+    public void before() throws UserCoreLogicException, URISyntaxException {
+        d_GamePlayEngine.initialise();
         // Loads the map
-        EditMapAdapter l_editMapService = new EditMapAdapter();
+        EditMapService l_editMapService = new EditMapService();
         assertNotNull(d_TestFilePath);
         String l_url = new URI(d_TestFilePath.getPath()).getPath();
         l_editMapService.handleLoadMap(l_url);
 
-        Player l_player1 = new Player();
-        Player l_player2 = new Player();
-
-        l_player1.setName("User_1");
-        l_player2.setName("User_2");
+        Player l_player1 = new Player("User_1", StrategyType.HUMAN);
+        Player l_player2 = new Player("User_2", StrategyType.HUMAN);
 
         d_GamePlayEngine.addPlayer(l_player1);
         d_GamePlayEngine.addPlayer(l_player2);
@@ -75,9 +78,9 @@ public class CountryDistributionServiceTest {
     }
 
     /**
-     * Tests whether the player list is empty or not. Passes if list contains players objects, otherwise fails.
+     * This method tests whether the player list is empty or not. Passes if list contains players objects, otherwise fails.
      *
-     * @throws InvalidInputException Throws if invalid player count.
+     * @throws InvalidInputException This exception is thrown if invalid player count.
      */
     @Test(expected = Test.None.class)
     public void testNumberOfPlayer() throws InvalidInputException {
@@ -85,9 +88,9 @@ public class CountryDistributionServiceTest {
     }
 
     /**
-     * Tests whether the count of countries required to be assigned to the player is correct or not.
+     * This method tests whether the count of countries required to be assigned to the player is correct or not.
      *
-     * @throws InvalidInputException Throws if player objects list is empty.
+     * @throws InvalidInputException This exception is thrown if player objects list is empty.
      */
     @Test(expected = Test.None.class)
     public void testPlayerCountryCount() throws InvalidInputException {
@@ -96,7 +99,7 @@ public class CountryDistributionServiceTest {
     }
 
     /**
-     * Test whether the countries are correctly assigned or not.
+     * This method tests whether the countries are correctly assigned or not.
      *
      * @throws InvalidInputException Throws if player objects list is empty.
      */

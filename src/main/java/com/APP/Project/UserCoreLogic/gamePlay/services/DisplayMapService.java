@@ -1,16 +1,15 @@
 package com.APP.Project.UserCoreLogic.gamePlay.services;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.enums.CardType;
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
+import com.APP.Project.UserCoreLogic.map_features.adapters.ShowMapAdapter;
+import com.jakewharton.fliptables.FlipTable;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
-import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
-import com.APP.Project.UserCoreLogic.map_features.adapters.ShowMapAdapter;
-import com.jakewharton.fliptables.FlipTable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class DisplayMapService implements StandaloneCommand {
      * @throws EntityNotFoundException is thrown if the entity not found.
      */
     public DisplayMapService() throws EntityNotFoundException {
-        d_gamePlayEngine = GamePlayEngine.getInstance();
+        d_gamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
         d_playerList = d_gamePlayEngine.getPlayerList();
         d_showMapService = new ShowMapAdapter();
         d_logEntryBuffer = LogEntryBuffer.getLogger();
@@ -84,7 +83,7 @@ public class DisplayMapService implements StandaloneCommand {
      * @throws EntityNotFoundException is thrown in case no player is available
      */
     @Override
-    public String execute(List<String> p_commandValues) throws EntityNotFoundException, ResourceNotFoundException, InvalidInputException {
+    public String execute(List<String> p_commandValues) throws EntityNotFoundException {
         StringBuilder l_playerContent = new StringBuilder();
         String l_logResponse = "";
         int l_playerCount = 0;
@@ -104,8 +103,10 @@ public class DisplayMapService implements StandaloneCommand {
                 }
                 l_playerContent.append(this.showPlayerContent(l_player));
             }
+
+            // Logging
             l_logResponse = l_playerContent.toString() + "\n" + "CONNECTIVITY" + "\n" + d_showMapService.showNeighbourCountries();
-            d_logEntryBuffer.dataChanged("showmap", "\n---SHOWMAP---\n" + l_logResponse);
+            d_logEntryBuffer.dataChanged("showmap", l_logResponse);
             return l_logResponse;
         } else {
             throw new EntityNotFoundException("Please, add players to show game status!");

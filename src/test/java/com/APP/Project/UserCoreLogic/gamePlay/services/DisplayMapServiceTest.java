@@ -2,10 +2,10 @@ package com.APP.Project.UserCoreLogic.gamePlay.services;
 
 import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.*;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
-import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapAdapter;
+import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
 import com.jakewharton.fliptables.FlipTable;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -23,29 +23,28 @@ import static org.junit.Assert.assertNotNull;
  * This class represents the unit test for the ShowMapService class.
  * It tests various functionalities related to displaying player content on the map.
  *
- * @author Jayati Thakkar
- * @author Rikin Dipakkumar Chauhan
- * @version 1.0
+ * @author Rupal Kapoor
  */
-public class ShowMapServiceTest {
+public class DisplayMapServiceTest {
     private DisplayMapService d_showMapService;
     private List<Player> d_playerList;
     private static URL d_TestFilePath;
 
     /**
-     * Executes once before all test methods in the class.
+     * This method executes once before all test methods in the class.
      * It initializes necessary components for testing.
+     *
      */
     @BeforeClass
     public static void beforeClass() {
         Main l_application = new Main();
         l_application.handleApplicationStartup();
 
-        d_TestFilePath = ShowMapServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
+        d_TestFilePath = DisplayMapServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
     }
 
     /**
-     * Executes before each test method.
+     * This method executes before each test method.
      * It sets up the environment required for individual test cases.
      *
      * @throws InvalidInputException      If the input is invalid.
@@ -57,25 +56,26 @@ public class ShowMapServiceTest {
      */
     @Before
     public void before() throws InvalidInputException, EntityNotFoundException, URISyntaxException, InvalidMapException, ResourceNotFoundException, AbsentTagException {
+        // (Re)initialise the VM.
         UserCoreLogic.getInstance().initialise();
 
-        EditMapAdapter l_editMapService = new EditMapAdapter();
+        EditMapService l_editMapService = new EditMapService();
         d_showMapService = new DisplayMapService();
         assertNotNull(d_TestFilePath);
         String l_url = new URI(d_TestFilePath.getPath()).getPath();
         l_editMapService.handleLoadMap(l_url);
 
         CountryDistributionService l_distributeCountriesService = new CountryDistributionService();
-        ManageGamePlayerService l_playerService = new ManageGamePlayerService();
-        l_playerService.add("User_1");
-        l_playerService.add("User_2");
+        PlayerService l_playerService = new PlayerService();
+        l_playerService.add("User_1", StrategyType.HUMAN.getJsonValue());
+        l_playerService.add("User_2", StrategyType.HUMAN.getJsonValue());
 
         l_distributeCountriesService.distributeCountries();
-        d_playerList = GamePlayEngine.getInstance().getPlayerList();
+        d_playerList = UserCoreLogic.getGameEngine().getGamePlayEngine().getPlayerList();
     }
 
     /**
-     * Tests the functionality to display player content on the map.
+     * This method is used to test the functionality to display player content on the map.
      */
     @Test
     public void testShowPlayerContent() {
