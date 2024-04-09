@@ -35,7 +35,7 @@ public class LogEntryBuffer implements Observable {
         return d_instance;
     }
 
-    /*
+    /**
      * Attaches an observer to the list of observers.
      *
      * @param p_observer The observer to attach
@@ -45,7 +45,7 @@ public class LogEntryBuffer implements Observable {
         d_observerList.add(p_observer);
     }
 
-    /*
+    /**
      * Detaches an observer from the list of observers.
      *
      * @param p_observer The observer to detach
@@ -55,7 +55,7 @@ public class LogEntryBuffer implements Observable {
         d_observerList.remove(p_observer);
     }
 
-    /*
+    /**
      * Notifies all observers with the provided Observable object.
      *
      * @param p_o The Observable object to notify observers with
@@ -73,7 +73,7 @@ public class LogEntryBuffer implements Observable {
      * @return The message stored in the buffer.
      */
     public String getMessage() {
-        return d_message;
+        return String.format("---%s---\n%s\n", this.getHeadCommand(), d_message);
     }
 
     /**
