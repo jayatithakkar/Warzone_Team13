@@ -1,14 +1,8 @@
 package com.APP.Project.UserCoreLogic.constants.enums;
 
 /**
- * Enumerates all the possible types of orders that a player can issue during
- * the "issue orders" phase of the game.
- * Each enum value corresponds to a specific command that players can enter
- * during the {@code GameLoop#ISSUE_ORDER} phase, representing
- * different strategic actions a player can take, such as moving armies,
- * deploying reinforcements, or engaging in diplomacy. The enum
- * facilitates the parsing and execution of these commands by providing a
- * predefined set of possible orders.
+ * This enum lists all the orders which player can issue during <code>issue orders</code> phase.
+ * represent the command which can be entered by the player at the <code>GameLoop#ISSUE_ORDER</code> phase.
  *
  * @author Bhoomiben Bhatt
  * @version 1.0
@@ -54,13 +48,9 @@ public enum OrderTypes {
     }
 
     /**
-     * Retrieves the string representation of the enum value.
-     * This method allows for the retrieval of the enum's command as a string,
-     * facilitating the use of enum values in
-     * contexts where a string representation is necessary, such as in user
-     * interfaces or when parsing player commands.
+     * Gets the string value of the enum
      *
-     * @return The string command associated with the order type.
+     * @return Value of the enum
      */
     public String getJsonValue() {
         return d_jsonValue;
