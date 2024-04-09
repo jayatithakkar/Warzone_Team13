@@ -61,7 +61,7 @@ public class GamePlayCommand implements CommandLayout {
         l_userCommand.setHeadCommand("deploy");
         l_userCommand.setOrderCommand(true);
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        l_userCommand.setNumOfKeysOrValues(2);
+        l_userCommand.setNumOfValues(2);
         d_userCommands.add(l_userCommand);
 
         // Example of the command:
@@ -70,7 +70,7 @@ public class GamePlayCommand implements CommandLayout {
         l_userCommand.setHeadCommand("advance");
         l_userCommand.setOrderCommand(true);
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        l_userCommand.setNumOfKeysOrValues(3);
+        l_userCommand.setNumOfValues(3);
         d_userCommands.add(l_userCommand);
 
 
@@ -80,7 +80,7 @@ public class GamePlayCommand implements CommandLayout {
         l_userCommand.setHeadCommand("bomb");
         l_userCommand.setOrderCommand(true);
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        l_userCommand.setNumOfKeysOrValues(1);
+        l_userCommand.setNumOfValues(1);
         d_userCommands.add(l_userCommand);
 
         // Example of the command:
@@ -89,7 +89,7 @@ public class GamePlayCommand implements CommandLayout {
         l_userCommand.setHeadCommand("blockade");
         l_userCommand.setOrderCommand(true);
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        l_userCommand.setNumOfKeysOrValues(1);
+        l_userCommand.setNumOfValues(1);
         d_userCommands.add(l_userCommand);
 
         // Example of the command:
@@ -98,7 +98,7 @@ public class GamePlayCommand implements CommandLayout {
         l_userCommand.setHeadCommand("airlift");
         l_userCommand.setOrderCommand(true);
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        l_userCommand.setNumOfKeysOrValues(3);
+        l_userCommand.setNumOfValues(3);
         d_userCommands.add(l_userCommand);
 
         // Example of the command:
@@ -107,7 +107,7 @@ public class GamePlayCommand implements CommandLayout {
         l_userCommand.setHeadCommand("negotiate");
         l_userCommand.setOrderCommand(true);
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        l_userCommand.setNumOfKeysOrValues(1);
+        l_userCommand.setNumOfValues(1);
         d_userCommands.add(l_userCommand);
 
         // Example of the command:
@@ -116,7 +116,7 @@ public class GamePlayCommand implements CommandLayout {
         l_userCommand.setHeadCommand("savegame");
         l_userCommand.setGameEngineCommand(true);
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        l_userCommand.setNumOfKeysOrValues(1);
+        l_userCommand.setNumOfValues(1);
         l_userCommand.setGamePhaseMethodName("saveGame");
         d_userCommands.add(l_userCommand);
 
@@ -126,7 +126,7 @@ public class GamePlayCommand implements CommandLayout {
         l_userCommand.setHeadCommand("loadgame");
         l_userCommand.setGameEngineCommand(true);
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
-        l_userCommand.setNumOfKeysOrValues(1);
+        l_userCommand.setNumOfValues(1);
         l_userCommand.setGamePhaseMethodName("loadGame");
         d_userCommands.add(l_userCommand);
     }

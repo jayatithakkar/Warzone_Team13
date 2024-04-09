@@ -4,10 +4,10 @@ import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
 import com.APP.Project.UserCoreLogic.exceptions.*;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.game_entities.cards.DiplomacyCard;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 public class NegotiateOrderTest {
     private static Main d_Application;
     private static URL d_TestFilePath;
-    private static GameEngine d_GamePlayEngine;
+    private static GamePlayEngine d_GamePlayEngine;
     private CountryDistributionService d_distributeCountriesService;
     private List<Player> d_playerList;
 

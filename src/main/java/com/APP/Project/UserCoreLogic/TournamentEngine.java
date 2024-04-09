@@ -1,5 +1,6 @@
 package com.APP.Project.UserCoreLogic;
 
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.map_features.MapEditorEngine;
 import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
 import com.jakewharton.fliptables.FlipTable;
@@ -7,7 +8,7 @@ import com.APP.Project.UserCoreLogic.game_entities.GameResult;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import com.APP.Project.UserCoreLogic.gamePlay.GameLoop;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.GameEngine;
 import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
 import com.APP.Project.UserCoreLogic.phases.PlaySetup;
@@ -164,7 +165,7 @@ public class TournamentEngine {
     public void onStart() throws UserCoreLogicException {
         for (int d_currentGameIndex = 0; d_currentGameIndex < d_numberOfGames; d_currentGameIndex++) {
             for (String l_mapFilePath : d_mapFileList) {
-                GameEngine l_gamePlayEngine = new GameEngine();
+                GamePlayEngine l_gamePlayEngine = new GamePlayEngine();
                 com.APP.Project.UserCoreLogic.GameEngine l_gameEngine = new com.APP.Project.UserCoreLogic.GameEngine(new MapEditorEngine(), l_gamePlayEngine);
                 
                 UserCoreLogic.setGameEngine(l_gameEngine);
@@ -229,7 +230,7 @@ public class TournamentEngine {
         for (Map.Entry<Integer, List<com.APP.Project.UserCoreLogic.GameEngine>> entry : d_playedGameEngineMappings.entrySet()) {
             l_columnIndex = 0;
             for (com.APP.Project.UserCoreLogic.GameEngine l_singleGameEngine : entry.getValue()) {
-                GameEngine l_gamePlayEngine = l_singleGameEngine.getGamePlayEngine();
+                GamePlayEngine l_gamePlayEngine = l_singleGameEngine.getGamePlayEngine();
                 GameResult l_gameResult = l_gamePlayEngine.getGameResult();
 
                 

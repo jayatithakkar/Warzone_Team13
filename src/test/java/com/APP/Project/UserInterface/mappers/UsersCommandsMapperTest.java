@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Class to test the interpreted value of the user input text
  */
-public class UserCommandMapperTest {
+public class UsersCommandsMapperTest {
     /**
      * User input text
      */

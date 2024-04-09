@@ -87,7 +87,7 @@ public class MapEditorCommand implements CommandLayout {
         l_userCommand.setHeadCommand("savemap");
         l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
         l_userCommand.setGamePhaseMethodName("saveMap");
-        l_userCommand.setNumOfKeysOrValues(2);
+        l_userCommand.setNumOfValues(2);
         d_userCommands.add(l_userCommand);
 
         // Example of the below command:
@@ -131,7 +131,7 @@ public class MapEditorCommand implements CommandLayout {
                 1,
                 ArgumentSpecification.EQUAL
         ));
-        l_userCommand.setNumOfKeysOrValues(4);
+        l_userCommand.setNumOfValues(4);
         l_userCommand.setCommandKeySpecification(ArgumentSpecification.EQUAL);
         l_userCommand.setGamePhaseMethodName("prepareTournament");
         d_userCommands.add(l_userCommand);
