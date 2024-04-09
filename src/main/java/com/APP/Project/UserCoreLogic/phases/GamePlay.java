@@ -1,10 +1,11 @@
 package com.APP.Project.UserCoreLogic.phases;
 
 import com.APP.Project.UserCoreLogic.GameEngine;
-import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import com.APP.Project.UserCoreLogic.gamePlay.services.DisplayMapService;
+import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,22 +18,30 @@ import java.util.List;
  * Subclasses should override methods to provide state-specific behaviors where
  * necessary.
  * </p>
- * <p>
  *
- * @author Bhoomiben Bhatt
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
 public abstract class GamePlay extends Phase {
     /**
-     * Constructs a new gameplay phase associated with the given game engine.
+     * Parameterised constructor to create an instance of <code>Play</code>.
      *
-     * @param p_gameEngine The game engine managing the state and logic of the game.
+     * @param p_gameEngine Instance of the game engine.
      */
     GamePlay(GameEngine p_gameEngine) {
         super(p_gameEngine);
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String prepareTournament(List<Map<String, List<String>>> p_arguments) throws UserCoreLogicException {
+        return this.invalidCommand();
+    }
+
+    /**
+     * {@inheritDoc}
      * Displays the current state of the game map.
      * <p>
      * This command is generally valid across various states within the gameplay
@@ -78,7 +87,7 @@ public abstract class GamePlay extends Phase {
     }
 
     /**
-     * Attempts to save the current map configuration to a file, which is not
+        * Attempts to save the current map configuration to a file, which is not
      * permitted in the game play phase.
      * <p>
      * Invoking this command during the game play phase is considered invalid since

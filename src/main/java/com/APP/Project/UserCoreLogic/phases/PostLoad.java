@@ -1,20 +1,23 @@
 package com.APP.Project.UserCoreLogic.phases;
 
 import com.APP.Project.UserCoreLogic.GameEngine;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidCommandException;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import com.APP.Project.UserCoreLogic.map_features.adapters.*;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the phase after loading the map.
  * This phase allows editing and validation of the loaded map.
  *
- * @author Rikin Dipakkumar Chauhan
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
 public class PostLoad extends MapEditor {
-
     /**
      * Constructs a new PostLoad phase with the specified game engine.
      *
@@ -33,10 +36,17 @@ public class PostLoad extends MapEditor {
      * @throws UserCoreLogicException if an error occurs during the operation
      */
     @Override
+    public String prepareTournament(List<Map<String, List<String>>> p_arguments) throws UserCoreLogicException {
+        return this.invalidCommand();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String editMap(List<String> p_arguments) throws UserCoreLogicException {
         return invalidCommand();
     }
-
 
     /**
      * Edits the continent with the specified service type and arguments.
@@ -98,8 +108,19 @@ public class PostLoad extends MapEditor {
      * @throws UserCoreLogicException if an error occurs during the operation
      */
     @Override
-    public String saveMap(List<String> p_arguments) throws UserCoreLogicException {
-        SaveMapAdapter l_saveMapService = new SaveMapAdapter();
+    public String saveMap(List<String> p_arguments) throws UserCoreLogicException, IOException {
+        SaveMapService l_saveMapService;
+        if (!p_arguments.isEmpty()) {
+            if (p_arguments.get(2).equalsIgnoreCase("warzone")) {
+                l_saveMapService = new SaveMapService();
+            } else if (p_arguments.get(2).equalsIgnoreCase("conquest")) {
+                l_saveMapService = new SaveMapAdapter(new SaveConquestMapService());
+            } else {
+                throw new InvalidCommandException("Map type is not valid");
+            }
+        } else {
+            throw new InvalidInputException("Empty arguments found. Please provide required arguments.");
+        }
         return l_saveMapService.execute(p_arguments);
     }
 

@@ -26,7 +26,7 @@ public enum UserInteractionState {
     public String d_jsonValue;
 
     /**
-     * Parameterised constructor.
+     * Parameterised constructor to set json value.
      *
      * @param p_jsonValue
      */

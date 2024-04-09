@@ -2,7 +2,7 @@ package com.APP.Project.UserInterface.layouts.commands;
 
 import com.APP.Project.UserInterface.layouts.CommandLayout;
 import com.APP.Project.UserInterface.models.PredefinedUserCommands;
-import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
+import com.APP.Project.UserInterface.constants.specifications.CommandSpecification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class CommonCommand implements CommandLayout {
         // > loadmap filename
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("loadmap");
-        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
         l_userCommand.setGamePhaseMethodName("loadMap");
         d_userCommands.add(l_userCommand);
 
@@ -40,22 +40,31 @@ public class CommonCommand implements CommandLayout {
         // > showmap
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("showmap");
-        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE);
+        l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE);
         l_userCommand.setGamePhaseMethodName("showMap");
         l_userCommand.setGameEngineCommand(true);
         d_userCommands.add(l_userCommand);
 
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("done");
-        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE);
+        l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE);
         l_userCommand.setOrderCommand(true);
+        d_userCommands.add(l_userCommand);
+
+        // Example of the below command:
+        // > exit
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("exit");
+        l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE);
+        l_userCommand.setGamePhaseMethodName("endGame");
+        l_userCommand.setGameEngineCommand(true);
         d_userCommands.add(l_userCommand);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @return Value of the list of user commands.
+     * @return Value of the list of user commands for this class.
      */
     @Override
     public List<PredefinedUserCommands> getUserCommands() {
