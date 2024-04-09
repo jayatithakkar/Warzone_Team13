@@ -1,38 +1,37 @@
 package com.APP.Project.UserCoreLogic.Container;
 
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class file is responsible for searching continents from map engine.
+ * This class search for the Continent entity.
  *
  * @author Bhoomiben Bhatt
  * @version 1.0
  */
 public class ContinentContainer {
     /**
-     * search continent by its name
+     * Finds the continent using it's continent name.
      *
-     * @param p_continentName is name of continent
-     * @return value of matched continents.
+     * @param p_continentName Value of the name of continent.
+     * @return Value of the list of matched continents.
      */
     public List<Continent> findByContinentName(String p_continentName) {
-        return MapFeatureEngine.getInstance().getContinentList().stream()
-                .filter(p_continent -> p_continent.getContinentName().equals(p_continentName))
-                .collect(Collectors.toList());
+        return UserCoreLogic.getGameEngine().getMapEditorEngine().getContinentList().stream().filter(p_continent ->
+                p_continent.getContinentName().equals(p_continentName)
+        ).collect(Collectors.toList());
     }
 
     /**
-     * search only one continent by it's name.
+     * Performs a search for a continent by its name, returning the first match found.
      *
      * @param p_continentName Value of the name of continent.
-     * @return Value of the first matched continents.
-     * @throws EntityNotFoundException Throws if the being searched entity has been
-     *                                 not found.
+     * @return Value of the very first matched continents.
+     * @throws EntityNotFoundException Throws If no continent with the specified name can be found.
      */
     public Continent findFirstByContinentName(String p_continentName) throws EntityNotFoundException {
         List<Continent> l_continentList = this.findByContinentName(p_continentName);
@@ -42,17 +41,16 @@ public class ContinentContainer {
     }
 
     /**
-     * search continent by it's id.
+     * Retrieves a continent based on its unique identifier.
      *
-     * @param p_continentId Value of the continent Id.
+     * @param p_continentId The unique identifier of the continent to be found.
      * @return Value of the first matched continents.
-     * @throws EntityNotFoundException Throws if the being searched entity has been
-     *                                 not found.
+     * @throws EntityNotFoundException Throws If no continent with the given ID can be located.
      */
     public Continent findByContinentId(Integer p_continentId) throws EntityNotFoundException {
-        List<Continent> l_continentList = MapFeatureEngine.getInstance().getContinentList().stream()
-                .filter(p_continent -> p_continent.getContinentId().equals(p_continentId))
-                .collect(Collectors.toList());
+        List<Continent> l_continentList = UserCoreLogic.getGameEngine().getMapEditorEngine().getContinentList().stream().filter(p_continent ->
+                p_continent.getContinentId().equals(p_continentId)
+        ).collect(Collectors.toList());
         if (!l_continentList.isEmpty()) {
             return l_continentList.get(0);
         }
