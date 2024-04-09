@@ -2,7 +2,7 @@ package com.APP.Project.UserCoreLogic.phases;
 
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.gamePlay.services.ExecuteOrderService;
 import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
 
@@ -84,7 +84,7 @@ public class Execute extends MainPlay {
      */
     @Override
     public void nextState() {
-        GameEngine.incrementEngineIndex();
+        GamePlayEngine.incrementEngineIndex();
         d_gameEngine.setGamePhase(new Reinforcement(d_gameEngine));
     }
 }

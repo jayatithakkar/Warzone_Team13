@@ -4,34 +4,13 @@ package com.APP.Project.UserCoreLogic.constants.enums;
  * This enum lists all the orders which player can issue during <code>issue orders</code> phase.
  * represent the command which can be entered by the player at the <code>GameLoop#ISSUE_ORDER</code> phase.
  *
- * @author Bhoomiben Bhatt
+ * @author Bhoomiben Bhatt, Jayati Thakkar
  * @version 1.0
  */
-public enum OrderTypes {
-    /**
-     * If order type is advance.
-     */
-    advance("advance"),
-    /**
-     * If order type is airlift.
-     */
-    airlift("airlift"),
-    /**
-     * If order type is blockade.
-     */
-    blockade("blockade"),
-    /**
-     * If order type is bomb.
-     */
-    bomb("bomb"),
-    /**
-     * If order type is deploy.
-     */
-    deploy("deploy"),
-    /**
-     * If order type is negotiate.
-     */
-    negotiate("negotiate");
+public enum FileType {
+
+    MAP("map"),
+    GAME("game");
 
     /**
      * Variable to set enum value.
@@ -43,7 +22,7 @@ public enum OrderTypes {
      *
      * @param p_jsonValue Value of the enum.
      */
-    private OrderTypes(String p_jsonValue) {
+    private FileType(String p_jsonValue) {
         this.d_jsonValue = p_jsonValue;
     }
 

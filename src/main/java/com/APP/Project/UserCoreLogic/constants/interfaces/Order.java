@@ -2,10 +2,10 @@ package com.APP.Project.UserCoreLogic.constants.interfaces;
 
 import com.APP.Project.UserCoreLogic.constants.enums.OrderTypes;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
 import com.APP.Project.UserCoreLogic.exceptions.CardNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidOrderException;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 
 /**
  * Defines the contract for different types of orders to implement, specifying methods that must be provided.
@@ -32,11 +32,11 @@ public abstract class Order implements JSONable {
     public Order(Player p_player) {
         d_owner = p_player;
         if (this.getType() == OrderTypes.negotiate) {
-            d_executionIndex = GameEngine.getCurrentExecutionIndex() + 1;
+            d_executionIndex = GamePlayEngine.getCurrentExecutionIndex() + 1;
             d_expiryIndex = d_executionIndex + 1;
             UserCoreLogic.getGameEngine().getGamePlayEngine().addFutureOrder(this);
         } else {
-            d_executionIndex = GameEngine.getCurrentExecutionIndex();
+            d_executionIndex = GamePlayEngine.getCurrentExecutionIndex();
         }
     }
 

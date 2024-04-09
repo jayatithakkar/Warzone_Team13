@@ -3,7 +3,7 @@ package com.APP.Project.UserCoreLogic.map_features.adapters;
 import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.exceptions.AbsentTagException;
-import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class EditMapAdapterTest {
 
     private static URL d_testCorruptedFilePath;
     private static URL d_testCorrectFilePath;
-    private static GameEngine d_GamePlayEngine;
+    private static GamePlayEngine d_GamePlayEngine;
     private EditConquestMapService d_editConquestMapService;
 
     /**
