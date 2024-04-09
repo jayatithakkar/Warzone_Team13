@@ -1,12 +1,14 @@
-package com.APP.Project.UserCoreLogic.game_entities.orders;
+package com.APP.Project.UserCoreLogic.game_entities.strategy;
+
 
 import com.APP.Project.Main;
 import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.constants.enums.StrategyType;
+import com.APP.Project.UserCoreLogic.constants.interfaces.Order;
 import com.APP.Project.UserCoreLogic.exceptions.*;
 import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
+import com.APP.Project.UserCoreLogic.game_entities.Country;
 import com.APP.Project.UserCoreLogic.game_entities.Player;
-import com.APP.Project.UserCoreLogic.game_entities.cards.DiplomacyCard;
 import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
 import org.junit.Before;
@@ -18,15 +20,15 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
- * This class is for testing the Negotiate card operation.
+ * This class test the execution of the Benevolent Strategy.
  *
  * @author Sushant Sinha
  */
-public class NegotiateOrderTest {
+public class BenevolentStrategyTest {
     private static Main d_Application;
     private static URL d_TestFilePath;
     private static GameEngine d_GamePlayEngine;
@@ -41,9 +43,8 @@ public class NegotiateOrderTest {
         d_Application = new Main();
         d_Application.handleApplicationStartup();
         UserCoreLogic.getInstance().initialise();
-
         d_GamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
-        d_TestFilePath = BombOrderTest.class.getClassLoader().getResource("map_files/solar.map");
+        d_TestFilePath = AggressiveStrategyTest.class.getClassLoader().getResource("test_map_files/test_strategy.map");
     }
 
     /**
@@ -58,8 +59,6 @@ public class NegotiateOrderTest {
      */
     @Before
     public void setup() throws AbsentTagException, InvalidMapException, ResourceNotFoundException, InvalidInputException, EntityNotFoundException, URISyntaxException {
-        d_GamePlayEngine.initialise();
-
         // Loads the map
         EditMapService l_editMapService = new EditMapService();
         assertNotNull(d_TestFilePath);
@@ -77,19 +76,34 @@ public class NegotiateOrderTest {
     }
 
     /**
-     * Checks that player is successfully added to the FriendPlayer List.
+     * For testing: BenevolentStrategy#execute method and executes the order.
      *
-     * @throws EntityNotFoundException Throws if would not able to find players.
-     * @throws CardNotFoundException   Throws if not able to find cards.
+     * @throws EntityNotFoundException  Throws if entity not found.
+     * @throws InvalidArgumentException Throws if the input is invalid.
+     * @throws InvalidOrderException    Throws if exception while executing the order.
+     * @throws CardNotFoundException    Card doesn't found in the player's card list.
      */
     @Test
-    public void testExecute() throws EntityNotFoundException, CardNotFoundException {
-        Player l_player1 = d_playerList.get(0);
-        Player l_player2 = d_playerList.get(1);
-        l_player1.addCard(new DiplomacyCard());
-        NegotiateOrder negotiateOrder = new NegotiateOrder(l_player1, "User_2");
-        negotiateOrder.execute();
-        assertTrue(l_player1.getFriendPlayers().contains(l_player2));
-        assertTrue(l_player2.getFriendPlayers().contains(l_player1));
+    public void testExecute() throws EntityNotFoundException, InvalidArgumentException, InvalidOrderException, CardNotFoundException {
+        Player l_player = d_playerList.get(0);
+        int i = 2;
+        for (Country traverse : l_player.getAssignedCountries()) {
+            traverse.setNumberOfArmies(i);
+            i++;
+        }
+
+        l_player.setReinforcementCount(3);
+        UserCoreLogic.getGameEngine().setTournamentMode(true);
+        BenevolentStrategy l_benevolentStrategy = new BenevolentStrategy(l_player);
+        l_benevolentStrategy.execute();
+
+        for (Order l_order : l_player.getOrders()) {
+            l_order.execute();
+        }
+
+        assertEquals(3, l_player.getAssignedCountries().get(0).getNumberOfArmies());
+        assertEquals(4, l_player.getAssignedCountries().get(1).getNumberOfArmies());
+        assertEquals(5, l_player.getAssignedCountries().get(2).getNumberOfArmies());
+        assertEquals(5, l_player.getAssignedCountries().get(3).getNumberOfArmies());
     }
 }
