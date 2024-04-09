@@ -7,10 +7,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This is the test suite for the user core logic test cases. It is basically a suite that combines a
- * sequential run of all the other test cases of different classes it entails.
+ * Test suite for <code>UserCoreLogic</code> test cases.
  *
- * @author Rupal Kapoor
+ * @author Bhoomiben Bhatt
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({

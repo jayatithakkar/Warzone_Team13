@@ -1,31 +1,23 @@
 package com.APP.Project.UserInterface;
 
-import com.APP.Project.UserInterface.constants.UsersCommandsTest;
-import com.APP.Project.UserInterface.mappers.UsersCommandsMapperTest;
-import com.APP.Project.UserInterface.service.RequestsServiceTest;
+import com.APP.Project.UserInterface.constants.CommandsTestCases;
+import com.APP.Project.UserInterface.mappers.UserCommandMapperTest;
+import com.APP.Project.UserInterface.service.RequestServiceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * A test suite for the command-line interface package of the application.
- * This suite collectively runs all test cases related to user interface
- * functionalities,
- * including command interpretation, mapping, and execution. It serves as a
- * convenient
- * wrapper to execute multiple test classes in a specified order, ensuring
- * comprehensive
- * coverage of the user interface components' behavior.
+ * Test suit for command-line interface package.
  *
  * @author Bhoomiben Bhatt
  * @version 1.0
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        UsersCommandsTest.class,
-        UsersCommandsMapperTest.class,
-        RequestsServiceTest.class,
+        CommandsTestCases.class,
+        UserCommandMapperTest.class,
+        RequestServiceTest.class,
 })
 public class UserInterfaceTestSuite {
-    // This class is used only as a holder for the annotation configuration.
-    // It specifies which test classes are included in this suite.
+    // This class remains empty, it is used only as a holder for the above annotations
 }
