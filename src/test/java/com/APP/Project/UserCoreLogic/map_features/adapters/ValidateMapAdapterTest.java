@@ -1,8 +1,11 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
+import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidMapException;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.net.URI;
@@ -13,33 +16,45 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * This class entails test cases for the ValidateMapAdapter class which has different types of validation requires for Map.
+ * This class provides unit tests for the ValidateMapAdapter class.
  *
- * @author Rupal Kapoor
+ * @author Rikin Dipakkumar Chauhan
+ * @version 3.0
  */
-public class ValidateMapServiceTest {
+public class ValidateMapAdapterTest {
+    private static Main d_application = new Main();
     private ValidateMapAdapter d_validateMapService;
-    private EditMapAdapter d_editMapService;
+    private EditMapService d_editMapService;
     private URL d_testFilePath;
 
     /**
-     * This test case method initialises the EditMapAdapter class object for fetching file data in Validation.
+     * This method is executed once before any tests are run.
+     */
+    @BeforeClass
+    public static void before() {
+        d_application.handleApplicationStartup();
+        UserCoreLogic.getInstance().initialise();
+
+    }
+
+    /**
+     * This method is executed before each test method.
      */
     @Before
     public void beforeTest() {
-        d_editMapService = new EditMapAdapter();
+        d_editMapService = new EditMapService();
         d_validateMapService = new ValidateMapAdapter();
     }
 
     /**
-     * This test case method validates if the map is a connected graph.
+     * Test method to check if the map is a connected graph.
      *
-     * @throws URISyntaxException is thrown in case the provided path had invalid characters.
-     * @throws UserCoreLogicException is thrown in case there was an exception while loading the file.
+     * @throws UserCoreLogicException if there's an error in the UserCoreLogic
+     * @throws URISyntaxException    if there's an error in URI syntax
      */
     @Test(expected = InvalidMapException.class)
     public void testMapIsConnectedGraph() throws UserCoreLogicException, URISyntaxException {
-        // In Windows, URL will create %20 for space. To avoid, use the below logic.
+        
         d_testFilePath = getClass().getClassLoader().getResource("test_map_files/test_map_connectedGraph.map");
 
         assertNotNull(d_testFilePath);
@@ -50,14 +65,14 @@ public class ValidateMapServiceTest {
     }
 
     /**
-     * This test case method checks if the continent is a connected sub-graph.
+     * Test method to check if the continent forms a connected sub-graph.
      *
-     * @throws URISyntaxException is thrown in case the provided path had invalid characters.
-     * @throws UserCoreLogicException is thrown in case there was an exception while loading the file.
-     */
+     * @throws UserCoreLogicException if there's an error in the UserCoreLogic
+     * @throws URISyntaxException    if there's an error in URI syntax
+     */    
     @Test(expected = InvalidMapException.class)
     public void testContinentConnectedSubGraph() throws UserCoreLogicException, URISyntaxException {
-        // In Windows, URL will create %20 for space. To avoid, use the below logic.
+        
         d_testFilePath = getClass().getClassLoader().getResource("test_map_files/test_continent_subgraph.map");
 
         assertNotNull(d_testFilePath);
@@ -68,14 +83,14 @@ public class ValidateMapServiceTest {
     }
 
     /**
-     * This test case method checks the ValidateMapAdapter's execute method.
+     * Test method to validate the map service.
      *
-     * @throws URISyntaxException is thrown in case the provided path had invalid characters.
-     * @throws UserCoreLogicException is thrown in case there was an exception while loading the file.
+     * @throws UserCoreLogicException if there's an error in the UserCoreLogic
+     * @throws URISyntaxException    if there's an error in URI syntax
      */
     @Test
     public void testValidateMapService() throws UserCoreLogicException, URISyntaxException {
-        // In Windows, URL will create %20 for space. To avoid, use the below logic.
+        
         d_testFilePath = getClass().getClassLoader().getResource("map_files/solar.map");
 
         assertNotNull(d_testFilePath);
@@ -83,6 +98,6 @@ public class ValidateMapServiceTest {
         d_editMapService.handleLoadMap(l_url);
 
         String l_actualValue = d_validateMapService.execute(null);
-        assertEquals(l_actualValue,"Map validation passed successfully!");
+        assertEquals(l_actualValue, "Map validation passed successfully!");
     }
 }

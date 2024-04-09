@@ -1,39 +1,78 @@
-package  com.APP.Project.UserCoreLogic.map_features.adapters;
+package com.APP.Project.UserCoreLogic.map_features.adapters;
 
-import  com.APP.Project.UserCoreLogic.exceptions.AbsentTagException;
+import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.exceptions.AbsentTagException;
+import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.net.URI;
 import java.net.URL;
 
 /**
- * Test cases for the {@link EditMapAdapter} class.
+ * This class represents a test suite for the EditMapAdapter class.
+ * It contains unit tests to verify the functionality of the EditMapAdapter class.
  *
  * @author Rikin Dipakkumar Chauhan
+ * @version 3.0
  */
 public class EditMapAdapterTest {
-    private EditMapAdapter d_editMapAdapter;
-    private URL d_testFilePath;
+
+    private static URL d_testCorruptedFilePath;
+    private static URL d_testCorrectFilePath;
+    private static GameEngine d_GamePlayEngine;
+    private EditConquestMapService d_editConquestMapService;
 
     /**
-     * This method runs before the test case runs. This method initializes different objects required to perform test.
+     * Setup tasks to be performed before the test class starts executing.
+     * Initializes the application and sets up necessary objects.
      */
-    @Before
-    public void before() {
-        d_editMapAdapter = new EditMapAdapter();
-        d_testFilePath = getClass().getClassLoader().getResource("test_map_files/test_blank_data_fields.map");
+    @BeforeClass
+    public static void beforeClass() {
+        Main l_application = new Main();
+        l_application.handleApplicationStartup();
+        
+        UserCoreLogic.getInstance().initialise();
+        d_GamePlayEngine = UserCoreLogic.getGameEngine().getGamePlayEngine();
+        d_testCorruptedFilePath = EditMapAdapterTest.class.getClassLoader().getResource("test_map_files/test_blank_field_in_conquest_map.map");
+        d_testCorrectFilePath = EditMapAdapterTest.class.getClassLoader().getResource("map_files/conquest1.map");
     }
 
     /**
-     * This is a method that performs actual test. It test passes if .map file consists of any empty field.
+     * Setup tasks to be performed before each test method.
+     * Initializes EditConquestMapService and GameEngine.
+     */
+    @Before
+    public void before() {
+        d_editConquestMapService = new EditConquestMapService();
+        d_GamePlayEngine.initialise();
+    }
+
+    /**
+     * Test case to verify the behavior when loading a corrupted map file.
+     * Expects an AbsentTagException to be thrown.
      *
-     * @throws Exception IOException
+     * @throws Exception if an error occurs during the test execution.
      */
     @Test(expected = AbsentTagException.class)
     public void testLoadCorruptedMap() throws Exception {
-        // In Windows, URL will create %20 for space. To avoid, use the below logic.
-        String l_url = new URI(d_testFilePath.getPath()).getPath();
-        d_editMapAdapter.handleLoadMap(l_url);
+        
+        String l_url = new URI(d_testCorruptedFilePath.getPath()).getPath();
+        d_editConquestMapService.loadConquestMap(l_url);
+    }
+
+    /**
+     * Test case to verify the behavior when loading a correct map file.
+     * Expects no exception to be thrown.
+     *
+     * @throws Exception if an error occurs during the test execution.
+     */
+    @Test(expected = Test.None.class)
+    public void testLoadCorrectMapFile() throws Exception {
+        
+        String l_url = new URI(d_testCorrectFilePath.getPath()).getPath();
+        d_editConquestMapService.loadConquestMap(l_url);
     }
 }
