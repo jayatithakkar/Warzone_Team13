@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3dffd24b-74d8-459f-b0b3-429db9002dca" name="Changes" comment="Main.java is almost ready. Currently working on user interface">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/common/services/AssignRandomCardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/APP/Project/UserCoreLogic/common/services/CardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/mappers/UsersCommandsMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/mappers/UsersCommandsMapperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/service/RequestsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/APP/Project/UserInterface/service/RequestsServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="jayati-v3-build" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,18 +40,25 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 8
+}]]></component>
   <component name="ProjectId" id="2cHJuzpuWPL1H2hBaRUIWsY0ymE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.com.APP.Project in WarZone-RiskGame-Team13.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "jayati-v3-build3",
+    "kotlin-language-version-configured": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -58,7 +67,7 @@
       <recent name="com.APP.Project.UserCoreLogic.common.services" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.com.APP.Project in APP-Project">
+  <component name="RunManager" selected="JUnit.com.APP.Project in WarZone-RiskGame-Team13">
     <configuration name="All in APP-Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="APP-Project" />
       <option name="PACKAGE_NAME" value="" />
@@ -115,8 +124,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.APP.Project in APP-Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="APP-Project" />
+    <configuration name="com.APP.Project in WarZone-RiskGame-Team13" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WarZone-RiskGame-Team13" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.APP.Project.*" />
@@ -124,6 +133,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.APP.Project" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -159,7 +170,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.com.APP.Project in APP-Project" />
+        <item itemvalue="JUnit.com.APP.Project in WarZone-RiskGame-Team13" />
         <item itemvalue="JUnit.All in APP-Project" />
         <item itemvalue="JUnit.com.APP.Project.UserInterface in APP-Project" />
         <item itemvalue="JUnit.com.APP.Project.UserCoreLogic in APP-Project" />

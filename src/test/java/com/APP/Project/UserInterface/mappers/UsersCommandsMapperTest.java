@@ -1,48 +1,38 @@
 package com.APP.Project.UserInterface.mappers;
 
-import com.APP.Project.Main;
 import com.APP.Project.UserInterface.layouts.PlayerCommandLayout;
 import com.APP.Project.UserInterface.models.UsersCommands;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
+import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests the functionality for mapping user input text to the corresponding
- * {@link UsersCommands} objects.
- * This class validates that the user input, whether it includes command
- * arguments or values, is correctly interpreted and
- * transformed into a structured command representation.
- * 
- * @author Bhoomiben Bhatt
+ * Class to test the interpreted value of the user input text
  */
-public class UsersCommandsMapperTest {
+public class UserCommandMapperTest {
     /**
-     * Example user input text with a command and its arguments.
+     * User input text
      */
     private String d_commandWithArgument;
     private String d_commandWithValue;
 
     /**
-     * The expected {@link UsersCommands} object corresponding to
-     * {@link #d_commandWithArgument}.
-     * The expected {@link UsersCommands} object corresponding to
-     * {@link #d_commandWithValue}.
+     * Correct interpreted user command of the input text
      */
     private UsersCommands d_correctCommandWithArgument;
     private UsersCommands d_correctCommandWithValue;
 
     /**
-     * Initializes the application context once before any of the test methods in
-     * the class.
-     * This method sets up the necessary environment for the tests, ensuring the
-     * application is started.
+     * Sets the application context
      */
     @BeforeClass
     public static void beforeClass() {
@@ -51,14 +41,11 @@ public class UsersCommandsMapperTest {
     }
 
     /**
-     * Prepares the test environment before each test, setting up the necessary
-     * command examples and their expected interpretations.
-     * This includes initializing the map feature engine and configuring the
-     * expected {@link UsersCommands} objects based on predefined user input.
+     * Sets the required context before executing test case.
      */
     @Before
     public void before() {
-        MapFeatureEngine.getInstance().initialise();
+        UserCoreLogic.getGameEngine().initialise();
         d_commandWithArgument = "editcontinent -add Canada 10 -remove Continent";
         d_correctCommandWithArgument = new UsersCommands(PlayerCommandLayout.matchAndGetUserCommand("editcontinent"));
         d_correctCommandWithArgument.pushUserArgument("add",
@@ -66,9 +53,12 @@ public class UsersCommandsMapperTest {
         d_correctCommandWithArgument.pushUserArgument("remove",
                 Collections.singletonList("continentID"));
 
-        d_commandWithValue = "savemap filename";
+        d_commandWithValue = "savemap filename warzone";
         d_correctCommandWithValue = new UsersCommands(PlayerCommandLayout.matchAndGetUserCommand("savemap"));
-        d_correctCommandWithValue.setCommandValues(Collections.singletonList("filename"));
+        List<String> l_commandValues = new ArrayList<>();
+        l_commandValues.add("filename");
+        l_commandValues.add("warzone");
+        d_correctCommandWithValue.setCommandValues(l_commandValues);
 
         // Sets the game state to MAP_EDITOR
         Main l_application = new Main();
@@ -76,10 +66,7 @@ public class UsersCommandsMapperTest {
     }
 
     /**
-     * Tests the mapping of user input text to the corresponding
-     * {@link UsersCommands} objects.
-     * This test verifies that the user input is accurately interpreted and matches
-     * the expected command structure.
+     * Creates user input and tests whether it is correct or not.
      */
     @Test
     public void testUserInput() {
