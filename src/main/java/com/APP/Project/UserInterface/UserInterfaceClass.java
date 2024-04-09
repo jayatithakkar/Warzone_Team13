@@ -117,23 +117,15 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
                         try {
                             String l_userInput = this.waitForUserInput();
 
-                            if(l_userInput.trim().equals("exit"))
-                            {
-                                System.out.println("Thanks for playing, shutting down the game.");
-                                System.exit(0);
-                            }
-
                             // Takes user input and interprets it for further processing
                             UsersCommands l_userCommand = d_UserCommandMapper.toUserCommand(l_userInput);
 
                             this.setInteractionState(UserInteractionState.IN_PROGRESS);
                             // Takes action according to command instructions.
                             d_requestService.takeAction(l_userCommand);
-                            if (l_userCommand.getPredefinedUserCommand().isGameEngineStartCommand()) {
-                                this.setInteractionState(UserInteractionState.GAME_ENGINE);
-                            } else {
+
+                            if (this.getInteractionState() == UserInteractionState.IN_PROGRESS)
                                 this.setInteractionState(UserInteractionState.WAIT);
-                            }
                         } catch (IOException p_e) {
                         }
                     }
@@ -200,7 +192,11 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
      * @param p_message this is the message to print
      */
     public void stdout(String p_message) {
-        if (p_message.equals("GAME_ENGINE_STOPPED")) {
+        if (p_message.equals("GAME_ENGINE_STARTED")) {
+            d_thread.interrupt();
+            this.setInteractionState(UserInteractionState.GAME_ENGINE);
+        } else if (p_message.equals("GAME_ENGINE_STOPPED")) {
+            d_thread.interrupt();
             this.setInteractionState(UserInteractionState.WAIT);
         } else {
             System.out.println(p_message);
