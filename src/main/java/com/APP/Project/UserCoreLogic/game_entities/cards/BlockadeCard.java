@@ -4,8 +4,8 @@ import com.APP.Project.UserCoreLogic.constants.enums.CardType;
 import com.APP.Project.UserCoreLogic.constants.interfaces.Card;
 
 /**
- * The blockade card works similarly to the emergency blockade card, however it is less effective. Instead of happening
- * at the beginning of your turn, it happens at the end. This implies any attacks, airlifts, or other actions happen
+ * The Blockade card works similarly to the emergency blockade card, however it is less effective. Instead of being active
+ * at the beginning of your turn, it comes in effect at the end. This implies, any attacks, airlifts, or other actions happening
  * before the territory changes into a neutral and increases its armies.
  *
  * @author Sushant Sinha
