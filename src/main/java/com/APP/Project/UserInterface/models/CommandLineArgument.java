@@ -31,6 +31,8 @@ public class CommandLineArgument {
         d_specification = p_specification;
     }
 
+    //TODO: Fix javadoc comments
+
     /**
      * getters and setters for all the attributes
      *
@@ -40,22 +42,37 @@ public class CommandLineArgument {
         return d_argumentKey;
     }
 
+    /**
+     * @param p_argumentKey
+     */
     public void setArgumentKey(String p_argumentKey) {
         d_argumentKey = p_argumentKey;
     }
 
+    /**
+     * @return
+     */
     public int getNumOfValues() {
         return d_numOfValues;
     }
 
+    /**
+     * @param p_numOfValues
+     */
     public void setNumOfValues(int p_numOfValues) {
         d_numOfValues = p_numOfValues;
     }
 
+    /**
+     * @return
+     */
     public ArgumentSpecification getSpecification() {
         return d_specification;
     }
 
+    /**
+     * @param p_specification
+     */
     public void setSpecification(ArgumentSpecification p_specification) {
         d_specification = p_specification;
     }

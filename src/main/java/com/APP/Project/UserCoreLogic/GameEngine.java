@@ -38,7 +38,6 @@ public class GameEngine  implements JSONable {
     /**
      * Gets the instance of the <code>GameEngine</code> class.
      *
-     * @return Value of the instance.
      */
     public GameEngine() {
         this.initialise();
