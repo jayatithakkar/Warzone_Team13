@@ -76,7 +76,7 @@ public class UsersCommands {
 
     /**
      * it gets all the userrguments and returns the key and value of those lists
-     * @return
+     * @return List of user arguments
      */
     @JsonIgnore
     public List<Map<String, List<String>>> getUserArguments() {
