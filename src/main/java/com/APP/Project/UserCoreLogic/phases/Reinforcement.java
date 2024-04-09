@@ -1,29 +1,28 @@
 package com.APP.Project.UserCoreLogic.phases;
 
 import com.APP.Project.UserCoreLogic.GameEngine;
-import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 import com.APP.Project.UserCoreLogic.gamePlay.services.ReinforcementService;
+import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 
 /**
- * This class represents the reinforcement phase of the game. 
+  * This class represents the reinforcement phase of the game. 
  * During this phase, players reinforce their territories.
- * 
- * @author Rikin Dipakkumar Chauhan
+ *
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
 public class Reinforcement extends MainPlay {
-    
     /**
      * Constructor for Reinforcement class.
      * 
      * @param p_gameEngine The game engine instance.
      */
-    Reinforcement(GameEngine p_gameEngine) {
+    public Reinforcement(GameEngine p_gameEngine) {
         super(p_gameEngine);
     }
 
     /**
-     * Executes the reinforcement phase by calling the ReinforcementService.
+   * Executes the reinforcement phase by calling the ReinforcementService.
      * 
      * @throws UserCoreLogicException If an error occurs during the reinforcement phase.
      */
@@ -55,7 +54,7 @@ public class Reinforcement extends MainPlay {
 
     /**
      * Transition to the next game phase which is IssueOrder.
-    */
+     */
     @Override
     public void nextState() {
         d_gameEngine.setGamePhase(new IssueOrder(d_gameEngine));

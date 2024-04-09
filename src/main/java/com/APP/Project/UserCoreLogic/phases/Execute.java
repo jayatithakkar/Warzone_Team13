@@ -1,11 +1,10 @@
 package com.APP.Project.UserCoreLogic.phases;
 
-import com.APP.Project.UserCoreLogic.GameEngine;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
-import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.GameEngine;
 import com.APP.Project.UserCoreLogic.gamePlay.services.ExecuteOrderService;
+import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
 
 /**
  * Represents the phase in the game where all issued orders are executed.
@@ -20,17 +19,16 @@ import com.APP.Project.UserCoreLogic.gamePlay.services.ExecuteOrderService;
  * reinforcement.
  * </p>
  *
- * @author Bhoomiben Bhatt
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
 public class Execute extends MainPlay {
     /**
-     * Constructs a new Execute phase with the specified game engine.
+     * Parameterised constructor to create an instance of <code>Fortify</code>.
      *
-     * @param p_gameEngine The game engine instance managing the game's state and
-     *                     logic.
+     * @param p_gameEngine Instance of the game engine.
      */
-    Execute(GameEngine p_gameEngine) {
+    Execute(com.APP.Project.UserCoreLogic.GameEngine p_gameEngine) {
         super(p_gameEngine);
     }
 
@@ -55,6 +53,7 @@ public class Execute extends MainPlay {
     }
 
     /**
+     * {@inheritDoc}
      * Executes all pending orders issued by players.
      * <p>
      * This method utilizes the {@link ExecuteOrderService} to process and execute
@@ -75,6 +74,7 @@ public class Execute extends MainPlay {
     }
 
     /**
+     * {@inheritDoc}
      * Transitions the game to the next phase, typically reinforcement, after all
      * orders have been executed.
      * <p>
@@ -84,7 +84,7 @@ public class Execute extends MainPlay {
      */
     @Override
     public void nextState() {
-        GamePlayEngine.incrementIndex();
+        GameEngine.incrementEngineIndex();
         d_gameEngine.setGamePhase(new Reinforcement(d_gameEngine));
     }
 }

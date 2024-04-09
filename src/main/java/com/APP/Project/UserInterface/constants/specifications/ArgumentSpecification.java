@@ -1,12 +1,12 @@
 package com.APP.Project.UserInterface.constants.specifications;
 
 /**
- * Specifies types for the # of required values for the argument
+ * Specification types for the number of required values for the argument
  *
  * @author Raj Kumar Ramesh
  * @version 1.0
  */
-public enum ArgumentsSpecification {
+public enum ArgumentSpecification {
     /**
      * An argument should be equal
      */
@@ -20,3 +20,4 @@ public enum ArgumentsSpecification {
      */
     MAX
 }
+

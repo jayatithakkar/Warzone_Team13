@@ -38,7 +38,7 @@ public class PlayerCommandLayout {
     private static final GamePlayCommand GAME_PLAY_LAYOUT = new GamePlayCommand();
 
     /*
-     * Stores the commands to it's game state.
+     * Stores the commands according to the game state
      */
     static {
         d_GameCommandLayouts.addAll(COMMON_LAYOUT.getUserCommands());
@@ -47,14 +47,15 @@ public class PlayerCommandLayout {
     }
 
     /**
-     * Complies with the user's instruction Using the game state, it determines which predefined command list to use. 
-     * Next, it * compares the supplied command head with the user's command.
+     * Gets matched the user command It decides the which list of predefined command using the game state Then it
+     * matches the user command with the head of the command provided
      *
      * @param p_headOfCommand head of the command which needs to be matched 
      * @return Value of user command that matched with p_headOfCommand
      * @throws InvalidCommandException If no command found thow exception.
      */
     public static PredefinedUserCommands matchAndGetUserCommand(String p_headOfCommand) throws InvalidCommandException {
+        // Gets the list of command from the layout, and then it is being streamed over to filter the list
         return PlayerCommandLayout.findFirstByHeadOfCommand(p_headOfCommand);
     }
 

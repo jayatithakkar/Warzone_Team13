@@ -5,8 +5,8 @@ import com.APP.Project.UserInterface.models.PredefinedUserCommands;
 import java.util.List;
 
 /**
- * Interface that specifies the method or methods that need to be implemented for different command-layout classes. 
- * The classes that provide the possible commands in a given game state are known as the command-layout.
+ * Interface to define the method(s) which should be implemented for various command-layout classes. The command-layout
+ * are the classes that define the available commands throughout a game state.
  *
  * @author Raj Kumar Ramesh
  * @version 1.0

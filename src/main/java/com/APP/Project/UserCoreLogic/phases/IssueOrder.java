@@ -1,10 +1,11 @@
 package com.APP.Project.UserCoreLogic.phases;
 
 import com.APP.Project.UserCoreLogic.GameEngine;
+import com.APP.Project.UserCoreLogic.gamePlay.services.IssueOrderService;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
+import com.APP.Project.UserCoreLogic.exceptions.InvalidOrderException;
 import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.gamePlay.services.IssueOrderService;
 
 /**
  * The phase in the game where players are prompted to issue their orders, such
@@ -19,7 +20,7 @@ import com.APP.Project.UserCoreLogic.gamePlay.services.IssueOrderService;
  * or fortification, to maintain the phase's focus and integrity.
  * </p>
  *
- * @author Bhoomiben Bhatt
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
 public class IssueOrder extends MainPlay {
@@ -29,7 +30,7 @@ public class IssueOrder extends MainPlay {
      * @param p_gameEngine The game engine instance managing the overall state and
      *                     logic of the game.
      */
-    IssueOrder(GameEngine p_gameEngine) {
+    public IssueOrder(GameEngine p_gameEngine) {
         super(p_gameEngine);
     }
 
@@ -58,7 +59,7 @@ public class IssueOrder extends MainPlay {
      * @throws InvalidInputException     If inputs for the orders are invalid.
      */
     @Override
-    public void issueOrder() throws ResourceNotFoundException, InvalidInputException {
+    public void issueOrder() throws ResourceNotFoundException, InvalidInputException, InvalidOrderException {
         IssueOrderService l_issueOrderService = new IssueOrderService();
         l_issueOrderService.execute();
     }

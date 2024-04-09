@@ -4,28 +4,19 @@ import com.APP.Project.UserCoreLogic.GameEngine;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Represents the ending phase of the game, where the game has concluded and no
- * further actions are permitted.
- * <p>
- * This class extends the {@link Phase} class, inheriting its basic structure
- * while implementing phase-specific
- * behavior. In the End phase, all game-related commands are considered invalid
- * as the game has already reached
- * its conclusion. This phase might be used to display final scores, declare a
- * winner, or perform any cleanup
- * operations before the game fully terminates.
- * </p>
+ * Implements the method available for this phase of game.
  *
- * @author BHOOMIBEN BHATT
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
 public class End extends Phase {
     /**
-     * Constructs a new End phase for the specified game engine.
+     * Parameterised constructor to create an instance of <code>End</code>.
      *
-     * @param p_gameEngine The game engine instance associated with this phase.
+     * @param p_gameEngine Instance of the game engine.
      */
     End(GameEngine p_gameEngine) {
         super(p_gameEngine);
@@ -33,13 +24,19 @@ public class End extends Phase {
 
     /**
      * {@inheritDoc}
-     * In the End phase, this command is considered invalid.
+     */
+    @Override
+    public String prepareTournament(List<Map<String, List<String>>> p_arguments) throws UserCoreLogicException {
+        return this.invalidCommand();
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String loadMap(List<String> p_arguments) throws UserCoreLogicException {
         return invalidCommand();
     }
-
     // Similar JavaDoc entries for the other overridden methods...
     /**
      * {@inheritDoc}

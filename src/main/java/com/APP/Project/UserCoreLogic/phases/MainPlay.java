@@ -4,6 +4,7 @@ import com.APP.Project.UserCoreLogic.GameEngine;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Serves as an abstract base for phases within the main gameplay, overseeing
@@ -26,7 +27,7 @@ import java.util.List;
  * orders, and execute orders phases.
  * </p>
  * 
- * @author Bhoomiben Bhatt
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
 public abstract class MainPlay extends GamePlay {
@@ -39,6 +40,14 @@ public abstract class MainPlay extends GamePlay {
      */
     MainPlay(GameEngine p_gameEngine) {
         super(p_gameEngine);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String prepareTournament(List<Map<String, List<String>>> p_arguments) throws UserCoreLogicException {
+        return this.invalidCommand();
     }
 
     /**

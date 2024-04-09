@@ -1,10 +1,10 @@
 package com.APP.Project.UserInterface.layouts.commands;
 
-import com.APP.Project.UserInterface.constants.specifications.ArgumentsSpecification;
-import com.APP.Project.UserInterface.constants.specifications.CommandsSpecification;
 import com.APP.Project.UserInterface.layouts.CommandLayout;
 import com.APP.Project.UserInterface.models.CommandLineArgument;
 import com.APP.Project.UserInterface.models.PredefinedUserCommands;
+import com.APP.Project.UserInterface.constants.specifications.ArgumentSpecification;
+import com.APP.Project.UserInterface.constants.specifications.CommandSpecification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,16 +31,16 @@ public class MapEditorCommand implements CommandLayout {
         // > editcontinent -add continentID continentvalue -remove continentID
         PredefinedUserCommands l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editcontinent");
-        l_userCommand.setCommandSpecification(CommandsSpecification.AT_LEAST_ONE);
+        l_userCommand.setCommandSpecification(CommandSpecification.NEEDS_KEYS);
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "add",
                 2,
-                ArgumentsSpecification.EQUAL
+                ArgumentSpecification.EQUAL
         ));
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "remove",
                 1,
-                ArgumentsSpecification.EQUAL
+                ArgumentSpecification.EQUAL
         ));
         l_userCommand.setGamePhaseMethodName("editContinent");
         d_userCommands.add(l_userCommand);
@@ -49,16 +49,16 @@ public class MapEditorCommand implements CommandLayout {
         // > editcountry -add countryID continentID -remove countryID
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editcountry");
-        l_userCommand.setCommandSpecification(CommandsSpecification.AT_LEAST_ONE);
+        l_userCommand.setCommandSpecification(CommandSpecification.NEEDS_KEYS);
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "add",
                 2,
-                ArgumentsSpecification.EQUAL
+                ArgumentSpecification.EQUAL
         ));
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "remove",
                 1,
-                ArgumentsSpecification.EQUAL
+                ArgumentSpecification.EQUAL
         ));
         l_userCommand.setGamePhaseMethodName("editCountry");
         d_userCommands.add(l_userCommand);
@@ -67,33 +67,34 @@ public class MapEditorCommand implements CommandLayout {
         // > editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editneighbor");
-        l_userCommand.setCommandSpecification(CommandsSpecification.AT_LEAST_ONE);
+        l_userCommand.setCommandSpecification(CommandSpecification.NEEDS_KEYS);
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "add",
                 2,
-                ArgumentsSpecification.EQUAL
+                ArgumentSpecification.EQUAL
         ));
         l_userCommand.pushCommandArgument(new CommandLineArgument(
                 "remove",
                 2,
-                ArgumentsSpecification.EQUAL
+                ArgumentSpecification.EQUAL
         ));
         l_userCommand.setGamePhaseMethodName("editNeighbor");
         d_userCommands.add(l_userCommand);
 
         // Example of the below command:
-        // > savemap filename
+        // > savemap filename map_type
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("savemap");
-        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
         l_userCommand.setGamePhaseMethodName("saveMap");
+        l_userCommand.setNumOfKeysOrValues(2);
         d_userCommands.add(l_userCommand);
 
         // Example of the below command:
         // > editmap filename
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("editmap");
-        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE_WITH_VALUE);
+        l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE_WITH_VALUE);
         l_userCommand.setGamePhaseMethodName("editMap");
         d_userCommands.add(l_userCommand);
 
@@ -101,8 +102,38 @@ public class MapEditorCommand implements CommandLayout {
         // > validatemap
         l_userCommand = new PredefinedUserCommands();
         l_userCommand.setHeadCommand("validatemap");
-        l_userCommand.setCommandSpecification(CommandsSpecification.CAN_RUN_ALONE);
+        l_userCommand.setCommandSpecification(CommandSpecification.CAN_RUN_ALONE);
         l_userCommand.setGamePhaseMethodName("validateMap");
+        d_userCommands.add(l_userCommand);
+
+        // Example of the below command:
+        // > tournament -M listofmapfiles -P listofplayerstrategies -G numberofgames -D maxnumberofturns
+        l_userCommand = new PredefinedUserCommands();
+        l_userCommand.setHeadCommand("tournament");
+        l_userCommand.setCommandSpecification(CommandSpecification.NEEDS_KEYS);
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "M",
+                1,
+                ArgumentSpecification.MIN
+        ));
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "P",
+                2,
+                ArgumentSpecification.MIN
+        ));
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "G",
+                1,
+                ArgumentSpecification.EQUAL
+        ));
+        l_userCommand.pushCommandArgument(new CommandLineArgument(
+                "D",
+                1,
+                ArgumentSpecification.EQUAL
+        ));
+        l_userCommand.setNumOfKeysOrValues(4);
+        l_userCommand.setCommandKeySpecification(ArgumentSpecification.EQUAL);
+        l_userCommand.setGamePhaseMethodName("prepareTournament");
         d_userCommands.add(l_userCommand);
     }
 

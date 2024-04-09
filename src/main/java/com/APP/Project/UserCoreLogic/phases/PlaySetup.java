@@ -8,14 +8,13 @@ import com.APP.Project.UserCoreLogic.gamePlay.services.PlayerService;
 import java.util.List;
 
 /**
- * This class represents the phase where the setup for playing the game occurs.
- * It extends the abstract class GamePlay.
+ * Concrete state of <code>Play</code>. This class is being used to add player(s) to the game and let players assign
+ * countries.
  *
- * @author Rikin Dipakkumar Chauhan
+ * @author Raj Kumar Ramesh
  * @version 1.0
  */
 public class PlaySetup extends GamePlay {
-
     /**
      * Constructor for PlaySetup class.
      *
@@ -58,7 +57,8 @@ public class PlaySetup extends GamePlay {
     public String assignCountries(List<String> p_arguments) throws UserCoreLogicException {
         CountryDistributionService l_distributeCountriesService = new CountryDistributionService();
         String l_responseValue = l_distributeCountriesService.execute(p_arguments);
-        this.d_gameEngine.GAME_PLAY_ENGINE().startGameLoop();
+        // Start game loop.
+        this.d_gameEngine.getGamePlayEngine().startGameLoop();
         return l_responseValue;
     }
 
