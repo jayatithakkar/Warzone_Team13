@@ -5,21 +5,22 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This is the test suite for the map editor test cases. It is basically a suite that combines a
- * sequential run of all the other test cases of different classes it entails.
+ * This class represents a test suite for testing map editor functionalities.
  *
- * @author Rupal Kapoor
- * @version 1.0
+ * @author Rikin Dipakkumar Chauhan
+ * @version 3.0
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        LoadMapServiceTest.class,
-        ShowMapServiceTest.class,
-        ContinentServiceTest.class,
-        ValidateMapServiceTest.class,
-        CountryServiceTest.class,
-        CountryNeighborServiceTest.class
+        LoadMapAdapterTest.class,
+        ShowMapAdapterTest.class,
+        ContinentAdapterTest.class,
+        ValidateMapAdapterTest.class,
+        CountryAdapterTest.class,
+        CountryNeighborAdapterTest.class,
+        SaveMapAdapterTest.class,
+        EditMapAdapterTest.class
 })
 public class MapEditorTestSuite {
-    // This class remains empty, it is used only as a holder for the above annotations
+    
 }

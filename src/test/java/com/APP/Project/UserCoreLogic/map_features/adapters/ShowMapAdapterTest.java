@@ -1,8 +1,9 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
 import com.APP.Project.UserCoreLogic.exceptions.*;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import com.jakewharton.fliptables.FlipTable;
+import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,41 +17,47 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Test cases for the ShowMapAdapter class methods are contained in this class
+ * This class provides unit tests for the ShowMapAdapter class.
+ * It tests the functionality of displaying continent-country content and neighbor countries.
  *
- * @author Rupal Kapoor
+ * @author Rikin Dipakkumar Chauhan
+ * @version 3.0
  */
-public class ShowMapServiceTest {
+public class ShowMapAdapterTest {
+    private static Main d_application = new Main();
     private ShowMapAdapter d_showMapService;
 
     /**
-     * This method is used for setting up the context by loading the map file before testing other class methods.
+     * Runs before any test cases are executed. It handles application startup,
+     * initializes the game engine, and loads a test map.
      *
-     * @throws AbsentTagException is thrown in case tag is absent in .map file.
-     * @throws InvalidMapException is thrown in case map file is invalid.
-     * @throws ResourceNotFoundException is thrown in case file not found.
-     * @throws InvalidInputException is thrown in case provided argument and its values are not valid.
-     * @throws EntityNotFoundException is thrown in case entity not found while searching.
-     * @throws URISyntaxException is thrown in case file name could not be parsed as a URI reference.
-     * @throws IOException IOException is thrown in case of file related issue occurs
+     * @throws AbsentTagException      if a required tag is absent in the map file.
+     * @throws InvalidMapException     if the map file is invalid.
+     * @throws ResourceNotFoundException if the specified resource is not found.
+     * @throws InvalidInputException   if the input provided is invalid.
+     * @throws EntityNotFoundException if an entity is not found.
+     * @throws URISyntaxException      if the URI syntax is invalid.
+     * @throws IOException             if an I/O error occurs.
      */
     @BeforeClass
     public static void beforeClass() throws AbsentTagException, InvalidMapException, ResourceNotFoundException, InvalidInputException, EntityNotFoundException, URISyntaxException, IOException {
-        EditMapAdapter l_editMapService = new EditMapAdapter();
-        // Re-initialise map editor engine.
-        MapFeatureEngine.getInstance().initialise();
+        d_application.handleApplicationStartup();
+        
+        UserCoreLogic.getGameEngine().initialise();
 
-        URL l_testFilePath = ShowMapServiceTest.class.getClassLoader().getResource("test_map_files/test_map.map");
+        EditMapService l_editMapService = new EditMapService();
+
+        URL l_testFilePath = ShowMapAdapterTest.class.getClassLoader().getResource("test_map_files/test_map.map");
         assertNotNull(l_testFilePath);
-        // In Windows, URL will create %20 for space. To avoid, use the below logic.
+        
         String l_url = new URI(l_testFilePath.getPath()).getPath();
         l_editMapService.handleLoadMap(l_url);
     }
 
     /**
-     * This test case method is used to initialise the ShowMapAdapter object before running each test cases.
+     * Runs before each test case. It initializes the ShowMapAdapter object.
      *
-     * @throws EntityNotFoundException is thrown in case required entity is not found.
+     * @throws EntityNotFoundException if an entity is not found.
      */
     @Before
     public void before() throws EntityNotFoundException {
@@ -58,7 +65,7 @@ public class ShowMapServiceTest {
     }
 
     /**
-     * This test case method tests the showContinentContent method which returns the String of continent information
+     * Tests the functionality of displaying continent-country content.
      */
     @Test
     public void testShowContinentCountryContentTest() {
@@ -75,7 +82,7 @@ public class ShowMapServiceTest {
     }
 
     /**
-     * This test case method tests whether the found country list is actually a neighbour of the given country.
+     * Tests the functionality of displaying neighbor countries.
      */
     @Test
     public void testShowNeighbourCountriesTest() {

@@ -1,8 +1,9 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
+import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,34 +15,38 @@ import java.net.URL;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Tests the adding and removing of neighbours of the country.
+ * This class represents a test suite for the CountryAdapter class.
+ * It contains test cases for adding and removing countries from continents.
  *
- * @author Raj Kumar Ramesh
+ * @author Rikin Dipakkumar Chauhan
+ * @version 3.0
  */
-public class CountryNeighborServiceTest {
+public class CountryNeighborAdapterTest {
+    private static Main d_Application = new Main();
     private static CountryNeighborAdapter d_CountryNeighbourService;
-    private EditMapAdapter d_editMapService;
+    private EditMapService d_editMapService;
     private URL d_testFilePath;
 
     /**
-     * Runs before the test case class runs.
-     * Initializes different objects required to perform test.
+     * Method to perform setup before running the test suite.
      */
     @BeforeClass
     public static void beforeClass() {
+        d_Application.handleApplicationStartup();
+        UserCoreLogic.getInstance().initialise();
         d_CountryNeighbourService = new CountryNeighborAdapter();
     }
 
     /**
-     * Re-initializes the continent list before test case run.
+     * Method to perform setup before each test case.
      *
-     * @throws UserCoreLogicException Throws exception generated during execution.
-     * @throws URISyntaxException If error while parsing the string representing the path.
+     * @throws UserCoreLogicException if an error occurs in UserCoreLogic
+     * @throws URISyntaxException     if an error occurs in URI syntax
      */
     @Before
     public void beforeTestCase() throws UserCoreLogicException, URISyntaxException {
-        MapFeatureEngine.getInstance().initialise();
-        d_editMapService = new EditMapAdapter();
+        UserCoreLogic.getGameEngine().initialise();
+        d_editMapService = new EditMapService();
         d_testFilePath = getClass().getClassLoader().getResource("test_map_files/test_map.map");
         assertNotNull(d_testFilePath);
         String l_url = new URI(d_testFilePath.getPath()).getPath();
@@ -49,31 +54,29 @@ public class CountryNeighborServiceTest {
     }
 
     /**
-     * Tests if country and neighbours are valid
+     * Test case to validate behavior when wrong country values are provided.
      *
-     * @throws EntityNotFoundException Throws if data tag is absent in map file.
+     * @throws EntityNotFoundException if entity is not found
      */
     @Test(expected = EntityNotFoundException.class)
-    public void testWrongCountryValues() throws EntityNotFoundException{
-        //If both country name and neighbor country name are invalid(Do not exists in map file).
+    public void testWrongCountryValues() throws EntityNotFoundException {
+        
         d_CountryNeighbourService.add("ABC", "DEF");
 
-        //If neighbor country name is invalid (Do not exists in map file).
+        
         d_CountryNeighbourService.add("Mercury-South", "DEF");
 
-        //If country name is invalid (Do not exists in map file).
+        
         d_CountryNeighbourService.add("ABC", "Mercury-West");
     }
 
     /**
-     * Tests whether the neighbour is successfully added and removed. Passes if added and then removed, otherwise
-     * fails.
+     * Test case to validate the addition and removal of countries.
      *
-     * @throws EntityNotFoundException Throws if data tag is absent in map file.
+     * @throws EntityNotFoundException if entity is not found
      */
     @Test(expected = Test.None.class)
-    public void testAdd() throws EntityNotFoundException{
-
+    public void testAdd() throws EntityNotFoundException {
         String l_addResponse = d_CountryNeighbourService.add("Mercury-South", "Mercury-West");
         assertNotNull(l_addResponse);
 

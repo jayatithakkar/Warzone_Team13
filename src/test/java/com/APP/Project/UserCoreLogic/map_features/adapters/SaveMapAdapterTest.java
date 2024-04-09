@@ -1,9 +1,10 @@
 package com.APP.Project.UserCoreLogic.map_features.adapters;
 
+import com.APP.Project.Main;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
 import com.APP.Project.UserCoreLogic.exceptions.EntityNotFoundException;
 import com.APP.Project.UserCoreLogic.exceptions.InvalidInputException;
 import com.APP.Project.UserCoreLogic.exceptions.ResourceNotFoundException;
-import com.APP.Project.UserCoreLogic.map_features.MapFeatureEngine;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -16,51 +17,53 @@ import java.io.IOException;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Test cases for the map file to check if save is successful or not are contained in this class
+ * This class represents a test suite for the SaveMapAdapter class.
  *
- * @author Rupal Kapoor
+ * @author Rikin Dipakkumar Chauhan
+ * @version 3.0
  */
-public class SaveMapServiceTest {
+public class SaveMapAdapterTest {
+    private static Main d_application = new Main();
     private static ContinentAdapter d_ContinentService;
     private static CountryAdapter d_CountryService;
     private static CountryNeighborAdapter d_CountryNeighbourService;
-    private static SaveMapAdapter d_SaveMapService;
+    private static SaveMapService d_SaveMapService;
     private String testFile = "testing_save_file.map";
 
-    /**
-     * This attribute creates a temporary folder for the test case.
-     */
+    // Temporary folder rule for file operations
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
     /**
-     * This method runs before running of all the other test cases. It initializes different objects required to perform test.
+     * Setup method executed before the test class.
      */
     @BeforeClass
     public static void before() {
+        d_application.handleApplicationStartup();
+        UserCoreLogic.getInstance().initialise();
+
         d_ContinentService = new ContinentAdapter();
         d_CountryService = new CountryAdapter();
         d_CountryNeighbourService = new CountryNeighborAdapter();
-        d_SaveMapService = new SaveMapAdapter();
+        d_SaveMapService = new SaveMapService();
     }
 
     /**
-     * This test method reinitializes the continent list before test case run.
+     * Setup method executed before each test case.
      */
     @Before
     public void beforeTestCase() {
-        MapFeatureEngine.getInstance().initialise();
+        UserCoreLogic.getGameEngine().getMapEditorEngine().initialise();
     }
 
     /**
-     * This test method adds the content to Continent List, Country List and Neighbour List.
+     * Add content to the map file before running the test case.
      *
-     * @throws InvalidInputException   is thrown for any invalid input other than the reqired parameters will throw this error.
-     * @throws EntityNotFoundException is thrown for any Continent that is not found in the Continent List but added in the Country
-     *                                 List will throw this error.
-     */
+     * @throws InvalidInputException   If the input is invalid.
+     * @throws EntityNotFoundException If the entity is not found.
+     */    
     @Before
-    public void addContentToTheMapFile() throws InvalidInputException, EntityNotFoundException{
+    public void addContentToTheMapFile() throws InvalidInputException, EntityNotFoundException {
         d_ContinentService.add("Asia", "10");
         d_ContinentService.add("Australia", "15");
         d_CountryService.add("Delhi", "Asia");
@@ -72,15 +75,15 @@ public class SaveMapServiceTest {
     }
 
     /**
-     * This particular test method saves the content added in Continent, Country and Neighbour List into the .map file.
+     * Test saving the file.
      *
-     * @throws ResourceNotFoundException is thrown in case the Target File is not found  where content is to be saved
-     * @throws InvalidInputException     is thrown in case the input is invalid.
-     * @throws IOException               is thrown in case the IOException is generated.
+     * @throws ResourceNotFoundException If the resource is not found.
+     * @throws InvalidInputException     If the input is invalid.
+     * @throws IOException               If an IO error occurs.
      */
     @Test(expected = Test.None.class)
     public void testSaveFile() throws ResourceNotFoundException, InvalidInputException, IOException {
-        // Create a temporary file.
+        
         final File testFileObject = tempFolder.newFile(testFile);
         String response = d_SaveMapService.saveToFile(testFileObject);
 
