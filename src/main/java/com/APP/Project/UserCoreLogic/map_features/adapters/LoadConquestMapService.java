@@ -41,8 +41,8 @@ public class LoadConquestMapService implements StandaloneCommand {
             String l_resolvedPathToFile = FindFilePathUtil.resolveFilePath(p_commandValues.get(0));
             String l_response = l_editConquestMapService.loadConquestMap(l_resolvedPathToFile, false);
             try {
-                ValidateMapAdapter l_validateObj = new ValidateMapAdapter();
-                l_validateObj.execute(null, "loadmap");
+                ValidateConquestMapAdapter l_validateObj = new ValidateConquestMapAdapter();
+                l_validateObj.execute(null);
             } catch (InvalidMapException | EntityNotFoundException l_e) {
                 UserCoreLogic.getGameEngine().getMapEditorEngine().initialise();
                 throw l_e;

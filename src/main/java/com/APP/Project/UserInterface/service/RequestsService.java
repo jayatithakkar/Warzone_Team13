@@ -90,7 +90,7 @@ public class RequestsService {
     private void handleMethodInvocation(Object p_object,
                                         String p_methodName,
                                         String p_argKey,
-                                        List<String> p_argValues)
+                                        List<?> p_argValues)
             throws NoSuchMethodException,
             InvocationTargetException,
             IllegalAccessException {

@@ -5,9 +5,11 @@ import com.APP.Project.UserCoreLogic.constants.enums.FileType;
 import com.APP.Project.UserCoreLogic.constants.enums.MapModelTypes;
 import com.APP.Project.UserCoreLogic.constants.interfaces.StandaloneCommand;
 import com.APP.Project.UserCoreLogic.game_entities.Country;
+import com.APP.Project.UserCoreLogic.game_entities.Continent;
 import com.APP.Project.UserCoreLogic.exceptions.*;
 import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
 import com.APP.Project.UserCoreLogic.map_features.MapEditorEngine;
+import com.APP.Project.UserCoreLogic.Container.ContinentContainer;
 import com.APP.Project.UserCoreLogic.Container.CountryContainer;
 import com.APP.Project.UserCoreLogic.Utility.FileValidationUtil;
 import com.APP.Project.UserCoreLogic.Utility.FindFilePathUtil;
@@ -34,6 +36,7 @@ public class EditConquestMapService implements StandaloneCommand {
     
     private final MapEditorEngine d_mapEditorEngine;
     private final CountryContainer d_countryRepository;
+    private final ContinentContainer d_continentRepository;
     private final ContinentAdapter d_continentService;
     private final CountryAdapter d_countryService;
     private final LogEntryBuffer d_logEntryBuffer;
@@ -48,6 +51,7 @@ public class EditConquestMapService implements StandaloneCommand {
         d_continentService = new ContinentAdapter();
         d_countryService = new CountryAdapter();
         d_logEntryBuffer = LogEntryBuffer.getLogger();
+        d_continentRepository = new ContinentContainer();
     }
 
     /**
@@ -92,7 +96,7 @@ public class EditConquestMapService implements StandaloneCommand {
                         }
                         
                         else if (this.doLineHasModelData(l_currentLine, MapModelTypes.TERRITORY)) {
-                            System.out.println("territories Tag Present");
+
                             readTerritories(l_reader);
                         }
                     }
@@ -186,14 +190,18 @@ public class EditConquestMapService implements StandaloneCommand {
                     l_xCoordinate = l_terrProperties[1];
                     l_yCoordinate = l_terrProperties[2];
                     l_continentName = l_terrProperties[3];
+                    Continent l_continent = d_continentRepository.findFirstByContinentName(l_continentName);
+
                     for (int i = 4; i <= l_terrProperties.length - 1; i++) {
                         String l_neighbourCountryName = l_terrProperties[i];
                         Country l_neighbour;
                         try {
                             l_neighbour = d_countryRepository.findFirstByCountryName(l_neighbourCountryName);
+                            l_neighbour.setContinent(l_continent);
                             l_neighbourNodes.add(l_neighbour);
                         } catch (EntityNotFoundException e) {
                             l_neighbour = new Country(l_neighbourCountryName);
+                            l_neighbour.setContinent(l_continent);
                             l_neighbourNodes.add(l_neighbour);
                         }
                     }

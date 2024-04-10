@@ -58,6 +58,7 @@ public class UserCoreLogic {
     public static void exit() {
         getGameEngine().shutdown();
         TOURNAMENT_ENGINE().shutdown();
+        UserCoreLogic.getInstance().stdout("Shutting down...");
     }
 
     /**
