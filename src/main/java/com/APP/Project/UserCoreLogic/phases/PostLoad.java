@@ -108,12 +108,12 @@ public class PostLoad extends MapEditor {
      * @throws UserCoreLogicException if an error occurs during the operation
      */
     @Override
-    public String saveMap(List<String> p_arguments) throws UserCoreLogicException, IOException {
+    public String saveMap(List<String> p_arguments) throws UserCoreLogicException {
         SaveMapService l_saveMapService;
         if (!p_arguments.isEmpty()) {
-            if (p_arguments.get(2).equalsIgnoreCase("warzone")) {
+            if (p_arguments.get(1).equalsIgnoreCase("warzone")) {
                 l_saveMapService = new SaveMapService();
-            } else if (p_arguments.get(2).equalsIgnoreCase("conquest")) {
+            } else if (p_arguments.get(1).equalsIgnoreCase("conquest")) {
                 l_saveMapService = new SaveMapAdapter(new SaveConquestMapService());
             } else {
                 throw new InvalidCommandException("Map type is not valid");

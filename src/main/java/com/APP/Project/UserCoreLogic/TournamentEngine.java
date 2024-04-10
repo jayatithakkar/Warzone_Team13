@@ -1,53 +1,70 @@
 package com.APP.Project.UserCoreLogic;
 
+import com.APP.Project.UserCoreLogic.GameEngine;
+import com.APP.Project.UserCoreLogic.UserCoreLogic;
+import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
+import com.jakewharton.fliptables.FlipTable;
+import com.APP.Project.UserCoreLogic.game_entities.Player;
+import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
+import com.APP.Project.UserCoreLogic.gamePlay.GameLoop;
 import com.APP.Project.UserCoreLogic.gamePlay.GamePlayEngine;
+import com.APP.Project.UserCoreLogic.game_entities.GameResult;
+import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
 import com.APP.Project.UserCoreLogic.map_features.MapEditorEngine;
 import com.APP.Project.UserCoreLogic.map_features.adapters.EditMapService;
-import com.jakewharton.fliptables.FlipTable;
-import com.APP.Project.UserCoreLogic.game_entities.GameResult;
-import com.APP.Project.UserCoreLogic.game_entities.Player;
-import com.APP.Project.UserCoreLogic.exceptions.UserCoreLogicException;
-import com.APP.Project.UserCoreLogic.gamePlay.GameLoop;
-import com.APP.Project.UserCoreLogic.GameEngine;
-import com.APP.Project.UserCoreLogic.gamePlay.services.CountryDistributionService;
-import com.APP.Project.UserCoreLogic.logger.LogEntryBuffer;
 import com.APP.Project.UserCoreLogic.phases.PlaySetup;
 import com.APP.Project.UserCoreLogic.Utility.FindFilePathUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * Represents the engine for running a tournament with multiple games.
+ * This engine will be used when user has entered `tournament` command.
  *
- * @author Rikin Dipakkumar Chauhan
- * @version 3.0
+ * @author Jayati Thakkar
+ * @version 1.0
  */
 public class TournamentEngine {
-    
+    /**
+     * Singleton instance of the class.
+     */
     private static TournamentEngine d_Instance;
 
-    private Map<Integer, List<com.APP.Project.UserCoreLogic.GameEngine>> d_playedGameEngineMappings;
+    /**
+     * Map of <code>GameEngine</code> which has been completed.
+     */
+    private Map<Integer, List<GameEngine>> d_playedGameEngineMappings;
 
+    /**
+     * List of <code>Player</code> that representing a strategy.
+     */
     private List<Player> d_players;
 
+    /**
+     * List of <code>Maps</code> that player entered in tournament.
+     */
     private List<String> d_mapFileList;
 
+    /**
+     * Number of times need to run the game.
+     */
     private int d_numberOfGames;
 
+    /**
+     * Maximum number of turns. After maximum turn passed, draw the game.
+     */
     private int d_maxNumberOfTurns;
 
     private LogEntryBuffer d_logEntryBuffer = LogEntryBuffer.getLogger();
 
+    /**
+     * Main game loop.
+     */
     private GameLoop d_gameLoop;
 
     /**
-     * Retrieves the instance of the tournament engine.
+     * Gets the single instance of the <code>TournamentEngine</code> class which was created before.
      *
-     * @return The instance of the tournament engine.
-     * @throws NullPointerException If the instance is not initialized.
+     * @return Value of the instance.
      */
     public static TournamentEngine getInstance() throws NullPointerException {
         if (d_Instance == null) {
@@ -58,7 +75,7 @@ public class TournamentEngine {
     }
 
     /**
-     * Initializes the tournament engine.
+     * Initialise all the engines to reset the runtime information.
      */
     public void initialise() {
         d_mapFileList = new ArrayList<>();
@@ -67,87 +84,87 @@ public class TournamentEngine {
     }
 
     /**
-     * Shuts down the tournament engine.
+     * Signals its engines to shutdown.
      */
     public void shutdown() {
     }
 
     /**
-     * Adds a player to the tournament.
+     * Adds a player to the list of players.
      *
-     * @param p_player The player to be added.
+     * @param p_player Player to be added.
      */
     public void addPlayer(Player p_player) {
         this.d_players.add(p_player);
     }
 
     /**
-     * Sets the number of games for the tournament.
+     * Sets the number of games to be played.
      *
-     * @param p_numberOfGames The number of games to be set.
+     * @param p_numberOfGames Number of games to be played.
      */
     public void setNumberOfGames(int p_numberOfGames) {
         d_numberOfGames = p_numberOfGames;
     }
 
     /**
-     * Retrieves the number of games in the tournament.
+     * Gets the number of games to be played.
      *
-     * @return The number of games in the tournament.
+     * @return p_numberOfGames Number of games to be played.
      */
     public int getNumberOfGames() {
         return d_numberOfGames;
     }
 
     /**
-     * Retrieves the maximum number of turns for the tournament.
+     * Gets the number of the maximum turns this tournament can have.
      *
-     * @return The maximum number of turns for the tournament.
+     * @return Value of the number of maximum turns.
      */
     public int getMaxNumberOfTurns() {
         return d_maxNumberOfTurns;
     }
 
     /**
-     * Sets the maximum number of turns for the tournament.
+     * Sets the number of the maximum turns this tournament can have.
      *
-     * @param p_maxNumberOfTurns The maximum number of turns to be set.
+     * @param p_maxNumberOfTurns Number of maximum turns.
      */
     public void setMaxNumberOfTurns(int p_maxNumberOfTurns) {
         d_maxNumberOfTurns = p_maxNumberOfTurns;
     }
 
     /**
-     * Sets the list of players for the tournament.
+     * Sets the List of Players this tournament can have.
      *
-     * @param p_playersList The list of players to be set.
+     * @param p_playersList List of Players
      */
     public void setPlayers(List<Player> p_playersList) {
         d_players = p_playersList;
     }
 
     /**
-     * Retrieves the list of map files used in the tournament.
+     * Gets the List of Maps this tournament can have.
      *
-     * @return The list of map files used in the tournament.
+     * @return List of Maps
      */
     public List<String> getMapFileList() {
         return d_mapFileList;
     }
 
     /**
-     * Sets the list of map files for the tournament.
+     * Sets the List of Players this tournament can have.
      *
-     * @param p_mapFileList The list of map files to be set.
+     * @param p_mapFileList List of Players
      */
     public void setMapFileList(List<String> p_mapFileList) {
         d_mapFileList = p_mapFileList;
     }
 
     /**
-     * Retrieves the cloned list of players participating in the tournament.
+     * Clones the player for the current iteration of tournament.
      *
-     * @return The cloned list of players participating in the tournament.
+     * @return List of the cloned player.
      */
     public List<Player> getPlayers() {
         List<Player> l_clonedPlayers = new ArrayList<>();
@@ -158,38 +175,41 @@ public class TournamentEngine {
     }
 
     /**
-     * Initiates the tournament.
+     * Starts the tournament. This will create a <code>GameEngine</code> using MapEditor and GamePlay engines. It will
+     * also record the <code>GameEngine</code> to the list.
+     * <p>
+     * If any error occurred while the game is in the loop, it will set the game result as interrupted.
+     * </p>
      *
-     * @throws UserCoreLogicException If an error occurs during tournament setup.
+     * @param p_ignorePath Ignore adding the user-data-directory path.
+     * @throws UserCoreLogicException If any exception while executing the tournament.
      */
-    public void onStart() throws UserCoreLogicException {
+    public void onStart(boolean p_ignorePath) throws UserCoreLogicException {
         for (int d_currentGameIndex = 0; d_currentGameIndex < d_numberOfGames; d_currentGameIndex++) {
             for (String l_mapFilePath : d_mapFileList) {
                 GamePlayEngine l_gamePlayEngine = new GamePlayEngine();
-                com.APP.Project.UserCoreLogic.GameEngine l_gameEngine = new com.APP.Project.UserCoreLogic.GameEngine(new MapEditorEngine(), l_gamePlayEngine);
-                
+                GameEngine l_gameEngine = new GameEngine(new MapEditorEngine(), l_gamePlayEngine);
+                // Prepare GameEngine for this tournament round.
                 UserCoreLogic.setGameEngine(l_gameEngine);
 
                 EditMapService l_editMapService = new EditMapService();
 
-                
-                String resolvedPathToFile = FindFilePathUtil.resolveFilePath(l_mapFilePath);
-
-                l_editMapService.handleLoadMap(resolvedPathToFile, false);
+                // Loading the map data will first remove the old at EditMapService
+                l_editMapService.handleLoadMap(p_ignorePath ? l_mapFilePath : FindFilePathUtil.resolveFilePath(l_mapFilePath), false);
 
                 l_gamePlayEngine.setPlayerList(this.getPlayers());
 
                 CountryDistributionService l_distributeCountriesService = new CountryDistributionService();
                 l_distributeCountriesService.execute(new ArrayList<>());
 
-                
+                // Tournament will start from PlaySetup phase.
                 l_gameEngine.setGamePhase(new PlaySetup(l_gameEngine));
 
-
+                // If the game index exists, it will add the GameEngine to the list; otherwise it will create a singleton list.
                 if (d_playedGameEngineMappings.containsKey(d_currentGameIndex)) {
                     d_playedGameEngineMappings.get(d_currentGameIndex).add(l_gameEngine);
                 } else {
-                    List<com.APP.Project.UserCoreLogic.GameEngine> l_gameEngineList = new ArrayList<>();
+                    List<GameEngine> l_gameEngineList = new ArrayList<>();
                     l_gameEngineList.add(l_gameEngine);
                     d_playedGameEngineMappings.put(d_currentGameIndex, l_gameEngineList);
                 }
@@ -201,58 +221,58 @@ public class TournamentEngine {
     }
 
     /**
-     * Finalizes the tournament and generates the results.
+     * After the tournament ends, this method will be called to show the results in a tabular format.
      */
     public void onComplete() {
-        
-        String[][] l_gameResultMatrix = new String[this.getNumberOfGames()][d_mapFileList.size()];
+        // For storing tournament result
+        String[][] l_gameResultMatrix = new String[d_mapFileList.size()][this.getNumberOfGames() + 1];
         List<String> l_playerNames = new ArrayList<>();
         StringBuilder l_builder = new StringBuilder();
 
-        for (Player l_player : d_players) {
+        for (Player l_player : this.getPlayers()) {
             l_playerNames.add(l_player.getName());
         }
 
-        l_builder.append("\n----Result of Tournament after Execution----\n");
+        l_builder.append("\n----Result of Tournament----\n");
         l_builder.append("M: " + d_mapFileList.toString() + "\n");
         l_builder.append("P: " + l_playerNames.toString() + "\n");
         l_builder.append("G: " + this.getNumberOfGames() + "\n");
         l_builder.append("D: " + this.getMaxNumberOfTurns() + "\n");
 
-        int l_count = 1;
         for (int l_row = 0; l_row < d_mapFileList.size(); l_row++) {
-            l_gameResultMatrix[l_row][0] = "Map" + l_count;
-            l_count++;
+            l_gameResultMatrix[l_row][0] = String.format("%s", d_mapFileList.get(l_row));
         }
 
-        int l_rowIndex = 0;
-        int l_columnIndex;
-        for (Map.Entry<Integer, List<com.APP.Project.UserCoreLogic.GameEngine>> entry : d_playedGameEngineMappings.entrySet()) {
-            l_columnIndex = 0;
-            for (com.APP.Project.UserCoreLogic.GameEngine l_singleGameEngine : entry.getValue()) {
-                GamePlayEngine l_gamePlayEngine = l_singleGameEngine.getGamePlayEngine();
+        LinkedList<GameEngine> l_gameEngines = new LinkedList<>();
+        for (Map.Entry<Integer, List<GameEngine>> entry : d_playedGameEngineMappings.entrySet()) {
+            List<GameEngine> l_singleTurnGameEngines = entry.getValue();
+            l_gameEngines.addAll(l_singleTurnGameEngines);
+        }
+
+        for (int l_row = 0; l_row < d_mapFileList.size(); l_row++) {
+            for (int l_col = 1; l_col < this.getNumberOfGames() + 1; l_col++) {
+                GameEngine l_gameEngine = l_gameEngines.pollFirst();
+                GamePlayEngine l_gamePlayEngine = l_gameEngine.getGamePlayEngine();
                 GameResult l_gameResult = l_gamePlayEngine.getGameResult();
-
-                
                 if (l_gameResult.isDeclaredDraw()) {
-                    l_gameResultMatrix[l_rowIndex][l_columnIndex] = "Draw";
+                    l_gameResultMatrix[l_row][l_col] = "Draw";
                 } else if (l_gameResult.getWinnerPlayer() != null) {
-                    l_gameResultMatrix[l_rowIndex][l_columnIndex] = l_gameResult.getWinnerPlayer().getName();
+                    l_gameResultMatrix[l_row][l_col] = l_gameResult.getWinnerPlayer().getName();
                 } else {
-                    l_gameResultMatrix[l_rowIndex][l_columnIndex] = "Interrupted";
+                    l_gameResultMatrix[l_row][l_col] = "Interrupted";
                 }
-                l_columnIndex++;
             }
-            l_rowIndex++;
         }
 
-        String[] l_gameHeader = new String[d_mapFileList.size()];
+        String[] l_gameHeader = new String[this.getNumberOfGames() + 1];
         l_gameHeader[0] = "Result";
         for (int i = 1; i < l_gameHeader.length; i++) {
-            l_gameHeader[i] = "Game" + i;
+            l_gameHeader[i] = "Game " + i;
         }
-        String l_tournamentData=l_builder + FlipTable.of(l_gameHeader, l_gameResultMatrix);
-        d_logEntryBuffer.dataChanged("tournament",l_tournamentData);
+
+        String l_tournamentData = l_builder + FlipTable.of(l_gameHeader, l_gameResultMatrix);
+        d_logEntryBuffer.dataChanged("tournament", l_tournamentData);
+
         UserCoreLogic.getInstance().stdout(l_tournamentData);
     }
 }

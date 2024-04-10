@@ -57,6 +57,9 @@ public class GameLoop {
             }
         } catch (UserCoreLogicException p_vmException) {
             UserCoreLogic.getInstance().stderr(p_vmException.getMessage());
+        } finally {
+            // This will set CLI#UserInteractionState to WAIT
+            UserCoreLogic.getInstance().stdout("GAME_ENGINE_STOPPED");
         }
     }
 
