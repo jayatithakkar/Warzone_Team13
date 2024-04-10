@@ -82,6 +82,9 @@ public class RandomStrategy extends PlayerStrategy {
     @Override
     public void execute() throws InvalidArgumentException, EntityNotFoundException {
         d_ownedCountries = d_player.getAssignedCountries();
+        if (d_ownedCountries.size() <= 0) {
+            return;
+        }
         d_randomCountry = d_ownedCountries.get(d_random.nextInt(d_ownedCountries.size()));
         findOppositionCountry(d_randomCountry);
         if (UserCoreLogic.getGameEngine().isTournamentModeOn() && d_player.getRemainingReinforcementCount() > 0) {
@@ -89,12 +92,13 @@ public class RandomStrategy extends PlayerStrategy {
             this.d_player.addOrder(l_deployOrder);
         }
         d_logEntryBuffer.dataChanged("issue_order", String.format("%s player's turn to Issue Order", this.d_player.getName()));
-        if (d_player.hasCard(CardType.BOMB) || d_player.hasCard(CardType.AIRLIFT) || d_player.hasCard(CardType.DIPLOMACY) || d_player.hasCard(CardType.BLOCKADE)) {
-            Card l_card = d_player.getCards().get(d_random.nextInt(d_player.getCards().size()));
-            consumeCard(l_card);
-        }
+
 
         if (d_oppositeCountry != null) {
+            if (d_player.hasCard(CardType.BOMB) || d_player.hasCard(CardType.AIRLIFT) || d_player.hasCard(CardType.DIPLOMACY) || d_player.hasCard(CardType.BLOCKADE)) {
+                Card l_card = d_player.getCards().get(d_random.nextInt(d_player.getCards().size()));
+                consumeCard(l_card);
+            }
             AdvanceOrder l_advanceOrder = new AdvanceOrder(
                     d_randomCountry.getCountryName(),
                     d_oppositeCountry.getCountryName(),
