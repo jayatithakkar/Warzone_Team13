@@ -119,6 +119,7 @@ public class UserInterfaceClass implements Runnable, InterfaceCoreMiddleware {
 
                             // Takes user input and interprets it for further processing
                             UsersCommands l_userCommand = d_UserCommandMapper.toUserCommand(l_userInput);
+                            //System.out.println(l_userCommand);
 
                             this.setInteractionState(UserInteractionState.IN_PROGRESS);
                             // Takes action according to command instructions.

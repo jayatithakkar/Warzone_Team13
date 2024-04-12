@@ -45,7 +45,7 @@ public class RequestsService {
                     == CommandSpecification.NEEDS_KEYS &&
                     p_userCommand.getPredefinedUserCommand().getNumOfKeysOrValues() != 1) {
                 // Call method will the list of keys and its values.
-                this.handleMethodInvocation(l_gamePhase, p_userCommand.getPredefinedUserCommand().getGamePhaseMethodName(), null, p_userCommand.getCommandValues());
+                this.handleMethodInvocation(l_gamePhase, p_userCommand.getPredefinedUserCommand().getGamePhaseMethodName(), null, p_userCommand.getUserArguments());
             } else {
                 // If the method needs each key as a separate function call.
                 // Iterate over the user arguments
@@ -71,8 +71,8 @@ public class RequestsService {
                 throw new InvalidArgumentException("Unrecognized argument and/or its values");
             }
         }
-    }
 
+    }
 
     /**
      * This method handles the actual call of the specific method at runtime. Prepares two arrays of Class and Object
@@ -94,6 +94,7 @@ public class RequestsService {
             throws NoSuchMethodException,
             InvocationTargetException,
             IllegalAccessException {
+
         Object l_responseObject;
         if (p_argKey == null || p_argKey.isEmpty()) {
             // Get the reference and call the method with arguments
