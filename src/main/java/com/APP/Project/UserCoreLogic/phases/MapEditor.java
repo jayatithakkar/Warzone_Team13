@@ -143,7 +143,7 @@ public abstract class MapEditor extends Phase {
      */
     @Override
     public void endGame(List<String> p_arguments) throws UserCoreLogicException {
-        invalidCommand();
+        d_gameEngine.setGamePhase(new End(d_gameEngine));
     }
 
     /**

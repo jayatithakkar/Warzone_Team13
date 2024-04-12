@@ -20,6 +20,8 @@ public class End extends Phase {
      */
     End(GameEngine p_gameEngine) {
         super(p_gameEngine);
+        System.out.println("Exiting Game");
+        System.exit(0);
     }
 
     /**

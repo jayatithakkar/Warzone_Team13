@@ -96,7 +96,7 @@ public class PlaySetup extends GamePlay {
      * @throws UserCoreLogicException If an invalid command is issued.
      */
     public void endGame(List<String> p_arguments) throws UserCoreLogicException {
-        invalidCommand();
+        d_gameEngine.setGamePhase(new End(d_gameEngine));
     }
 
     /**
