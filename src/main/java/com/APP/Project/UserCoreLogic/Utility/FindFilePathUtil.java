@@ -40,7 +40,7 @@ public class FindFilePathUtil {
      * Instance can not be created outside the class. (private)
      */
     private FindFilePathUtil() {
-        USER_DATA_DIRECTORY_PATH = Paths.get(System.getProperty("user.home"), "Downloads", USER_DATA_DIRECTORY);
+        USER_DATA_DIRECTORY_PATH = Paths.get(System.getProperty("user.dir"), "src","main", "resources", USER_DATA_DIRECTORY);
         USER_LOG_DIRECTORY_PATH = Paths.get(System.getProperty("user.home"), "Downloads", USER_LOG_DIRECTORY);
 
         // Create user directories if it doesn't exist.
